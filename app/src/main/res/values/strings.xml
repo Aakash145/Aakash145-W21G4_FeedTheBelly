@@ -3,4 +3,10 @@
     <string name="projectTitle">Food Rescue</string>
     <string name="password">Enter your password</string>
     <string name="email">Enter your email</string>
+    <string name="donate">Donate Food</string>
+    <string name="rescue">Rescue Food</string>
+    <string name="signIn">Already have an account? Log In</string>
+    <string name="title">What would you like to do?</string>
+    <string name="donateTxt">If you are a food business</string>
+    <string name="rescueTxt">If you are a charity/Not-for-profit</string>
 </resources>
