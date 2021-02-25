@@ -10,13 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodRescue">
         <activity android:name=".RegisterationActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashActivity" android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" android:theme="@style/Theme.FoodRescue" />
     </application>
 
 </manifest>
