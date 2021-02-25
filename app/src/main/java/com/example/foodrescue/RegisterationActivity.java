@@ -10,6 +10,7 @@ import android.widget.Button;
 public class RegisterationActivity extends AppCompatActivity {
 
     Button signInButton;
+    Button donateFood;
 
 
     @Override
@@ -18,6 +19,7 @@ public class RegisterationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registeration);
 
         signInButton = findViewById(R.id.signInButton);
+        donateFood = findViewById(R.id.donateButton);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,6 +30,17 @@ public class RegisterationActivity extends AppCompatActivity {
 
 
             }
+        });
+        donateFood.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view1){
+
+                Intent myIntent= new Intent(RegisterationActivity.this,Regestration_Restauarant.class);
+                startActivity(myIntent);
+
+
+            }
+
         });
 
 
