@@ -3,6 +3,7 @@ package com.example.foodrescue;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+//form for hotel registration
 
 public class Regestration_Restauarant extends AppCompatActivity {
 
