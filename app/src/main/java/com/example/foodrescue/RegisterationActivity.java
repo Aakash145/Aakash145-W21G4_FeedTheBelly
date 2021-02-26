@@ -45,4 +45,3 @@ public class RegisterationActivity extends AppCompatActivity {
 
 
 }
-}
