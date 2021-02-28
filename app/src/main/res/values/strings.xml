@@ -59,4 +59,6 @@
     <string name="hintEmail">"Enter the email Address"</string>
     <string name="hintPhoneNumber">"Enter Contact Number"</string>
     <string name="textViewContactNumber">Restaurant Contact Number*</string>
+    <string name="btnTextDoNotHaveAcc">Don\'t have an account? Sign Up</string>
+    <string name="btnTextLogin">Log in</string>
 </resources>

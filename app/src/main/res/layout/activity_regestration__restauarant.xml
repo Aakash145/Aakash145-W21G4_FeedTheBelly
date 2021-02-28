@@ -168,9 +168,9 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="start|right"
-                android:includeFontPadding="true"
                 android:hint="@string/hintPhoneNumber"
-                android:inputType="number|phone"/>
+                android:includeFontPadding="true"
+                android:inputType="number|phone" />
 
             <TextView
                 android:id="@+id/txtViewAddress"
