@@ -46,6 +46,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="182dp"
+        android:background="#FFFFFF"
         android:text="@string/rescue"
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/signInButton"
