@@ -10,7 +10,7 @@ import android.widget.Button;
 public class RegisterationActivity extends AppCompatActivity {
 
     Button signInButton;
-
+    Button rescueFood;
     Button donateFood;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,7 @@ public class RegisterationActivity extends AppCompatActivity {
 
         signInButton = findViewById(R.id.signInButton);
         donateFood = findViewById(R.id.donateButton);
+        rescueFood=findViewById(R.id.rescueButton);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +41,11 @@ public class RegisterationActivity extends AppCompatActivity {
 
             }
 
+        });
+
+
+        rescueFood.setOnClickListener((View view)->{
+            startActivity(new Intent(RegisterationActivity.this,NGO_Activity.class));
         });
     }
 

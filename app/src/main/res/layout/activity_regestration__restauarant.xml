@@ -21,19 +21,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txtViewHeading"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="center"
-                android:includeFontPadding="true"
-                android:text="@string/registrationForm"
-                android:textColor="@android:color/holo_red_light"
-                android:textSize="24sp"
-                android:textStyle="bold|italic"
-                app:autoSizeTextType="uniform"/>
-
-            <TextView
                 android:id="@+id/textRestaurant_ID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,13 +28,13 @@
                 android:layout_weight="0.4"
                 android:fontFamily="sans-serif-condensed"
                 android:includeFontPadding="true"
+                android:text="@string/Rest_id"
                 android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:text="@string/Rest_id"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextRestauarantID"
+                android:id="@+id/editTextOrganizationName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
@@ -61,7 +48,7 @@
 
 
             <TextView
-                android:id="@+id/txtViewName"
+                android:id="@+id/txtViewCharitableNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -70,11 +57,11 @@
                 android:includeFontPadding="true"
                 android:text="@string/rest_name"
                 android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextRestName"
+                android:id="@+id/editTextCharitNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
@@ -91,7 +78,7 @@
                 android:visibility="visible"/>
 
             <TextView
-                android:id="@+id/txtViewDesc"
+                android:id="@+id/txtViewOrgDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -100,11 +87,11 @@
                 android:includeFontPadding="true"
                 android:text="@string/txtViewDesc"
                 android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTxtRestDesc"
+                android:id="@+id/editTxtOrgDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
@@ -119,17 +106,17 @@
                 android:textSize="18dp"/>
 
             <TextView
-                android:id="@+id/textViewEmailAddress"
+                android:id="@+id/textViewOrgEmailAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:layout_weight="0.4"
                 android:fontFamily="sans-serif-condensed"
                 android:includeFontPadding="true"
+                android:text="@string/txtViewEmailAddress"
                 android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:text="@string/txtViewEmailAddress"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextTextEmailAddress"
@@ -153,10 +140,10 @@
                 android:layout_weight="0.4"
                 android:fontFamily="sans-serif-condensed"
                 android:includeFontPadding="true"
+                android:text="@string/textViewContactNumber"
                 android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:text="@string/textViewContactNumber"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextContactNumber"
@@ -182,8 +169,8 @@
                 android:includeFontPadding="true"
                 android:text="@string/addAddress"
                 android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextStreetName"
@@ -284,8 +271,8 @@
                 android:includeFontPadding="true"
                 android:text="@string/website"
                 android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextWebsite"
@@ -310,8 +297,8 @@
                 android:includeFontPadding="true"
                 android:text="@string/txtViewDelivery"
                 android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <RadioGroup
                 android:id="@+id/radiogroup1"
@@ -362,8 +349,8 @@
                 android:includeFontPadding="true"
                 android:text="@string/txtViewTakeAway"
                 android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <RadioGroup
                 android:id="@+id/radiogroup2"
@@ -416,8 +403,8 @@
                 android:includeFontPadding="true"
                 android:text="@string/deliveryRadius"
                 android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextDeliveryRadius"

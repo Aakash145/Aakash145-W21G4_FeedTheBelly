@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ActionBar myBar = getSupportActionBar();
+        myBar.setTitle("Feed The Belly");
         myBar.setDisplayHomeAsUpEnabled(true);
         myBar.setDisplayUseLogoEnabled(true);
         myBar.setLogo(R.mipmap.ic_launcher_round);
