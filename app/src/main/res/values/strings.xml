@@ -61,4 +61,12 @@
     <string name="textViewContactNumber">Restaurant Contact Number*</string>
     <string name="btnTextDoNotHaveAcc">Don\'t have an account? Sign Up</string>
     <string name="btnTextLogin">Log in</string>
+    <string name="txtOrganizationName">Organization Name</string>
+    <string name="hintTextOrganizationName">Enter Organization Name</string>
+    <string name="txtViewCharitable">Charitable No./Not-For-Profit Registration No.</string>
+    <string name="hintTextCharitNo">Enter Charitable or Not-for-profit No.</string>
+    <string name="txtViewNgoDesc">Organization Description</string>
+    <string name="hintTextOrgDesc">Enter Organization Descripion</string>
+    <string name="txtViewOrgEmail">Organization Email Address</string>
+    <string name="txtViewOrgContact">Organization Contact Number</string>
 </resources>
