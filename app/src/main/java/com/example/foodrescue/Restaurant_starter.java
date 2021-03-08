@@ -7,25 +7,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-//form for hotel registration
 
-public class Regestration_Restauarant extends AppCompatActivity {
+public class Restaurant_starter extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regestration__restauarant);
-
-        Button Rest_Submit = findViewById(R.id.buttonSubmit);
-
+        setContentView(R.layout.activity_restaurant_starter);
+        Button Confirm_Form = findViewById(R.id.btnViewConfirm);
         ActionBar myActionBar=getSupportActionBar();
-        myActionBar.setTitle("Restaurant Registration");
+        myActionBar.setTitle("Fill in the Food Details");
 
-        Rest_Submit.setOnClickListener(new View.OnClickListener() {
+
+        Confirm_Form.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent myIntent = new Intent(Regestration_Restauarant.this, Restaurant_starter.class);
+                Intent myIntent = new Intent(Restaurant_starter.this, recyclerViewActivity_Restaurant.class);
                 startActivity(myIntent);
 
 

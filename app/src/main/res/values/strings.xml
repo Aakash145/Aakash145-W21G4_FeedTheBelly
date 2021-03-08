@@ -69,4 +69,39 @@
     <string name="hintTextOrgDesc">Enter Organization Descripion</string>
     <string name="txtViewOrgEmail">Organization Email Address</string>
     <string name="txtViewOrgContact">Organization Contact Number</string>
+    <string name="Cuisine_Type">Enter the Cuisine Type :</string>
+    <string name="Fill_in_Form">Fill in the Food Details</string>
+    <string name="Expiry_Date">Best Before Date for the food</string>
+    <string name="Category_Type">Enter the Food Category :</string>
+    <string name="NumOfPlates">"Enter the Number of Plates Available : "</string>
+    <string name="ExpiryDate">Enter the Expiry-Date for the Food</string>
+    <string name="Continue">Continue</string>
+    <string name="ConfirmTheEntry">Confirm the Entries</string>
+    <string name="Num_Of_Plates">Enter Number of Plates</string>
+    <string-array name="Cuisine_types">
+        <item>Chinese</item>
+        <item>Mexican</item>
+        <item>Indonesian</item>
+        <item>French</item>
+        <item>Italian</item>
+        <item>Thai</item>
+        <item>Turkish</item>
+        <item>Indian</item>
+        <item>Japanese</item>
+        <item>Spanish</item>
+        <item>Lebanese</item>
+        <item>American</item>
+        <item>Mediterranean</item>
+        <item>Korean</item>
+        <item>Vietnamese</item>
+        <item>Other</item>
+
+    </string-array>
+    <string-array name="category_arrays">
+        <item>Appetizers</item>
+        <item>Salads and soups</item>
+        <item>Main Course</item>
+        <item>Desserts</item>
+        <item>Drinks</item>
+    </string-array>
 </resources>
