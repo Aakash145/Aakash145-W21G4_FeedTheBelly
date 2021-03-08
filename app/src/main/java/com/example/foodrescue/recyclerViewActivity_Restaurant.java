@@ -13,6 +13,6 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
         setContentView(R.layout.activity_recycler_view__restaurant);
 
         ActionBar myActionBar=getSupportActionBar();
-        myActionBar.setTitle("Select The Menu");
+        myActionBar.setTitle("Select The Menu you want to Donate Today");
     }
 }
