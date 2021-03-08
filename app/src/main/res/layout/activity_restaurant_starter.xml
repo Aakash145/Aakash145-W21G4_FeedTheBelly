@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Restaurant_starter">
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -104,6 +112,9 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/Expiry_Date"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:inputType="date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtViewExpiryDate" />
@@ -133,7 +144,6 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:fontFamily="sans-serif-condensed-light"
-        android:gravity="right"
         android:hint="@string/Num_Of_Plates"
         android:inputType="textPersonName"
         android:textColor="@android:color/secondary_text_light"
@@ -189,3 +199,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
