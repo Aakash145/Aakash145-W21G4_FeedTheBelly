@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/cut_card_background"
-    tools:context=".Restaurant_Dashboard">
-
+    tools:context=".NGO_Dashboard">
 
 
     <GridLayout
@@ -29,27 +28,28 @@
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:gravity="center"
-        android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imgHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/imgHome"
-            android:src="@drawable/ic_home" />
+                <ImageView
+                    android:id="@+id/imgHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/imgHome"
+                    android:src="@drawable/ic_home" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txtViewHome"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/txtHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txtViewHome"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
@@ -76,13 +76,14 @@
                     android:id="@+id/imgrestaurantsList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/imgAdd"
-                    android:src="@drawable/ic_add" />
+                    android:contentDescription="@string/imgRestList"
+                    android:src="@drawable/ic_restaurants" />
 
                 <TextView
+                    android:id="@+id/txtRestList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/txtAdd"
+                    android:text="@string/txtRestaurants"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -112,13 +113,14 @@
                     android:id="@+id/imgViewConfirmed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/imgView"
-                    android:src="@drawable/ic_menu" />
+                    android:contentDescription="@string/imgConfirmed"
+                    android:src="@drawable/ic_confirmed" />
 
                 <TextView
+                    android:id="@+id/txtConfirmedOrders"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/txtList"
+                    android:text="@string/txtConfirmed"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -152,6 +154,7 @@
                     android:src="@drawable/ic_logout" />
 
                 <TextView
+                    android:id="@+id/txtLogout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txtLogout"

@@ -124,4 +124,8 @@
     <string name="imgAdd">Add Items Pic</string>
     <string name="imgView">View Dishes Pic</string>
     <string name="imgLogout">Logout Pic</string>
+    <string name="txtRestaurants">Restaurants List</string>
+    <string name="txtConfirmed">Confirmed Orders</string>
+    <string name="imgRestList">Restaurants List Pic</string>
+    <string name="imgConfirmed">Confirmed Orders Pic</string>
 </resources>
