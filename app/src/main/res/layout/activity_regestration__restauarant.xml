@@ -650,9 +650,8 @@
                 android:gravity="center"
                 android:includeFontPadding="true"
                 android:text="@string/buttonSubmit"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
 
         </LinearLayout>

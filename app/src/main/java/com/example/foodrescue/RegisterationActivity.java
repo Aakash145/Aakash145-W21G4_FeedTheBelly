@@ -1,5 +1,6 @@
 package com.example.foodrescue;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,6 +17,9 @@ public class RegisterationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registeration);
+
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setTitle("Feed The Belly");
 
         signInButton = findViewById(R.id.signInButton);
         donateFood = findViewById(R.id.donateButton);
