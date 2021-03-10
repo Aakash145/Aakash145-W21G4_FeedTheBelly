@@ -3,6 +3,6 @@
 
     <item android:drawable="@color/white" />
     <item>
-        <bitmap android:src="@drawable/feedlogo" android:gravity="center" />
+        <bitmap android:src="@drawable/foodlogo" android:gravity="center" />
     </item>
 </layer-list>

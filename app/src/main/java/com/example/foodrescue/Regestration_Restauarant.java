@@ -25,7 +25,7 @@ public class Regestration_Restauarant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent myIntent = new Intent(Regestration_Restauarant.this, Restaurant_starter.class);
+                Intent myIntent = new Intent(Regestration_Restauarant.this, Restaurant_Dashboard.class);
                 startActivity(myIntent);
 
 

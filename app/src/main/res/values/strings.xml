@@ -104,4 +104,28 @@
         <item>Desserts</item>
         <item>Drinks</item>
     </string-array>
+
+    <string name="txtViewTitle">A Better Way To Donate</string>
+    <string name="txtViewMessage">NGOs can receive healthy food from restaurants.</string>
+    <string name="btnTextSkip">Skip</string>
+    <string name="txtViewSwipe">Swipe left to continue</string>
+    <string name="txtViewTitle2">Donate Money</string>
+    <string name="txtViewMessage2">Anyone can donate some money if you do not have any excess food</string>
+    <string name="txtViewTitle3">Keep A Record</string>
+    <string name="txtViewMessage3">Measure the amount of food donated by your restaurant</string>
+    <string name="txtViewFragments">Fragment Page</string>
+    <string name="txtPageNumber">0</string>
+    <string name="txtViewHome">Home</string>
+    <string name="txtLogout">Log out</string>
+    <string name="txtAdd">Add Dishes</string>
+    <string name="txtList">View Dishes</string>
+    <string name="txtViewDashboard">My Dashboard</string>
+    <string name="imgHome">Home Pic</string>
+    <string name="imgAdd">Add Items Pic</string>
+    <string name="imgView">View Dishes Pic</string>
+    <string name="imgLogout">Logout Pic</string>
+    <string name="txtRestaurants">Restaurants List</string>
+    <string name="txtConfirmed">Confirmed Orders</string>
+    <string name="imgRestList">Restaurants List Pic</string>
+    <string name="imgConfirmed">Confirmed Orders Pic</string>
 </resources>
