@@ -7,9 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".Restaurant_starter">
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -159,7 +157,7 @@
         android:layout_marginTop="40dp"
         android:fontFamily="sans-serif-condensed-light"
         android:gravity="center"
-        android:text="@string/Continue"
+        android:text="@string/uploadFile"
         android:textColor="@android:color/secondary_text_light"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -174,7 +172,6 @@
         android:layout_marginTop="40dp"
         android:fontFamily="sans-serif-condensed-light"
         android:gravity="clip_vertical"
-        android:hint="Shows Item Added"
         android:textColor="@android:color/secondary_text_light"
         android:textSize="18sp"
         android:textStyle="bold"
