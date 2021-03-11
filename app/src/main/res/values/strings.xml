@@ -75,7 +75,6 @@
     <string name="Category_Type">Enter the Food Category :</string>
     <string name="NumOfPlates">"Enter the Number of Plates Available : "</string>
     <string name="ExpiryDate">Enter the Expiry-Date for the Food</string>
-    <string name="Continue">Continue</string>
     <string name="ConfirmTheEntry">Confirm the Entries</string>
     <string name="Num_Of_Plates">Enter Number of Plates</string>
     <string-array name="Cuisine_types">
@@ -128,4 +127,5 @@
     <string name="txtConfirmed">Confirmed Orders</string>
     <string name="imgRestList">Restaurants List Pic</string>
     <string name="imgConfirmed">Confirmed Orders Pic</string>
+    <string name="uploadFile">Upload File</string>
 </resources>
