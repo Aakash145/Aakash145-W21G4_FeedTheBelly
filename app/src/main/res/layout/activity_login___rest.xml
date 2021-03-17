@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
+    android:alpha="0.8"
+    android:background="@drawable/background"
+    tools:context=".Login_Activity_Rest">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtViewRestuarantNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_weight="0.4"
+            android:fontFamily="sans-serif-condensed"
+            android:includeFontPadding="true"
+            android:text="@string/rest_name"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editTextRestaurantNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15sp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="start|right"
+            android:hint="@string/RestaurantNameEditTxt"
+            android:includeFontPadding="true"
+            android:inputType="textPersonName"
+            android:textSize="18sp"
+            android:visibility="visible"/>
+
+
+        <TextView
+            android:id="@+id/textViewRestuarantEmailAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_weight="0.4"
+            android:fontFamily="sans-serif-condensed"
+            android:includeFontPadding="true"
+            android:text="@string/txtViewEmailAddress"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editTextRestuarantEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15sp"
+            android:ems="10"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="start|right"
+            android:includeFontPadding="true"
+            android:hint="@string/hintEmail"
+            android:inputType="textEmailAddress"/>
+
+        <TextView
+            android:id="@+id/textViewRestuarantPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_weight="0.4"
+            android:fontFamily="sans-serif-condensed"
+            android:includeFontPadding="true"
+            android:text="@string/password1"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edit_text_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15sp"
+            android:ems="10"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="start|right"
+            android:includeFontPadding="true"
+            android:hint="@string/password1"
+            android:inputType="textPassword" />
+
+
+
+        <TextView
+            android:id="@+id/textViewRestuarantContactNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_weight="0.4"
+            android:fontFamily="sans-serif-condensed"
+            android:includeFontPadding="true"
+            android:text="@string/textViewContactNumber"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editRestuarantContactNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15sp"
+            android:ems="10"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="start|right"
+            android:hint="@string/hintPhoneNumber"
+            android:includeFontPadding="true"
+            android:inputType="number|phone" />
+
+
+        <Button
+            android:id="@+id/buttonSubmit1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/black"
+            android:layout_weight="0.4"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center"
+            android:includeFontPadding="true"
+            android:text="@string/RegisterSubmit"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
+
+</RelativeLayout>

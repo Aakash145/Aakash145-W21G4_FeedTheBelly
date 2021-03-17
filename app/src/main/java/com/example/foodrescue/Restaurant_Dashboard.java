@@ -24,7 +24,8 @@ public class Restaurant_Dashboard extends AppCompatActivity {
         cardLogout=findViewById(R.id.cardLogout);
 
         cardHome.setOnClickListener((View view)->{
-
+            Intent myIntent = new Intent(Restaurant_Dashboard.this, restaurant_profile.class);
+            startActivity(myIntent);
         });
         cardAdd.setOnClickListener((View view)->{
             Intent myIntent = new Intent(Restaurant_Dashboard.this, Restaurant_starter.class);

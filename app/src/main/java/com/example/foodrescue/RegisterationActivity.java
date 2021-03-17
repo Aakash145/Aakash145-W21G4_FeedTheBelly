@@ -39,7 +39,7 @@ public class RegisterationActivity extends AppCompatActivity {
             @Override
                     public void onClick(View v1){
 
-                Intent myIntent = new Intent(RegisterationActivity.this,Regestration_Restauarant.class);
+                Intent myIntent = new Intent(RegisterationActivity.this,Login_Activity_Rest.class);
                 startActivity(myIntent);
 
 
@@ -49,7 +49,7 @@ public class RegisterationActivity extends AppCompatActivity {
 
 
         rescueFood.setOnClickListener((View view)->{
-            startActivity(new Intent(RegisterationActivity.this,NGO_Activity.class));
+            startActivity(new Intent(RegisterationActivity.this,login_Activity_ngo.class));
         });
     }
 
