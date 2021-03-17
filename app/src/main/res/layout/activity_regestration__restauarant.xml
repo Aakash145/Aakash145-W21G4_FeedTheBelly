@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
+    android:alpha="0.8"
+    android:background="@drawable/background"
     tools:context=".Regestration_Restauarant">
 
     <RelativeLayout
@@ -21,6 +25,14 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/txtViewWelcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <TextView
                 android:id="@+id/textRestaurant_ID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -29,138 +41,27 @@
                 android:fontFamily="sans-serif-condensed"
                 android:includeFontPadding="true"
                 android:text="@string/Rest_id"
-                android:textColor="@android:color/secondary_text_light"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextOrganizationName"
+                android:id="@+id/editTextRestaurantID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15sp"
+                android:digits="0123456789"
                 android:ems="10"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="start|right"
                 android:hint="@string/restaurant_id"
-                android:inputType="textPersonName"/>
+                android:inputType="number" />
 
 
             <TextView
-                android:id="@+id/txtViewCharitableNo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/rest_name"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/editTextCharitNo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:hint="@string/RestaurantNameEditTxt"
-                android:includeFontPadding="true"
-                android:inputType="textPersonName"
-                android:textSize="18sp"
-                android:visibility="visible"/>
-
-            <TextView
-                android:id="@+id/txtViewOrgDesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/txtViewDesc"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/editTxtOrgDesc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:hint="@string/description"
-                android:includeFontPadding="true"
-                android:inputType="textPersonName"
-                android:textSize="18dp"/>
-
-            <TextView
-                android:id="@+id/textViewOrgEmailAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/txtViewEmailAddress"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/editTextTextEmailAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:includeFontPadding="true"
-                android:hint="@string/hintEmail"
-                android:inputType="textEmailAddress"/>
-
-            <TextView
-                android:id="@+id/textViewContactNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/textViewContactNumber"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/editTextContactNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:hint="@string/hintPhoneNumber"
-                android:includeFontPadding="true"
-                android:inputType="number|phone" />
-
-            <TextView
-                android:id="@+id/txtViewAddress"
+                android:id="@+id/txtRestuarantViewAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -168,12 +69,12 @@
                 android:fontFamily="sans-serif-condensed"
                 android:includeFontPadding="true"
                 android:text="@string/addAddress"
-                android:textColor="@android:color/secondary_text_light"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextStreetName"
+                android:id="@+id/editTextRestuarantStreetName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
@@ -185,25 +86,11 @@
                 android:hint="@string/add1"
                 android:includeFontPadding="true"
                 android:inputType="textPersonName"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
+
 
             <EditText
-                android:id="@+id/editTextStreet2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:hint="@string/add2"
-                android:includeFontPadding="true"
-                android:inputType="textPersonName"
-                android:textSize="18dp"/>
-
-            <EditText
-                android:id="@+id/editTextCity"
+                android:id="@+id/editTextRestuarantCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
@@ -215,10 +102,10 @@
                 android:hint="@string/add3"
                 android:includeFontPadding="true"
                 android:inputType="textPersonName"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
 
             <EditText
-                android:id="@+id/editTextState"
+                android:id="@+id/editTextRestuarantState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
@@ -230,10 +117,10 @@
                 android:hint="@string/Add4"
                 android:includeFontPadding="true"
                 android:inputType="textPersonName"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
 
             <EditText
-                android:id="@+id/editTextCountry"
+                android:id="@+id/editTextRestuarantCountry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
@@ -245,10 +132,10 @@
                 android:hint="@string/add5"
                 android:includeFontPadding="true"
                 android:inputType="textPersonName"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
 
             <EditText
-                android:id="@+id/editTextPostalAddress"
+                android:id="@+id/editTextRestuarantPostalAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
@@ -259,10 +146,10 @@
                 android:gravity="start|right"
                 android:hint="@string/add6"
                 android:inputType="textPostalAddress"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/textViewWebsite"
+                android:id="@+id/textViewRestuarantWebsite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -270,12 +157,12 @@
                 android:fontFamily="sans-serif-condensed"
                 android:includeFontPadding="true"
                 android:text="@string/website"
-                android:textColor="@android:color/secondary_text_light"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextWebsite"
+                android:id="@+id/editTextRestuarantWebsite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
@@ -285,10 +172,10 @@
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="start|right"
                 android:hint="@string/websiteEditTxt"
-                android:inputType="textPersonName"/>
+                android:inputType="textPersonName" />
 
             <TextView
-                android:id="@+id/txtViewDelivery"
+                android:id="@+id/txtViewRestuarantDelivery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -296,7 +183,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:includeFontPadding="true"
                 android:text="@string/txtViewDelivery"
-                android:textColor="@android:color/secondary_text_light"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -320,9 +207,9 @@
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="start|right"
                     android:text="@string/yes"
-                    android:textColor="@android:color/secondary_text_light"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/radioButton2"
@@ -334,9 +221,9 @@
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="start|right"
                     android:text="@string/No"
-                    android:textColor="@android:color/secondary_text_light"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </RadioGroup>
 
             <TextView
@@ -348,7 +235,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:includeFontPadding="true"
                 android:text="@string/txtViewTakeAway"
-                android:textColor="@android:color/secondary_text_light"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -372,10 +259,10 @@
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="start|right"
                     android:text="@string/yes"
-                    android:textColor="@android:color/secondary_text_light"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:useMaterialThemeColors="true"/>
+                    app:useMaterialThemeColors="true" />
 
                 <RadioButton
                     android:id="@+id/radioButton4"
@@ -387,258 +274,12 @@
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="start|right"
                     android:text="@string/No"
-                    android:textColor="@android:color/secondary_text_light"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:useMaterialThemeColors="true"/>
+                    app:useMaterialThemeColors="true" />
             </RadioGroup>
 
-            <TextView
-                android:id="@+id/textDeliveryRadious"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/deliveryRadius"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/editTextDeliveryRadius"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:hint="@string/deliveryRadiusTxt"
-                android:inputType="textPersonName"/>
-
-            <TextView
-                android:id="@+id/textViewDeliveryPostal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/DeliveryPostalCodes"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/editTextDeliveryPostal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:hint="@string/deliverypostalcodes"
-                android:inputType="textPersonName"/>
-
-            <TextView
-                android:id="@+id/textViewDeliveryTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/deliveryTime"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/editTextDeliveryTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:hint="@string/deliveryTimeExtra"
-                android:inputType="textPersonName"/>
-
-            <TextView
-                android:id="@+id/textViewHours"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/txtViewHours"
-                android:textColor="@android:color/holo_red_light"
-                android:textSize="20dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/txtViewWeekday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/textViewWeekday"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/editTextTimeWeekday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:inputType="time"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/textViewWeekday2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/txtViewWeekday2"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/editTextTimeWeekday2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:inputType="time"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/textViewSat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/textViewSat"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/editTextTimeSaturday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:inputType="time"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/textViewSaturday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/txtViewSaturday2"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/editTextTimeSaturday2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:inputType="time"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/textViewSunday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/textViewSunday"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/editTextTimeSunday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:inputType="time"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/textViewSunday2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/txtViewSunday2"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/editTextTimeSunday2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:inputType="time"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
 
             <Button
                 android:id="@+id/buttonSubmit"
@@ -649,7 +290,8 @@
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
                 android:includeFontPadding="true"
-                android:text="@string/buttonSubmit"
+                android:text="@string/btnSignUp"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

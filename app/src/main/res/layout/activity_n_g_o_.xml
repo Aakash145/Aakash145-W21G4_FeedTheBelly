@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
+    android:alpha="0.8"
+    android:background="@drawable/background"
     tools:context=".Regestration_Restauarant">
 
     <RelativeLayout
@@ -21,30 +25,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txtOrganizationName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/txtOrganizationName"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/editTextOrganizationName"
+                android:id="@+id/txtViewWelcome_No"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:hint="@string/hintTextOrganizationName"
-                android:inputType="textPersonName" />
+                android:layout_weight="0.4"
+                android:gravity="center"
+                android:textSize="24sp" />
 
 
             <TextView
@@ -106,60 +92,6 @@
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/textViewOrgEmailAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/txtViewOrgEmail"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/editTextTextEmailAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:hint="@string/hintEmail"
-                android:includeFontPadding="true"
-                android:inputType="textEmailAddress" />
-
-            <TextView
-                android:id="@+id/textViewContactNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/txtViewOrgContact"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/editTextContactNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:hint="@string/hintPhoneNumber"
-                android:includeFontPadding="true"
-                android:inputType="number|phone" />
-
-            <TextView
                 android:id="@+id/txtViewAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -183,21 +115,6 @@
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="start|right"
                 android:hint="@string/add1"
-                android:includeFontPadding="true"
-                android:inputType="textPersonName"
-                android:textSize="18dp" />
-
-            <EditText
-                android:id="@+id/editTextStreet2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:hint="@string/add2"
                 android:includeFontPadding="true"
                 android:inputType="textPersonName"
                 android:textSize="18dp" />
@@ -288,7 +205,7 @@
                 android:inputType="textPersonName" />
 
             <Button
-                android:id="@+id/buttonSubmit"
+                android:id="@+id/buttonSubmit_Ngo2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -296,7 +213,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
                 android:includeFontPadding="true"
-                android:text="@string/buttonSubmit"
+                android:text="@string/btnSignUp"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 

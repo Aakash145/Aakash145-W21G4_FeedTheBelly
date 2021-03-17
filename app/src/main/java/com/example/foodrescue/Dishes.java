@@ -1,6 +1,8 @@
 package com.example.foodrescue;
 
-public class Dishes {
+import java.io.Serializable;
+
+public class Dishes implements Serializable {
 
     private String dishName;
     private int noOfPlates;

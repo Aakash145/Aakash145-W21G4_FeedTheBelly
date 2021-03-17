@@ -10,10 +10,10 @@
     <string name="donateTxt">If you are a food business</string>
     <string name="rescueTxt">If you are a charity/Not-for-profit</string>
     <string name="registrationForm">Register Your Restaurant</string>
-    <string name="restuarant_Name">Restuarant Name *</string>
+    <string name="restuarant_Name">Restuarant Name </string>
     <string name="RestaurantNameEditText">Enter your Restauarant Name</string>
     <string name="txtview" />
-    <string name="txtViewDesc">Restaurant Description *</string>
+    <string name="txtViewDesc">Restaurant Description </string>
     <string name="description">Enter Description to your restaurant</string>
     <string name="addAddress">Address *</string>
     <string name="add1">Street Address</string>
@@ -30,7 +30,9 @@
     <string name="rest_ID">Restuarant ID *</string>
     <string name="Rest_id">Restaurant ID *</string>
     <string name="RestaurantNameEditTxt">Enter your Restaurant Name</string>
-    <string name="rest_name">Restaurant Name*</string>
+    <string name="NGONameEditTxt">Enter your NGO Name</string>
+    <string name="btnSignUp">Sign Up</string>
+    <string name="rest_name">Restaurant Name</string>
     <string name="restaurant_id">Enter Restaurant ID</string>
     <string name="yes">Yes</string>
     <string name="no">NO</string>
@@ -54,19 +56,27 @@
     <string name="txtViewSaturday2">Saturday To:</string>
     <string name="txtViewSunday2">Sunday To:</string>
     <string name="buttonSubmit">Submit</string>
-    <string name="textViewEmailAddress" />
-    <string name="txtViewEmailAddress">Restaurant Email Address*</string>
+    <string name="ngo_name">NGO Name</string>
+    <string name="ngo_email">NGO Email Address</string>
+    <string name="ngo_phone">NGO Contact Number</string>
+    <string name="ngo_password">Enter the password</string>
+    <string name="RegisterSubmit">Register</string>
+    <string name="txtViewEmailAddress">Restaurant Email Address </string>
+    <string name="txtViewPassword">Enter the Password </string>
+    <string name="txtViewConfirmPassword">Confirm the Password</string>
+
+
     <string name="hintEmail">"Enter the email Address"</string>
     <string name="hintPhoneNumber">"Enter Contact Number"</string>
-    <string name="textViewContactNumber">Restaurant Contact Number*</string>
+    <string name="textViewContactNumber">Restaurant Contact Number</string>
     <string name="btnTextDoNotHaveAcc">Don\'t have an account? Sign Up</string>
     <string name="btnTextLogin">Log in</string>
     <string name="txtOrganizationName">Organization Name</string>
     <string name="hintTextOrganizationName">Enter Organization Name</string>
-    <string name="txtViewCharitable">Charitable No./Not-For-Profit Registration No.</string>
-    <string name="hintTextCharitNo">Enter Charitable or Not-for-profit No.</string>
-    <string name="txtViewNgoDesc">Organization Description</string>
-    <string name="hintTextOrgDesc">Enter Organization Descripion</string>
+    <string name="txtViewCharitable">Organization ID*</string>
+    <string name="hintTextCharitNo">Enter Organization Registration No.</string>
+    <string name="txtViewNgoDesc">Organization Description*</string>
+    <string name="hintTextOrgDesc">Enter Organization Description</string>
     <string name="txtViewOrgEmail">Organization Email Address</string>
     <string name="txtViewOrgContact">Organization Contact Number</string>
     <string name="Cuisine_Type">Enter the Cuisine Type :</string>
@@ -77,6 +87,16 @@
     <string name="ExpiryDate">Enter the Expiry-Date for the Food</string>
     <string name="ConfirmTheEntry">Confirm the Entries</string>
     <string name="Num_Of_Plates">Enter Number of Plates</string>
+    <string name="input_error_name">name required</string>
+    <string name="input_error_email">email required</string>
+    <string name="input_error_password">password required</string>
+    <string name="input_error_phone">phone required</string>
+    <string name="password1">Enter the password</string>
+    <string name="password2">Confirm the password</string>
+    <string name="input_error_password_length">password should be atleast 6 characters long</string>
+    <string name="input_error_phone_invalid">enter a valid phone number</string>
+    <string name="registration_success">Registered Successfully</string>
+    <string name="input_error_email_invalid">enter a valid email</string>
     <string-array name="Cuisine_types">
         <item>Chinese</item>
         <item>Mexican</item>
@@ -123,9 +143,28 @@
     <string name="imgAdd">Add Items Pic</string>
     <string name="imgView">View Dishes Pic</string>
     <string name="imgLogout">Logout Pic</string>
+    <string name="imgProfile">Profile</string>
     <string name="txtRestaurants">Restaurants List</string>
     <string name="txtConfirmed">Confirmed Orders</string>
     <string name="imgRestList">Restaurants List Pic</string>
     <string name="imgConfirmed">Confirmed Orders Pic</string>
     <string name="uploadFile">Upload File</string>
+    <string name="empty_ID">ID is required</string>
+    <string name="City_error">City cannot be empty</string>
+    <string name="Country_error">Country cannot be empty</string>
+    <string name="Postal_error">Postal code cannot be empty</string>
+    <string name="website_error">Website format is incorrect</string>
+    <string name="postal_length_error">Postal code length should be equal to six</string>
+    <string name="State_error">State or Province cannot be empty</string>
+    <string name="Addline_error">Address cannot be empty</string>
+    <string name="txtViewProfile">Profile</string>
+    <string name="UserType">"User Type: "</string>
+    <string name="IDerror">ID should be 6 digit</string>
+    <string name="back_button">Go to Dashboard</string>
+    <string name="Desc_error">Write about your NGO</string>
+    <string-array name="UserType">
+        <item></item>
+        <item>NGO</item>
+        <item>RESTAURANT</item>
+    </string-array>
 </resources>
