@@ -39,12 +39,13 @@ public class Regestration_Restauarant extends AppCompatActivity {
     final String TAG = "Food Rescue";
 
     Button Rest_Submit;
-    EditText rest_ID, city, state, country, postal_code, add1, add2, deliveryExtraTime, website;
+    EditText rest_ID, city, state, country, postal_code, add1,  website;
     RadioGroup radGroupDelivery, radGroupTakeAway;
     TextView txtView;
+    String Name, Phone, Email;
 
-    DatabaseReference databaseDetails;
-    FirebaseDatabase db = FirebaseDatabase.getInstance();
+   // DatabaseReference databaseDetails;
+    //FirebaseDatabase db = FirebaseDatabase.getInstance();
 
 
     private FirebaseAuth mAuth;
@@ -52,15 +53,14 @@ public class Regestration_Restauarant extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regestration__restauarant);
-
         rest_ID = findViewById(R.id.editTextRestaurantID);
-        deliveryExtraTime =findViewById(R.id.editTextDeliveryTime);
+        //deliveryExtraTime =findViewById(R.id.editTextDeliveryTime);
         city = findViewById(R.id.editTextRestuarantCity);
         state = findViewById(R.id.editTextRestuarantState);
         country = findViewById(R.id.editTextRestuarantCountry);
-        postal_code = findViewById(R.id.editTextPostalAddress);
-        add1 = findViewById(R.id.editTextStreetName);
-        add2 = findViewById(R.id.editTextStreet2);
+        postal_code = findViewById(R.id.editTextRestuarantPostalAddress);
+        add1 = findViewById(R.id.editTextRestuarantStreetName);
+       // add2 = findViewById(R.id.editTextRestuarantStreet2);
         website = findViewById(R.id.editTextRestuarantWebsite);
         Rest_Submit = findViewById(R.id.buttonSubmit);
         ActionBar actionBar=getSupportActionBar();
@@ -72,23 +72,25 @@ public class Regestration_Restauarant extends AppCompatActivity {
 
         Rest_Submit=findViewById(R.id.buttonSubmit);
 
-      Intent myIntent = getIntent();
-      String name = myIntent.getStringExtra(Login_Activity_Rest.User_Name);
-      String email = myIntent.getStringExtra(Login_Activity_Rest.User_Email);
-        //String str = "Welcome" + name;
-        txtView.setText(name);
-       databaseDetails = db.getReference("Details");
-      // databaseDetails.child("users").child(email).child("email");
 
 
-        Rest_Submit.setOnClickListener(new View.OnClickListener(){
+
+        Intent i = getIntent();
+        //User user = (User)i.getSerializableExtra("User");
+
+        Name = i.getStringExtra(Login_Activity_Rest.User_Name);
+        Email = i.getStringExtra(Login_Activity_Rest.User_Email);
+        Phone = i.getStringExtra(Login_Activity_Rest.User_Phone);
+
+        String str = "Welcome " + Name;
+        txtView.setText(str);
+     // databaseDetails = db.getReference("Details").child(id);
+      Rest_Submit.setOnClickListener(new View.OnClickListener(){
             @Override
                     public void onClick(View view) {
-                try {
                     saveUserInformation();
-                } catch (Exception e) {
-                    e.getMessage();
-                }
+
+
             }
             });
     }
@@ -97,11 +99,14 @@ public class Regestration_Restauarant extends AppCompatActivity {
         final String ID = rest_ID.getText().toString().trim();
         final String City = city.getText().toString().trim();
         final String State = state.getText().toString().trim();
-        final String Postal = postal_code.getText().toString().trim();
+        final String Postal = postal_code.getText().toString();
         final String Country = country.getText().toString().trim();
         final String AddLine1 = add1.getText().toString().trim();
-        final String AddLine2 = add2.getText().toString().trim();
+      //  final String AddLine2 = add2.getText().toString().trim();
         final String Website = website.getText().toString().trim();
+        final String name = Name;
+        final String email = Email;
+        final String phone = Phone;
 
         try{
 
@@ -111,6 +116,12 @@ public class Regestration_Restauarant extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "ID is empty", Toast.LENGTH_SHORT).show();
             return;
         }
+            if (ID.length() != 6) {
+                rest_ID.setError(getString(R.string.IDerror));
+                rest_ID.requestFocus();
+                Toast.makeText(getApplicationContext(), "ID should be 6 digit", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
         if (AddLine1.isEmpty()) {
             add1.setError(getString(R.string.Addline_error));
@@ -138,12 +149,11 @@ public class Regestration_Restauarant extends AppCompatActivity {
             postal_code.requestFocus();
             return;
         }
-
-        if (!Patterns.WEB_URL.matcher(Website).matches()) {
-            website.setError(getString(R.string.website_error));
-            website.requestFocus();
-            return;
-        }
+        if (!Website.isEmpty() && !Patterns.WEB_URL.matcher(Website).matches()) {
+                website.setError(getString(R.string.website_error));
+                website.requestFocus();
+                return;
+            }
         if (Postal.length() != 6) {
             postal_code.setError(getString(R.string.postal_length_error));
             postal_code.requestFocus();
@@ -156,11 +166,17 @@ public class Regestration_Restauarant extends AppCompatActivity {
             Toast.makeText( this, "Please select TakeAway Preferences", Toast.LENGTH_LONG).show();
         }
         else{
-            String id = databaseDetails.push().getKey();
-            details detail = new details(ID,AddLine1, AddLine2, City, State, Country, Postal);
-            databaseDetails.child(id).setValue(detail);
+          //String id = databaseDetails.push().getKey();
+            User user = new User(name, email, phone);
+
+            Detail detail = new Detail(ID, AddLine1, City, State, Country, Postal);
+          //databaseDetails.child(id).setValue(detail);
             Toast.makeText( this, "Details saved successfully", Toast.LENGTH_LONG).show();
+            finish();
             Intent myIntent = new Intent(Regestration_Restauarant.this, Restaurant_Dashboard.class);
+          //  myIntent.putExtra(User
+            myIntent.putExtra("Details", detail);
+            myIntent.putExtra("User", user);
             startActivity(myIntent);
 
         }}catch(Exception ex){

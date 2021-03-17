@@ -1,5 +1,6 @@
 package com.example.foodrescue;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -17,6 +18,8 @@ public class Restaurant_Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant__dashboard);
+        ActionBar myBar = getSupportActionBar();
+        myBar.setTitle("Restaurant Dashboard");
 
         cardHome=findViewById(R.id.cardHome);
         cardAdd=findViewById(R.id.cardAdd);
@@ -24,8 +27,17 @@ public class Restaurant_Dashboard extends AppCompatActivity {
         cardLogout=findViewById(R.id.cardLogout);
 
         cardHome.setOnClickListener((View view)->{
+
+            Intent i = getIntent();
+            Detail details = (Detail)i.getSerializableExtra("Details");
+            User user = (User)i.getSerializableExtra("User");
             Intent myIntent = new Intent(Restaurant_Dashboard.this, restaurant_profile.class);
+            myIntent.putExtra("Details", details);
+            myIntent.putExtra("User", user);
             startActivity(myIntent);
+
+
+
         });
         cardAdd.setOnClickListener((View view)->{
             Intent myIntent = new Intent(Restaurant_Dashboard.this, Restaurant_starter.class);

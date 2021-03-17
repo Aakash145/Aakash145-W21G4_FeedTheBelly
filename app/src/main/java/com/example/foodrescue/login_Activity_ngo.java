@@ -19,6 +19,10 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class login_Activity_ngo extends AppCompatActivity implements View.OnClickListener{
+    public static final String User_Name ="UserName";
+    public static final String User_Email = "UserEmail";
+    public static final String UserId = "UserId";
+    public static final String User_Phone = "UserPhone";
 private EditText editTextName, editTextEmail, editTextPassword, editTextPhone;
         ProgressBar progressBar;
 private FirebaseAuth mAuth;
@@ -102,8 +106,7 @@ private FirebaseAuth mAuth;
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            User user = new User(
-                                    name1, email1, phone1);
+                            User user = new User(name1, email1, phone1);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -113,6 +116,9 @@ private FirebaseAuth mAuth;
                                     if (task.isSuccessful()) {
                                         Toast.makeText(getApplicationContext(), "User Registration Successful", Toast.LENGTH_LONG).show();
                                         Intent myIntent = new Intent(login_Activity_ngo.this, NGO_Activity.class);
+                                        myIntent.putExtra(User_Name, user.getName());
+                                        myIntent.putExtra(User_Email, user.getEmail());
+                                        myIntent.putExtra(User_Phone, user.getPhone());
                                         startActivity(myIntent);
                                     } else {
                                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {

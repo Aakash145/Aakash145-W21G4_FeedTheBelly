@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodRescue">
-        <activity android:name=".Ngo_profile"></activity>
+        <activity android:name=".NGO_Add_Items"></activity>
+        <activity android:name=".recyclerView_NGO" />
+        <activity android:name=".Ngo_profile" />
         <activity android:name=".restaurant_profile" />
         <activity android:name=".login_Activity_ngo" />
         <activity android:name=".Login_Activity_Rest" />

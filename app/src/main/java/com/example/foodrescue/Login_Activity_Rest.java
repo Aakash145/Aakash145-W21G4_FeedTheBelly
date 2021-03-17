@@ -23,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Login_Activity_Rest extends AppCompatActivity implements View.OnClickListener{
     public static final String User_Name ="UserName";
     public static final String User_Email = "UserEmail";
+    public static final String UserId = "UserId";
+    public static final String User_Phone = "UserPhone";
     private EditText editTextName, editTextEmail, editTextPassword, editTextPhone;
     ProgressBar progressBar;
     private FirebaseAuth mAuth;
@@ -108,8 +110,7 @@ public class Login_Activity_Rest extends AppCompatActivity implements View.OnCli
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if (task.isSuccessful()) {
-                                User user = new User(
-                                        name, email, phone);
+                                User user = new User(name, email, phone);
                                 FirebaseDatabase.getInstance().getReference("Users")
                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -117,11 +118,15 @@ public class Login_Activity_Rest extends AppCompatActivity implements View.OnCli
                                     public void onComplete(@NonNull Task<Void> task) {
                                         progressBar.setVisibility(View.GONE);
                                         if (task.isSuccessful()) {
+                                            Toast.makeText(getApplicationContext(), "User Registration Successful", Toast.LENGTH_LONG).show();
                                             Intent myIntent = new Intent(Login_Activity_Rest.this, Regestration_Restauarant.class);
+                                            //myIntent.putExtra(UserId, user.getId());
+                                           // myIntent.putExtra("Users", user);
                                             myIntent.putExtra(User_Name, user.getName());
                                             myIntent.putExtra(User_Email, user.getEmail());
+                                            myIntent.putExtra(User_Phone, user.getPhone());
                                             startActivity(myIntent);
-                                            Toast.makeText(getApplicationContext(), "User Registration Successful", Toast.LENGTH_LONG).show();
+
                                         } else {
                                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                                 Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_LONG).show();

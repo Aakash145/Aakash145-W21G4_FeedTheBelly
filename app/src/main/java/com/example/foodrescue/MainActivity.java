@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    finish();
                     if(index == 1){
                     Intent myIntent = new Intent(MainActivity.this, NGO_Dashboard.class);
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (v.getId()) {
                     case R.id.registerButton:
                         Intent myIntent = new Intent(MainActivity.this, RegisterationActivity.class);
+                        finish();
                         startActivity(myIntent);
                         break;
                     case R.id.loginButton:

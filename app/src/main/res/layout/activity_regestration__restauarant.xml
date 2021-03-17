@@ -88,20 +88,6 @@
                 android:inputType="textPersonName"
                 android:textSize="18dp" />
 
-            <EditText
-                android:id="@+id/editTextRestuarantStreet2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:hint="@string/add2"
-                android:includeFontPadding="true"
-                android:inputType="textPersonName"
-                android:textSize="18dp" />
 
             <EditText
                 android:id="@+id/editTextRestuarantCity"
@@ -293,33 +279,6 @@
                     android:textStyle="bold"
                     app:useMaterialThemeColors="true" />
             </RadioGroup>
-
-            <TextView
-                android:id="@+id/textViewDeliveryTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/deliveryTime"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/editTextDeliveryTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15sp"
-                android:ems="10"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right"
-                android:hint="@string/deliveryTimeExtra"
-                android:inputType="time" />
-
 
 
             <Button
