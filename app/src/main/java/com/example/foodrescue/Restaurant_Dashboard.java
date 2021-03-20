@@ -40,7 +40,12 @@ public class Restaurant_Dashboard extends AppCompatActivity {
 
         });
         cardAdd.setOnClickListener((View view)->{
+            Intent i = getIntent();
+            Detail details = (Detail)i.getSerializableExtra("Details");
+            User user = (User)i.getSerializableExtra("User");
             Intent myIntent = new Intent(Restaurant_Dashboard.this, Restaurant_starter.class);
+            myIntent.putExtra("Details", details);
+            myIntent.putExtra("User", user);
             startActivity(myIntent);
         });
 

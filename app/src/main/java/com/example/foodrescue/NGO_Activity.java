@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class NGO_Activity extends AppCompatActivity {
     Button Rest_Submit;
@@ -22,6 +24,9 @@ public class NGO_Activity extends AppCompatActivity {
     RadioGroup radGroupDelivery, radGroupTakeAway;
     TextView txtView;
     String Name, Phone, Email;
+
+    DatabaseReference databaseDetails;
+    FirebaseDatabase db = FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,11 +138,11 @@ public class NGO_Activity extends AppCompatActivity {
                 return;
             }
             else{
-                //String id = databaseDetails.push().getKey();
+                String id = databaseDetails.push().getKey();
                 User user = new User(name, email, phone);
 
-                Detail detail = new Detail(ID, AddLine1, City, State, Country, Postal);
-                //databaseDetails.child(id).setValue(detail);
+                Detail detail = new Detail(id, ID, AddLine1, City, State, Country, Postal);
+                databaseDetails.child(id).setValue(detail);
                 Toast.makeText( this, "Details saved successfully", Toast.LENGTH_LONG).show();
                 finish();
                 Intent myIntent = new Intent(NGO_Activity.this, NGO_Dashboard.class);
