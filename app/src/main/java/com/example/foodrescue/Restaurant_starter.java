@@ -36,7 +36,7 @@ public class Restaurant_starter extends AppCompatActivity {
     SQLiteDatabase FeedTheBelly;
     String emailNew;
     private static final int OPEN_REQUEST_CODE = 41;
-    TextView totalItems;
+    TextView totalItems, txtView;
     Button Confirm_Form;
     Button uploadFile;
     Spinner cuisineType;
@@ -67,7 +67,12 @@ public class Restaurant_starter extends AppCompatActivity {
 
         ActionBar myActionBar=getSupportActionBar();
         myActionBar.setTitle("Fill in the Food Details");
-
+     //   txtView = findViewById(R.id.txtViewProfile);
+        Intent i = getIntent();
+        Detail details = (Detail) i.getSerializableExtra("Details");
+        User user = (User)i.getSerializableExtra("User");
+        String email =  user.getEmail();
+        totalItems.setText(email);
 
         uploadFile.setOnClickListener(new View.OnClickListener() {
             @Override

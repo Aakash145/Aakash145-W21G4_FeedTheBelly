@@ -44,8 +44,8 @@ public class Regestration_Restauarant extends AppCompatActivity {
     TextView txtView;
     String Name, Phone, Email;
 
-   // DatabaseReference databaseDetails;
-    //FirebaseDatabase db = FirebaseDatabase.getInstance();
+   DatabaseReference databaseDetails;
+   FirebaseDatabase db = FirebaseDatabase.getInstance();
 
 
     private FirebaseAuth mAuth;
@@ -84,7 +84,7 @@ public class Regestration_Restauarant extends AppCompatActivity {
 
         String str = "Welcome " + Name;
         txtView.setText(str);
-     // databaseDetails = db.getReference("Details").child(id);
+      databaseDetails = db.getReference("Details");
       Rest_Submit.setOnClickListener(new View.OnClickListener(){
             @Override
                     public void onClick(View view) {
@@ -166,11 +166,11 @@ public class Regestration_Restauarant extends AppCompatActivity {
 //            Toast.makeText( this, "Please select TakeAway Preferences", Toast.LENGTH_LONG).show();
 //        }
         else{
-          //String id = databaseDetails.push().getKey();
+           String id = databaseDetails.push().getKey();
             User user = new User(name, email, phone);
 
-            Detail detail = new Detail(ID, AddLine1, City, State, Country, Postal);
-          //databaseDetails.child(id).setValue(detail);
+            Detail detail = new Detail(id, ID, AddLine1, City, State, Country, Postal);
+           databaseDetails.child(id).setValue(detail);
             Toast.makeText( this, "Details saved successfully", Toast.LENGTH_LONG).show();
             finish();
             Intent myIntent = new Intent(Regestration_Restauarant.this, Restaurant_Dashboard.class);
