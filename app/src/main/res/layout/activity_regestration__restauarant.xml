@@ -174,19 +174,6 @@
                 android:hint="@string/websiteEditTxt"
                 android:inputType="textPersonName" />
 
-            <TextView
-                android:id="@+id/txtViewRestuarantDelivery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/txtViewDelivery"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
             <RadioGroup
                 android:id="@+id/radiogroup1"
                 android:layout_width="match_parent"
@@ -195,49 +182,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15sp"
                 android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right">
-
-                <RadioButton
-                    android:id="@+id/radioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15sp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="15sp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="start|right"
-                    android:text="@string/yes"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15sp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="15sp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="start|right"
-                    android:text="@string/No"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </RadioGroup>
-
-            <TextView
-                android:id="@+id/txtViewTakeAway"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.4"
-                android:fontFamily="sans-serif-condensed"
-                android:includeFontPadding="true"
-                android:text="@string/txtViewTakeAway"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:gravity="start|right"/>
 
             <RadioGroup
                 android:id="@+id/radiogroup2"
@@ -247,38 +192,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15sp"
                 android:fontFamily="sans-serif-condensed"
-                android:gravity="start|right">
-
-                <RadioButton
-                    android:id="@+id/radioButton3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15sp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="15sp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="start|right"
-                    android:text="@string/yes"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:useMaterialThemeColors="true" />
-
-                <RadioButton
-                    android:id="@+id/radioButton4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15sp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="15sp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="start|right"
-                    android:text="@string/No"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:useMaterialThemeColors="true" />
-            </RadioGroup>
+                android:gravity="start|right"/>
 
 
             <Button
