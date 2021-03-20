@@ -40,7 +40,7 @@ public class Regestration_Restauarant extends AppCompatActivity {
 
     Button Rest_Submit;
     EditText rest_ID, city, state, country, postal_code, add1,  website;
-    RadioGroup radGroupDelivery, radGroupTakeAway;
+//    RadioGroup radGroupDelivery, radGroupTakeAway;
     TextView txtView;
     String Name, Phone, Email;
 
@@ -66,8 +66,8 @@ public class Regestration_Restauarant extends AppCompatActivity {
         ActionBar actionBar=getSupportActionBar();
         actionBar.setTitle("Restaurant Registration");
         mAuth  = FirebaseAuth.getInstance();
-        radGroupDelivery = findViewById(R.id.radiogroup1);
-        radGroupTakeAway = findViewById(R.id.radiogroup2);
+//        radGroupDelivery = findViewById(R.id.radiogroup1);
+//        radGroupTakeAway = findViewById(R.id.radiogroup2);
         txtView = findViewById(R.id.txtViewWelcome);
 
         Rest_Submit=findViewById(R.id.buttonSubmit);
@@ -159,12 +159,12 @@ public class Regestration_Restauarant extends AppCompatActivity {
             postal_code.requestFocus();
             return;
         }
-        if(radGroupDelivery.getCheckedRadioButtonId() == -1){
-            Toast.makeText( this, "Please select Delivery Preferences", Toast.LENGTH_LONG).show();
-        }
-        if(radGroupTakeAway.getCheckedRadioButtonId() == -1){
-            Toast.makeText( this, "Please select TakeAway Preferences", Toast.LENGTH_LONG).show();
-        }
+//        if(radGroupDelivery.getCheckedRadioButtonId() == -1){
+//            Toast.makeText( this, "Please select Delivery Preferences", Toast.LENGTH_LONG).show();
+//        }
+//        if(radGroupTakeAway.getCheckedRadioButtonId() == -1){
+//            Toast.makeText( this, "Please select TakeAway Preferences", Toast.LENGTH_LONG).show();
+//        }
         else{
            String id = databaseDetails.push().getKey();
             User user = new User(name, email, phone);
