@@ -31,7 +31,7 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
         Cursor cursor=new DBmanager(this).readalldata();
         while(cursor.moveToNext()){
             try {
-                Dishes_Fetched obj = new Dishes_Fetched(cursor.getString(0), cursor.getString(5), cursor.getString(2), cursor.getString(3), cursor.getString(7), cursor.getString(6));
+                Dishes_Fetched obj = new Dishes_Fetched(cursor.getString(0), cursor.getString(4), cursor.getString(1), cursor.getString(2), cursor.getString(6), cursor.getString(5));
                 dishesHolder.add(obj);
             }catch(Exception e){
                 Log.d("Error",e.getMessage());

@@ -21,7 +21,6 @@ public class DBmanager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try{
             String setPragmaForeignKeysOn = "PRAGMA foreign_keys=ON;";
-
             String createDishesTable = "CREATE TABLE dishes " +
                     "(dishID INTEGER, " +
                     "cuisineType TEXT, " +
@@ -30,7 +29,7 @@ public class DBmanager extends SQLiteOpenHelper {
                     "name TEXT, " +
                     "plates INTEGER, " +
                     "weight DOUBLE, " +
-                    "PRIMARY KEY (dishID));";
+                    "PRIMARY KEY (name));";
 
             db.execSQL(setPragmaForeignKeysOn);
             db.execSQL(createDishesTable);
@@ -47,7 +46,7 @@ public class DBmanager extends SQLiteOpenHelper {
         db.execSQL(dropDishesTable);
         db.execSQL(droptable1);
         db.execSQL(droptable2);
-
+        onCreate(db);
     }
 
     public String addNewDish(Dishes dish, int id, Spinner spinner,Spinner spinner2, EditText expiryDate){

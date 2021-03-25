@@ -57,6 +57,18 @@ public class Restaurant_starter extends AppCompatActivity {
         noOfPlates = findViewById(R.id.editNumberOfPlates);
         //createDB();
 
+        //Intent i = getIntent();
+
+        // loadUserInformation();
+//        Detail details = (Detail) i.getSerializableExtra("Details");
+//        User user = (User)i.getSerializableExtra("User");
+//        emailNew =  user.getEmail();
+        //   txtView = findViewById(R.id.txtViewProfile);
+       /* Intent i = getIntent();
+        Detail details = (Detail) i.getSerializableExtra("Details");
+        User user = (User)i.getSerializableExtra("User");
+        String email =  user.getEmail();
+        totalItems.setText(email);*/
         ActionBar myActionBar=getSupportActionBar();
         myActionBar.setTitle("Fill in the Food Details");
 
@@ -94,9 +106,28 @@ public class Restaurant_starter extends AppCompatActivity {
     }
 
     private List<Dishes> readFileContent(Uri uri) throws IOException {
+        //        Intent myIntent = getIntent();
+//        User user = (User)myIntent.getSerializableExtra("User");
+//        email =  user.getEmail();
         List<Dishes> newDish = new ArrayList<>();
 
         InputStream inputStream = getContentResolver().openInputStream(uri);
+        //        XSSFWorkbook myWorkBook = new XSSFWorkbook (inputStream);
+//
+//        XSSFSheet mySheet = myWorkBook.getSheetAt(0);
+//        Iterator<Row> rowIterator = mySheet.iterator();
+//
+//        while (rowIterator.hasNext()) {
+//            Row row = rowIterator.next();
+//            Iterator<Cell> cellIterator = row.cellIterator();
+//            List<String> myList = new ArrayList<>();
+//            while (cellIterator.hasNext()) {
+//                Cell cell = cellIterator.next();
+//                myList.add(cell.getStringCellValue());
+//            }
+//            Dishes dish = new Dishes(myList.get(0).toString(),Integer.parseInt(myList.get(1).toString()),Double.parseDouble(myList.get(2).toString()));
+//            newDish.add(dish);
+//        }
 
         BufferedReader reader =
                 new BufferedReader(new InputStreamReader(
