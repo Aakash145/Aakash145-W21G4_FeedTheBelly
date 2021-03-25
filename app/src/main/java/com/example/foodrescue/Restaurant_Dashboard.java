@@ -50,8 +50,7 @@ public class Restaurant_Dashboard extends AppCompatActivity {
         });
 
         cardMenu.setOnClickListener((View view)->{
-            Intent myIntent = new Intent(Restaurant_Dashboard.this, recyclerViewActivity_Restaurant.class);
-            startActivity(myIntent);
+            startActivity(new Intent(getApplicationContext(),recyclerViewActivity_Restaurant.class));
         });
 
         cardLogout.setOnClickListener((View view)->{
