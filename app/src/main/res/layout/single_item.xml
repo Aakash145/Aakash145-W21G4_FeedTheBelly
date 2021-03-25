@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="5dp"
+    android:background="@color/colorOrange"
+    android:elevation="4dp"
+    app:cardCornerRadius="6dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/item_id"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Item Name"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/item_category"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Category" />
+
+        <TextView
+            android:id="@+id/item_cuisine"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Cuisine" />
+        <TextView
+            android:id="@+id/item_weight"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Weight" />
+        <TextView
+            android:id="@+id/item_plates"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Plates" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
