@@ -43,11 +43,13 @@ public class Restaurant_starter extends AppCompatActivity {
     Spinner catagoryType;
     EditText expiryDate;
     EditText noOfPlates;
+    DatabaseHelper myDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_starter);
+        myDb = new DatabaseHelper(this);
         Confirm_Form = findViewById(R.id.btnViewConfirm);
         uploadFile = findViewById(R.id.btnViewItemsAdded);
         totalItems = findViewById(R.id.txtViewShowItemAdded);
@@ -142,7 +144,7 @@ public class Restaurant_starter extends AppCompatActivity {
             double weight = Double.parseDouble(eachLine[2]);
             Dishes dish = new Dishes(nameOfDish, noOfItems, weight);
             newDish.add(dish);
-            String res = new DBmanager(this).addNewDish(dish, i, cuisineType,catagoryType, expiryDate);
+            String res = myDb.addNewDish(dish, i, cuisineType,catagoryType, expiryDate);
             i++;
         }
         i = 0;

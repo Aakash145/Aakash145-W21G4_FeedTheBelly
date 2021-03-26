@@ -15,12 +15,14 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
 
     RecyclerView rvDishes;
     ArrayList<Dishes_Fetched> dishesHolder;
+    DatabaseHelper myDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view__restaurant);
 
+        myDb = new DatabaseHelper(this);
         ActionBar myActionBar=getSupportActionBar();
         myActionBar.setTitle("Select the Menu");
 
@@ -28,7 +30,7 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
         rvDishes.setLayoutManager(new LinearLayoutManager(this));
         dishesHolder=new ArrayList<>();
 
-        Cursor cursor=new DBmanager(this).readalldata();
+        Cursor cursor=myDb.readalldata();
         while(cursor.moveToNext()){
             try {
                 Dishes_Fetched obj = new Dishes_Fetched(cursor.getString(0), cursor.getString(4), cursor.getString(1), cursor.getString(2), cursor.getString(6), cursor.getString(5));

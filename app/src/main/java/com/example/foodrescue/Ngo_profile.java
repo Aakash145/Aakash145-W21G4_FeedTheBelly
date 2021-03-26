@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Ngo_profile extends AppCompatActivity {
+    DatabaseHelper myDb;
     DatabaseReference databaseReference;
     TextView txtView;
     FirebaseAuth mAuth;
@@ -22,32 +24,43 @@ public class Ngo_profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ngo_profile);
+        myDb = new DatabaseHelper(this);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         txtView = findViewById(R.id.txtViewNGOProfile);
         Button btnBackToDash = findViewById(R.id.btnbacktodashNGO);
         ActionBar myBar = getSupportActionBar();
         myBar.setTitle("Organization Profile");
-
         Intent i = getIntent();
+        String email = i.getStringExtra("Email");
 
-        String Str = "Organization Details\n\n";
+        String Str = "NGO Details\n\n";
         txtView.setText(Str);
-        // loadUserInformation();
-        Detail details = (Detail) i.getSerializableExtra("Details");
-        User user = (User)i.getSerializableExtra("User");
-        String ID = details.getID();
-        String Add1 = details.getAdd1();
-        String City = details.getCity();
-        String State = details.getState();
-        String Country = details.getCountry();
-        String Postal = details.getPostal();
-        String name = user.getName();
-        String email =  user.getEmail();
-        String phone = user.getPhone();
-        String finalText = "\nID: " + ID + "\nName: "+ name + "\nEmail: " + email+ "\nPhone: " + phone+ "\nAddress: " + Add1+ ", " + City + ", " + State + ", " + Country + " " + Postal;
-        txtView.append(finalText);
 
+        Cursor res = myDb.getData(email);
+        if(res.getCount() == 0) {
+            // show message
+            // showMessage("Error","Nothing found");
+            return;
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        while (res.moveToNext()) {
+            buffer.append("Email :"+ res.getString(0)+"\n");
+            buffer.append("Name :"+ res.getString(1)+"\n");
+            buffer.append("Phone :"+ res.getString(2)+"\n");
+            buffer.append("ID :"+ res.getString(3)+"\n\n");
+            buffer.append("Address :"+ res.getString(4)+"\n");
+            buffer.append("City :"+ res.getString(5)+"\n");
+            buffer.append("State :"+ res.getString(6)+"\n");
+            buffer.append("Country :"+ res.getString(7)+"\n");
+            buffer.append("Postal :"+ res.getString(8)+"\n\n");
+        }
+
+        // Show all data
+        // showMessage("Data",buffer.toString());
+        //String finalText = "\nID: " +  + "\nName: "+ name + "\nEmail: " + email+ "\nPhone: " + phone+ "\nAddress: " + Add1+ ", " + City + ", " + State + ", " + Country + " " + Postal;
+        txtView.append(buffer.toString());
         btnBackToDash.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -23,11 +23,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static java.security.AccessController.getContext;
 
 
 //import com.google.firebase.database.FirebaseDatabase;
@@ -44,9 +48,9 @@ public class Regestration_Restauarant extends AppCompatActivity {
     TextView txtView;
     String Name, Phone, Email;
 
-   DatabaseReference databaseDetails;
-   FirebaseDatabase db = FirebaseDatabase.getInstance();
-
+   //DatabaseReference databaseDetails;
+   //FirebaseDatabase db = FirebaseDatabase.getInstance();
+    DatabaseHelper myDb;
 
     private FirebaseAuth mAuth;
     @Override
@@ -54,6 +58,8 @@ public class Regestration_Restauarant extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regestration__restauarant);
         rest_ID = findViewById(R.id.editTextRestaurantID);
+        myDb = new DatabaseHelper(this);
+       // Database = new SQLiteDatabaseHandler(this);
         //deliveryExtraTime =findViewById(R.id.editTextDeliveryTime);
         city = findViewById(R.id.editTextRestuarantCity);
         state = findViewById(R.id.editTextRestuarantState);
@@ -75,16 +81,17 @@ public class Regestration_Restauarant extends AppCompatActivity {
 
 
 
-        Intent i = getIntent();
+       Intent i = getIntent();
+        User user = (User) i.getParcelableExtra("User");
         //User user = (User)i.getSerializableExtra("User");
 
-        Name = i.getStringExtra(Login_Activity_Rest.User_Name);
-        Email = i.getStringExtra(Login_Activity_Rest.User_Email);
-        Phone = i.getStringExtra(Login_Activity_Rest.User_Phone);
+        Name = user.getName();
+        Email = user.getEmail();
+        Phone = user.getPhone();
 
-        String str = "Welcome " + Name;
+        String str = "Welcome " + Name ;
         txtView.setText(str);
-      databaseDetails = db.getReference("Details");
+      //databaseDetails = db.getReference("Details");
       Rest_Submit.setOnClickListener(new View.OnClickListener(){
             @Override
                     public void onClick(View view) {
@@ -166,20 +173,33 @@ public class Regestration_Restauarant extends AppCompatActivity {
 //            Toast.makeText( this, "Please select TakeAway Preferences", Toast.LENGTH_LONG).show();
 //        }
         else{
-           String id = databaseDetails.push().getKey();
-            User user = new User(name, email, phone);
+          // String id = databaseDetails.push().getKey();
+            //User user = new User(name, email, phone);
 
-            Detail detail = new Detail(id, ID, AddLine1, City, State, Country, Postal);
-           databaseDetails.child(id).setValue(detail);
-            Toast.makeText( this, "Details saved successfully", Toast.LENGTH_LONG).show();
+            //Detail detail = new Detail(email,name, phone, ID, AddLine1, City, State, Country, Postal);
+           //databaseDetails.child(id).setValue(detail);
+            boolean isInserted = myDb.insertData(email,name, phone, ID, AddLine1, City, State, Country, Postal );
+            if(isInserted == true){
+                Toast.makeText( this, "Details saved successfully", Toast.LENGTH_LONG).show();
             finish();
             Intent myIntent = new Intent(Regestration_Restauarant.this, Restaurant_Dashboard.class);
+            myIntent.putExtra("Email", email);
+            startActivity(myIntent);}
+            else{
+                Toast.makeText( this, "Data not Inserted", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(MainActivity.this,,Toast.LENGTH_LONG).show();
+        }
+        }
+           // Database.addUser(detail);
+          //  Toast.makeText( this, "Details saved successfully", Toast.LENGTH_LONG).show();
+            //finish();
+            //Intent myIntent = new Intent(Regestration_Restauarant.this, restaurant_profile.class);
           //  myIntent.putExtra(User
-            myIntent.putExtra("Details", detail);
-            myIntent.putExtra("User", user);
-            startActivity(myIntent);
+            //myIntent.putExtra("Details", detail);
+           // myIntent.putExtra("User", user);
+            //tartActivity(myIntent);
 
-        }}catch(Exception ex){
+        }catch(Exception ex){
             ex.getMessage();
             Log.d("DB", "Error with registration");
             Toast.makeText( this, "Error ", Toast.LENGTH_LONG).show();

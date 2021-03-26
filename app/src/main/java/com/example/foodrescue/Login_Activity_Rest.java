@@ -122,9 +122,9 @@ public class Login_Activity_Rest extends AppCompatActivity implements View.OnCli
                                             Intent myIntent = new Intent(Login_Activity_Rest.this, Regestration_Restauarant.class);
                                             //myIntent.putExtra(UserId, user.getId());
                                            // myIntent.putExtra("Users", user);
-                                            myIntent.putExtra(User_Name, user.getName());
-                                            myIntent.putExtra(User_Email, user.getEmail());
-                                            myIntent.putExtra(User_Phone, user.getPhone());
+                                            myIntent.putExtra("User", user);
+                                           // myIntent.putExtra(User_Email, user.getEmail());
+                                            //myIntent.putExtra(User_Phone, user.getPhone());
                                             startActivity(myIntent);
 
                                         } else {
