@@ -33,6 +33,7 @@ public class NGO_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myDb = new DatabaseHelper(this);
         setContentView(R.layout.activity_n_g_o_);
         NGO_ID = findViewById(R.id.editTextCharitNo);
         Ngo_desc =findViewById(R.id.editTxtOrgDesc);
