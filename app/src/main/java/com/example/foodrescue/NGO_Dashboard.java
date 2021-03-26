@@ -26,11 +26,12 @@ public class NGO_Dashboard extends AppCompatActivity {
         cardHome.setOnClickListener((View view) -> {
 
             Intent i = getIntent();
-            Detail details = (Detail) i.getSerializableExtra("Details");
-            User user = (User) i.getSerializableExtra("User");
+           // Detail details = (Detail) i.getSerializableExtra("Details");
+            //user user = (User) i.getSerializableExtra("User");
+            String email = i.getStringExtra("Email");
             Intent myIntent = new Intent(NGO_Dashboard.this, Ngo_profile.class);
-            myIntent.putExtra("Details", details);
-            myIntent.putExtra("User", user);
+          //  myIntent.putExtra("Details", details);
+            //myIntent.putExtra("User", user);
             startActivity(myIntent);
 
 

@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseAuth mAuth;
     EditText editTextEmail, editTextPassword;
     Spinner spinnerUserType;
+    DatabaseHelper myDb;
 
 
     @Override
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(index == 0){
             Toast.makeText(this, "Please select User Type", Toast.LENGTH_LONG).show();
         }
+//        boolean isExist = new DBmanager(this).checkUser(email);
 
 
 
@@ -91,18 +93,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    finish();
-                    if(index == 1){
-                    Intent myIntent = new Intent(MainActivity.this, NGO_Dashboard.class);
-                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(myIntent);
-                } if(index == 2){
-                        Intent myIntent = new Intent(MainActivity.this, Restaurant_Dashboard.class);
-                        myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(myIntent);
-                    }
-                }else {
-                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                  //  if (isExist) {
+                        finish();
+                        if (index == 1) {
+                            Intent myIntent = new Intent(MainActivity.this, NGO_Dashboard.class);
+                            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            myIntent.putExtra("Email", email);
+                            startActivity(myIntent);
+                        }
+                        if (index == 2) {
+                            Intent myIntent = new Intent(MainActivity.this, Restaurant_Dashboard.class);
+                            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            myIntent.putExtra("Email", email);
+                            startActivity(myIntent);
+                        }
+                   // } else {
+                     //   Toast.makeText(MainActivity.this, "Login failed. Invalid username or password.", Toast.LENGTH_SHORT).show();
+                    //}
+                }
+                  else{  Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

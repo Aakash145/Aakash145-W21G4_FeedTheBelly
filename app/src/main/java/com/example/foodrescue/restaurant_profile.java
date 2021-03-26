@@ -2,9 +2,11 @@ package com.example.foodrescue;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class restaurant_profile extends AppCompatActivity {
+    DatabaseHelper myDb;
     DatabaseReference databaseReference;
     TextView txtView;
     FirebaseAuth mAuth;
@@ -30,6 +33,7 @@ public class restaurant_profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_profile);
+        myDb = new DatabaseHelper(this);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         txtView = findViewById(R.id.txtViewProfile);
@@ -38,23 +42,36 @@ public class restaurant_profile extends AppCompatActivity {
         myBar.setTitle("Restaurant Profile");
 
         Intent i = getIntent();
+        String email = i.getStringExtra("Email");
 
         String Str = "Restaurant Details\n\n";
         txtView.setText(Str);
        // loadUserInformation();
-        Detail details = (Detail) i.getSerializableExtra("Details");
-        User user = (User)i.getSerializableExtra("User");
-      String ID = details.getID();
-      String Add1 = details.getAdd1();
-      String City = details.getCity();
-      String State = details.getState();
-      String Country = details.getCountry();
-      String Postal = details.getPostal();
-      String name = user.getName();
-      String email =  user.getEmail();
-      String phone = user.getPhone();
-      String finalText = "\nID: " + ID + "\nName: "+ name + "\nEmail: " + email+ "\nPhone: " + phone+ "\nAddress: " + Add1+ ", " + City + ", " + State + ", " + Country + " " + Postal;
-      txtView.append(finalText);
+      //  Detail details= (Detail) i.getSerializableExtra("Details");
+        Cursor res = myDb.getData(email);
+        if(res.getCount() == 0) {
+            // show message
+           // showMessage("Error","Nothing found");
+            return;
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        while (res.moveToNext()) {
+            buffer.append("Email :"+ res.getString(0)+"\n");
+            buffer.append("Name :"+ res.getString(1)+"\n");
+            buffer.append("Phone :"+ res.getString(2)+"\n");
+            buffer.append("ID :"+ res.getString(3)+"\n");
+            buffer.append("Address :"+ res.getString(4)+"\n");
+            buffer.append("City :"+ res.getString(5)+"\n");
+            buffer.append("State :"+ res.getString(6)+"\n");
+            buffer.append("Country :"+ res.getString(7)+"\n");
+            buffer.append("Postal :"+ res.getString(8)+"\n\n");
+        }
+
+        // Show all data
+       // showMessage("Data",buffer.toString());
+     //String finalText = "\nID: " +  + "\nName: "+ name + "\nEmail: " + email+ "\nPhone: " + phone+ "\nAddress: " + Add1+ ", " + City + ", " + State + ", " + Country + " " + Postal;
+      txtView.append(buffer.toString());
 
 
 
@@ -68,6 +85,14 @@ public class restaurant_profile extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void showMessage(String title,String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 
     private void loadUserInformation() {

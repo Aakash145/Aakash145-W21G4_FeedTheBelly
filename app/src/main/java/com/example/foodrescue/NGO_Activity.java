@@ -25,8 +25,10 @@ public class NGO_Activity extends AppCompatActivity {
     TextView txtView;
     String Name, Phone, Email;
 
-    DatabaseReference databaseDetails;
-    FirebaseDatabase db = FirebaseDatabase.getInstance();
+   // DatabaseReference databaseDetails;
+  //  FirebaseDatabase db = FirebaseDatabase.getInstance();
+   DatabaseHelper myDb;
+
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +52,12 @@ public class NGO_Activity extends AppCompatActivity {
 
         Rest_Submit=findViewById(R.id.buttonSubmit_Ngo2);
         Intent i = getIntent();
+        User user = (User) i.getParcelableExtra("User");
         //User user = (User)i.getSerializableExtra("User");
 
-        Name = i.getStringExtra(Login_Activity_Rest.User_Name);
-        Email = i.getStringExtra(Login_Activity_Rest.User_Email);
-        Phone = i.getStringExtra(Login_Activity_Rest.User_Phone);
+        Name = user.getName();
+        Email = user.getEmail();
+        Phone = user.getPhone();
 
         String str = "Welcome " + Name;
         txtView.setText(str);
@@ -138,19 +141,27 @@ public class NGO_Activity extends AppCompatActivity {
                 return;
             }
             else{
-                String id = databaseDetails.push().getKey();
-                User user = new User(name, email, phone);
+             //   String id = databaseDetails.push().getKey();
+               // User user = new User(name, email, phone);
 
-                Detail detail = new Detail(id, ID, AddLine1, City, State, Country, Postal);
-                databaseDetails.child(id).setValue(detail);
+        //        Detail detail = new Detail(email, name, phone, id, ID, AddLine1, City, State, Country, Postal);
+         //       databaseDetails.child(id).setValue(detail);
+                boolean isInserted = myDb.insertData(email,name, phone, ID, AddLine1, City, State, Country, Postal );
+                if(isInserted == true){
                 Toast.makeText( this, "Details saved successfully", Toast.LENGTH_LONG).show();
                 finish();
                 Intent myIntent = new Intent(NGO_Activity.this, NGO_Dashboard.class);
+                    myIntent.putExtra("Email", email);
                 //  myIntent.putExtra(User
-                myIntent.putExtra("Details", detail);
-                myIntent.putExtra("User", user);
+             //   myIntent.putExtra("Details", detail);
+           //     myIntent.putExtra("User", user);
                 startActivity(myIntent);
 
+            }
+                else{
+                    Toast.makeText( this, "Data not Inserted", Toast.LENGTH_LONG).show();
+                    //  Toast.makeText(MainActivity.this,,Toast.LENGTH_LONG).show();
+                }
             }}catch(Exception ex){
             ex.getMessage();
             Log.d("DB", "Error with registration");

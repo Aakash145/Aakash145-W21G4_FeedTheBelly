@@ -11,12 +11,15 @@ import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 
+import static android.database.sqlite.SQLiteDatabase.openDatabase;
+
 public class DBmanager extends SQLiteOpenHelper {
     private static final String dbname="FeedTheBelly";
+
     public DBmanager(@Nullable Context context) {
         super(context, dbname, null, 1);
     }
-
+    private final String USER_TABLE = "User";
     @Override
     public void onCreate(SQLiteDatabase db) {
         try{
@@ -32,8 +35,22 @@ public class DBmanager extends SQLiteOpenHelper {
                     "weight DOUBLE, " +
                     "PRIMARY KEY (dishID));";
 
+            String createUserTable= "CREATE TABLE User "+
+                    "(userEmail TEXT, " +
+                    "userName TEXT," +
+                    "userPhone  TEXT," +
+                    "userID TEXT, " +
+                    "userAddress TEXT," +
+                    "userCity TEXT," +
+                    "userState TEXT," +
+                    "userCountry TEXT," +
+                    "userPostal TEXT,"+
+                    "PRIMARY KEY (userEmail));";
+
             db.execSQL(setPragmaForeignKeysOn);
             db.execSQL(createDishesTable);
+            db.execSQL(createUserTable);
+
         }catch(Exception e){
             Log.d("DB", "Unable to create table");
         }
@@ -44,9 +61,12 @@ public class DBmanager extends SQLiteOpenHelper {
         String dropDishesTable = "DROP TABLE IF EXISTS " + "dishes;";
         String droptable1 = "DROP TABLE IF EXISTS " + "dishesType;";
         String droptable2 = "DROP TABLE IF EXISTS " + "restaurents;";
+
         db.execSQL(dropDishesTable);
         db.execSQL(droptable1);
         db.execSQL(droptable2);
+
+
 
     }
 
@@ -76,4 +96,7 @@ public class DBmanager extends SQLiteOpenHelper {
         Cursor cursor=db.rawQuery(qry,null);
         return  cursor;
     }
+
+
 }
+

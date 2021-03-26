@@ -30,6 +30,7 @@ private FirebaseAuth mAuth;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login__ngo);
+
         editTextName = findViewById(R.id.editTextNGONo);
         editTextEmail = findViewById(R.id.editTextNGOEmailAddress);
         editTextPassword = findViewById(R.id.edit_text_password_NGO);
@@ -116,21 +117,22 @@ private FirebaseAuth mAuth;
                                     if (task.isSuccessful()) {
                                         Toast.makeText(getApplicationContext(), "User Registration Successful", Toast.LENGTH_LONG).show();
                                         Intent myIntent = new Intent(login_Activity_ngo.this, NGO_Activity.class);
-                                        myIntent.putExtra(User_Name, user.getName());
-                                        myIntent.putExtra(User_Email, user.getEmail());
-                                        myIntent.putExtra(User_Phone, user.getPhone());
+                                        myIntent.putExtra("User", user);
                                         startActivity(myIntent);
                                     } else {
                                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                             Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_LONG).show();
+                                            progressBar.setVisibility(View.GONE);
                                         } else {
                                             Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                            progressBar.setVisibility(View.GONE);
                                         }
                                     }
                                 }
                             });
                         } else {
                             Toast.makeText(login_Activity_ngo.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 });
