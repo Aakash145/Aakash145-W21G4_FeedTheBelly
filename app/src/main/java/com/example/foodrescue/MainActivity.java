@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(index == 0){
             Toast.makeText(this, "Please select User Type", Toast.LENGTH_LONG).show();
+            return;
         }
 //        boolean isExist = new DBmanager(this).checkUser(email);
 

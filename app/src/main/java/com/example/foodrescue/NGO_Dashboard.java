@@ -32,6 +32,7 @@ public class NGO_Dashboard extends AppCompatActivity {
             Intent myIntent = new Intent(NGO_Dashboard.this, Ngo_profile.class);
           //  myIntent.putExtra("Details", details);
             //myIntent.putExtra("User", user);
+            myIntent.putExtra("Email", email);
             startActivity(myIntent);
 
 

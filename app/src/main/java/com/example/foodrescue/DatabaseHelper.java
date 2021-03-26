@@ -152,7 +152,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }*/
   public Cursor getData(String email) {
       SQLiteDatabase db = this.getReadableDatabase();
-      Cursor res =  db.rawQuery( "select * from user_table where userEmail="+email+"", null );
+      Cursor res =  db.rawQuery( "select * from user_table where userEmail= '"+email+"'", null );
       return res;
   }
     public Cursor fetchDayRecords(String Email) {
