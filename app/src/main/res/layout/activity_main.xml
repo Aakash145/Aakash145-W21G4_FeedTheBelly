@@ -48,36 +48,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
-    <TextView
-        android:id="@+id/textViewUserType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
-        android:includeFontPadding="true"
-        android:text="@string/UserType"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailText"
-        app:layout_constraintVertical_bias="0.707" />
-
-    <Spinner
-        android:id="@+id/spinnerUsrType"
-        android:layout_width="0dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:spinnerMode="dialog"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.198"
-        app:layout_constraintStart_toEndOf="@+id/textViewUserType"
-        app:layout_constraintTop_toBottomOf="@+id/passwordText"
-        app:layout_constraintVertical_bias="0.368" />
-
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"

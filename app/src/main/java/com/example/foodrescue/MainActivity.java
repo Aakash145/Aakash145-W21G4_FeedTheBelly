@@ -5,6 +5,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button registerButton, loginButton;
     FirebaseAuth mAuth;
     EditText editTextEmail, editTextPassword;
-    Spinner spinnerUserType;
+   // Spinner spinnerUserType;
     DatabaseHelper myDb;
 
 
@@ -33,10 +35,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+       myDb = new DatabaseHelper(this);
         mAuth = FirebaseAuth.getInstance();
+       // myDb.delete();
+        //myDb.delete();
+       ;
+      //  mydb.rawQuery("drop Database User.db");
         editTextEmail = (EditText) findViewById(R.id.emailText);
         editTextPassword = (EditText) findViewById(R.id.passwordText);
-        spinnerUserType = findViewById(R.id.spinnerUsrType);
+       // spinnerUserType = findViewById(R.id.spinnerUsrType);
 
         ActionBar myBar = getSupportActionBar();
         myBar.setTitle("Feed The Belly");
@@ -47,8 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         registerButton = findViewById(R.id.registerButton);
         loginButton = findViewById(R.id.loginButton);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.UserType, R.layout.support_simple_spinner_dropdown_item);
-        spinnerUserType.setAdapter(adapter);
+    //    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.UserType, R.layout.support_simple_spinner_dropdown_item);
+//        spinnerUserType.setAdapter(adapter);
         registerButton.setOnClickListener(this);
         loginButton.setOnClickListener(this);
     }
@@ -56,8 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void userLogin() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
-        String item = spinnerUserType.getSelectedItem().toString().trim();
-        int index = spinnerUserType.getSelectedItemPosition();
+      //s  String item = spinnerUserType.getSelectedItem().toString().trim();
+      //  int index = spinnerUserType.getSelectedItemPosition();
 
         if (email.isEmpty()) {
             editTextEmail.setError("Email is required");
@@ -82,10 +89,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editTextPassword.requestFocus();
             return;
         }
-        if(index == 0){
+      /*  if(index == 0){
             Toast.makeText(this, "Please select User Type", Toast.LENGTH_LONG).show();
             return;
-        }
+        }*/
 //        boolean isExist = new DBmanager(this).checkUser(email);
 
 
@@ -94,9 +101,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                  //  if (isExist) {
-                        finish();
-                        if (index == 1) {
+                    //  if (isExist) {
+                   // finish();
+                    try {
+                        Cursor c = myDb.getData(email);
+                        Cursor d = myDb.getData1(email);
+
+                        if (c.getCount() != 0 && d.getCount() == 0) {
+                            Intent myIntent = new Intent(MainActivity.this, Restaurant_Dashboard.class);
+                            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            myIntent.putExtra("Email", email);
+                            startActivity(myIntent);
+                        }if((c.getCount() == 0 && d.getCount() != 0) ){
+                            Intent myIntent = new Intent(MainActivity.this, NGO_Dashboard.class);
+                            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            myIntent.putExtra("Email", email);
+                            startActivity(myIntent);
+                        }
+                        else {
+                            // Toast.makeText(MainActivity.this, "Login failed. Invalid username or password.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        return;
+
+
+                    }
+                       /* if (index == 1) {
                             Intent myIntent = new Intent(MainActivity.this, NGO_Dashboard.class);
                             myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             myIntent.putExtra("Email", email);
@@ -113,6 +147,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     //}
                 }
                   else{  Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }*/
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -6,14 +6,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 /**
  * Created by ProgrammingKnowledge on 4/3/2015.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String dbname="FeedTheBelly";
-    public static final String DATABASE_NAME = "User.db";
     public static final String TABLE_NAME = "User_table";
+    public static final String TABLE_NAME1 = "User_ngo_table";
     private static final String COLUMN_USER_ID="userID";
     private static final String COLUMN_USER_NAME="userName";
     private static final String COLUMN_USER_EMAIL="userEmail";
@@ -24,14 +25,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_COUNTRY="userCountry";
     private static final String COLUMN_USER_POSTAL="userPostal";
 
+    private static final String COLUMN_USER_ID1="userID1";
+    private static final String COLUMN_USER_NAME1="userName1";
+    private static final String COLUMN_USER_EMAIL1="userEmail1";
+    private static final String COLUMN_USER_PHONE1="userPhone1";
+    private static final String COLUMN_USER_ADDRESS1="userAddress1";
+    private static final String COLUMN_USER_CITY1="userCity1";
+    private static final String COLUMN_USER_STATE1="userState1";
+    private static final String COLUMN_USER_COUNTRY1="userCountry1";
+    private static final String COLUMN_USER_POSTAL1="userPostal1";
+    private static final String COLUMN_USER_DESC1="userDesc1";
+
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, dbname, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String setPragmaForeignKeysOn = "PRAGMA foreign_keys=ON;";
-
         String createDishesTable = "CREATE TABLE dishes " +
                 "(dishID INTEGER, " +
                 "cuisineType TEXT, " +
@@ -42,10 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "weight DOUBLE, " +
                 "PRIMARY KEY (dishID));";
 
-        db.execSQL(setPragmaForeignKeysOn);
-        db.execSQL(createDishesTable);
-
-        db.execSQL("create table " + TABLE_NAME +"(userEmail TEXT PRIMARY KEY, " +
+        String restaurant_users="create table " + TABLE_NAME +"(userEmail TEXT PRIMARY KEY, " +
                 "userName TEXT," +
                 "userPhone  TEXT," +
                 "userID TEXT, " +
@@ -53,7 +61,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "userCity TEXT," +
                 "userState TEXT," +
                 "userCountry TEXT," +
-                "userPostal TEXT" + ");");
+                "userPostal TEXT" + ");";
+        String ngo_users="create table " + TABLE_NAME1 + "(userEmail1 TEXT PRIMARY KEY, " +
+                "userName1 TEXT," +
+                "userPhone1  TEXT," +
+                "userID1 TEXT, " +
+                "userDesc1 TEXT," +
+                "userAddress1 TEXT," +
+                "userCity1 TEXT," +
+                "userState1 TEXT," +
+                "userCountry1 TEXT," +
+                "userPostal1 TEXT" + ");";
+
+        db.execSQL(setPragmaForeignKeysOn);
+        db.execSQL(createDishesTable);
+        db.execSQL(restaurant_users);
+        db.execSQL(ngo_users);
 
     }
 
@@ -89,9 +112,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
+    public boolean insertData1(String email1,String name1, String phone1, String id1, String desc1, String address1, String city1, String state1, String country1, String postal1){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_EMAIL1, email1);
+        values.put(COLUMN_USER_NAME1, name1);
+        values.put(COLUMN_USER_PHONE1, phone1);
+        values.put(COLUMN_USER_ID1, id1);
+        values.put(COLUMN_USER_DESC1, desc1);
+        values.put(COLUMN_USER_ADDRESS1, address1 );
+        values.put(COLUMN_USER_CITY1, city1);
+        values.put(COLUMN_USER_STATE1, state1);
+        values.put(COLUMN_USER_COUNTRY1, country1);
+        values.put(COLUMN_USER_POSTAL1, postal1);
+        long result = db.insert(TABLE_NAME1,null ,values);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+TABLE_NAME, null);
+        return res;
+    }
+    public Cursor getAllData1() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+TABLE_NAME1, null);
         return res;
     }
 
@@ -110,10 +158,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_NAME, values, "Email = ?",new String[] { email });
         return true;
     }
+    public boolean updateData1(String email1,String name1, String phone1, String id1, String desc1,String address1, String city1, String state1, String country1, String postal1){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_EMAIL1, email1);
+        values.put(COLUMN_USER_NAME1, name1);
+        values.put(COLUMN_USER_PHONE1, phone1);
+        values.put(COLUMN_USER_ID1, id1);
+        values.put(COLUMN_USER_DESC1, desc1);
+        values.put(COLUMN_USER_ADDRESS1, address1 );
+        values.put(COLUMN_USER_CITY1, city1);
+        values.put(COLUMN_USER_STATE1, state1);
+        values.put(COLUMN_USER_COUNTRY1, country1);
+        values.put(COLUMN_USER_POSTAL1, postal1);
+        db.update(TABLE_NAME1, values, "Email = ?",new String[] { email1 });
+        return true;
+    }
 
     public Integer deleteData (String email) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_NAME, "Email = ?",new String[] { email });
+    }
+
+
+    public Integer deleteData1 (String email1) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME1, "Email = ?",new String[] { email1 });
     }
     public String addNewDish(Dishes dish, int id, Spinner spinner, Spinner spinner2, EditText expiryDate){
         SQLiteDatabase db=this.getWritableDatabase();
@@ -142,33 +212,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return  cursor;
     }
 
-  /* public Cursor getUser(String Email){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT * FROM " + TABLE_NAME
-                + " WHERE " + COLUMN_USER_EMAIL + " = " + Email;
-        Cursor cursor = db.rawQuery(sql,new String[]{Email});
+    /* public Cursor getUser(String Email){
+          SQLiteDatabase db = this.getReadableDatabase();
+          String sql = "SELECT * FROM " + TABLE_NAME
+                  + " WHERE " + COLUMN_USER_EMAIL + " = " + Email;
+          Cursor cursor = db.rawQuery(sql,new String[]{Email});
 
-        return  cursor;
-    }*/
-  public Cursor getData(String email) {
-      SQLiteDatabase db = this.getReadableDatabase();
-      Cursor res =  db.rawQuery( "select * from user_table where userEmail= '"+email+"'", null );
-      return res;
-  }
-    public Cursor fetchDayRecords(String Email) {
+          return  cursor;
+      }*/
+    public Cursor getData(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = new String[]{
-                COLUMN_USER_EMAIL, COLUMN_USER_NAME,
-                COLUMN_USER_PHONE, COLUMN_USER_ID, COLUMN_USER_ADDRESS,
-                COLUMN_USER_CITY, COLUMN_USER_STATE, COLUMN_USER_COUNTRY,
-                COLUMN_USER_POSTAL
-        };
-
-        Cursor cursor = db.query(TABLE_NAME, columns,
-                COLUMN_USER_EMAIL + " =?", new String[]{Email},
-                null, null, null);
-        cursor.moveToFirst();
-        return cursor;
+        Cursor res =  db.rawQuery( "select * from user_table where userEmail= '"+email+"'", null );
+        return res;
+    }
+    public Cursor getData1(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from User_ngo_table where userEmail1= '"+email+"'", null );
+        return res;
     }
 
 }
