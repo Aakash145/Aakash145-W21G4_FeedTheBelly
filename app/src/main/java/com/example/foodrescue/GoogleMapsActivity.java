@@ -46,11 +46,11 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Toast.makeText(this, "Map is Ready", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Map is Ready", Toast.LENGTH_SHORT).show();
         Log.d("Check Services", "Map is ready");
         mMap = googleMap;
         //Adding addresses
-        getLocationFromAddress("13837, 100 Avenue, Surrey, BC");
+        getLocationFromAddress("13364, 102 Avenue, Surrey, BC");
 
     }
 
@@ -71,15 +71,16 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
             //Getting the first possibility
             Address location=address.get(0);
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
+            Log.d("Changed", "Added Address");
             //Put marker on map on that LatLng
             mMap.addMarker(new MarkerOptions().position(latLng).title("Destination")).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
             //Animate and Zoom on that map location
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
-        } catch (IOException e)
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+            Log.d("Changed", "Changed Address");
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -90,8 +91,8 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_maps);
+        initMap();
 
-        getLocationPermission();
     }
 
 
@@ -99,43 +100,5 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(GoogleMapsActivity.this);
     }
-
-    private void getLocationPermission() {
-        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION};
-        if(ContextCompat.checkSelfPermission(this.getApplicationContext(), FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            if(ContextCompat.checkSelfPermission(this.getApplicationContext(), COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                mLocationPermissionGranted = true;
-                initMap();
-            }else{
-                ActivityCompat.requestPermissions(this,
-                        permissions, LOCATION_PERMISSION_REQUEST);
-            }
-        }else{
-            ActivityCompat.requestPermissions(this,
-                    permissions, LOCATION_PERMISSION_REQUEST);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mLocationPermissionGranted = false;
-        switch(requestCode){
-            case LOCATION_PERMISSION_REQUEST:{
-                if(grantResults.length>0){
-                    for(int i =0; i<grantResults.length;i++){
-                        if(grantResults[i] != PackageManager.PERMISSION_GRANTED){
-                            mLocationPermissionGranted = false;
-                            return;
-                        }
-                    }
-                    mLocationPermissionGranted = true;
-                    //initialize Map
-                    initMap();
-                }
-            }
-        }
-    }
-
 
 }
