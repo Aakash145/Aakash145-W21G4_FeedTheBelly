@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -44,6 +48,7 @@ public class Restaurant_starter extends AppCompatActivity {
     EditText expiryDate;
     EditText noOfPlates;
     DatabaseHelper myDb;
+    private FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,7 @@ public class Restaurant_starter extends AppCompatActivity {
         catagoryType = findViewById(R.id.category_types);
         expiryDate = findViewById(R.id.editTextDate);
         noOfPlates = findViewById(R.id.editNumberOfPlates);
+        mFirebaseAuth=FirebaseAuth.getInstance();
         //createDB();
 
         //Intent i = getIntent();
@@ -81,6 +87,8 @@ public class Restaurant_starter extends AppCompatActivity {
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("*/*");
                 startActivityForResult(intent, OPEN_REQUEST_CODE);
+
+
             }
         });
 
@@ -95,17 +103,19 @@ public class Restaurant_starter extends AppCompatActivity {
 
         if (requestCode == OPEN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 
-                if (data != null && data.getData() != null) {
+            if (data != null && data.getData() != null) {
 
-                    try {
-                        List<Dishes> dishes = readFileContent(data.getData());
-                        totalItems.setText("Total Items added:" + dishes.size());
-                    } catch (IOException e) {
-                        Log.d("IOException", "Unable to find File");
-                    }
+                try {
+                    List<Dishes> dishes = readFileContent(data.getData());
+                    totalItems.setText("Total Items added:" + dishes.size());
+                } catch (IOException e) {
+                    Log.d("IOException", "Unable to find File");
                 }
             }
+        }
     }
+
+
 
     private List<Dishes> readFileContent(Uri uri) throws IOException {
         //        Intent myIntent = getIntent();
@@ -143,13 +153,17 @@ public class Restaurant_starter extends AppCompatActivity {
             int noOfItems = Integer.parseInt(eachLine[1]);
             double weight = Double.parseDouble(eachLine[2]);
             Dishes dish = new Dishes(nameOfDish, noOfItems, weight);
+            FirebaseUser mFirebaseUser=mFirebaseAuth.getCurrentUser();
+            String email=mFirebaseUser.getEmail();
             newDish.add(dish);
-            String res = myDb.addNewDish(dish, i, cuisineType,catagoryType, expiryDate);
+            String res = myDb.addNewDish(dish,email, i, cuisineType,catagoryType, expiryDate);
             i++;
         }
         i = 0;
         inputStream.close();
         return newDish;
     }
+
+
 
 }

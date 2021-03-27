@@ -163,6 +163,8 @@
     <string name="back_button">Go to Dashboard</string>
     <string name="Desc_error">Write about your NGO</string>
     <string name="websiteNGO">Enter NGO Website Link</string>
+    <string name="txtApprove">Approve Donation</string>
+    <string name="btnDetails">Details</string>
     <string-array name="UserType">
         <item></item>
         <item>NGO</item>

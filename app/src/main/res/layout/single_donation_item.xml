@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="5dp"
+    android:background="@color/colorOrange"
+    android:elevation="4dp"
+    app:cardCornerRadius="6dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/restaurant_Name"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Restaurant Name"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/dish_items"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Item Names" />
+
+
+        <TextView
+            android:id="@+id/donation_weight"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Total Weight" />
+
+        <TextView
+            android:id="@+id/expiry_id"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Expiry Date"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/btn_Details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Details" />
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>

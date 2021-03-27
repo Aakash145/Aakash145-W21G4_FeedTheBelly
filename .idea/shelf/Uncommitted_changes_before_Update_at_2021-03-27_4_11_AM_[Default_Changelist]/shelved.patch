@@ -1,0 +1,660 @@
+Index: app/src/main/java/com/example/foodrescue/Restaurant_starter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.foodrescue;\r\n\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.ActionBar;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.app.Activity;\r\nimport android.content.ContentValues;\r\nimport android.content.Intent;\r\n\r\nimport android.database.sqlite.SQLiteDatabase;\r\nimport android.net.Uri;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.Spinner;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\n\r\nimport java.io.BufferedReader;\r\nimport java.io.FileNotFoundException;\r\nimport java.io.IOException;\r\nimport java.io.InputStream;\r\nimport java.io.InputStreamReader;\r\nimport java.util.ArrayList;\r\nimport java.util.Iterator;\r\nimport java.util.List;\r\n\r\n\r\n\r\npublic class Restaurant_starter extends AppCompatActivity {\r\n\r\n    SQLiteDatabase FeedTheBelly;\r\n    String emailNew;\r\n    private static final int OPEN_REQUEST_CODE = 41;\r\n    TextView totalItems, txtView;\r\n    Button Confirm_Form;\r\n    Button uploadFile;\r\n    Spinner cuisineType;\r\n    Spinner catagoryType;\r\n    EditText expiryDate;\r\n    EditText noOfPlates;\r\n    DatabaseHelper myDb;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_restaurant_starter);\r\n        myDb = new DatabaseHelper(this);\r\n        Confirm_Form = findViewById(R.id.btnViewConfirm);\r\n        uploadFile = findViewById(R.id.btnViewItemsAdded);\r\n        totalItems = findViewById(R.id.txtViewShowItemAdded);\r\n        cuisineType = findViewById(R.id.cuisine_types);\r\n        catagoryType = findViewById(R.id.category_types);\r\n        expiryDate = findViewById(R.id.editTextDate);\r\n        noOfPlates = findViewById(R.id.editNumberOfPlates);\r\n        //createDB();\r\n\r\n        //Intent i = getIntent();\r\n\r\n        // loadUserInformation();\r\n//        Detail details = (Detail) i.getSerializableExtra(\"Details\");\r\n//        User user = (User)i.getSerializableExtra(\"User\");\r\n//        emailNew =  user.getEmail();\r\n        //   txtView = findViewById(R.id.txtViewProfile);\r\n       /* Intent i = getIntent();\r\n        Detail details = (Detail) i.getSerializableExtra(\"Details\");\r\n        User user = (User)i.getSerializableExtra(\"User\");\r\n        String email =  user.getEmail();\r\n        totalItems.setText(email);*/\r\n        ActionBar myActionBar=getSupportActionBar();\r\n        myActionBar.setTitle(\"Fill in the Food Details\");\r\n\r\n        uploadFile.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v){\r\n                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);\r\n                intent.addCategory(Intent.CATEGORY_OPENABLE);\r\n                intent.setType(\"*/*\");\r\n                startActivityForResult(intent, OPEN_REQUEST_CODE);\r\n            }\r\n        });\r\n\r\n        Confirm_Form.setOnClickListener((View view)->{\r\n            startActivity(new Intent(getApplicationContext(),recyclerViewActivity_Restaurant.class));\r\n        });\r\n    }\r\n\r\n    @Override\r\n    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {\r\n        super.onActivityResult(requestCode, resultCode, data);\r\n\r\n        if (requestCode == OPEN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {\r\n\r\n                if (data != null && data.getData() != null) {\r\n\r\n                    try {\r\n                        List<Dishes> dishes = readFileContent(data.getData());\r\n                        totalItems.setText(\"Total Items added:\" + dishes.size());\r\n                    } catch (IOException e) {\r\n                        Log.d(\"IOException\", \"Unable to find File\");\r\n                    }\r\n                }\r\n            }\r\n    }\r\n\r\n    private List<Dishes> readFileContent(Uri uri) throws IOException {\r\n        //        Intent myIntent = getIntent();\r\n//        User user = (User)myIntent.getSerializableExtra(\"User\");\r\n//        email =  user.getEmail();\r\n        List<Dishes> newDish = new ArrayList<>();\r\n\r\n        InputStream inputStream = getContentResolver().openInputStream(uri);\r\n        //        XSSFWorkbook myWorkBook = new XSSFWorkbook (inputStream);\r\n//\r\n//        XSSFSheet mySheet = myWorkBook.getSheetAt(0);\r\n//        Iterator<Row> rowIterator = mySheet.iterator();\r\n//\r\n//        while (rowIterator.hasNext()) {\r\n//            Row row = rowIterator.next();\r\n//            Iterator<Cell> cellIterator = row.cellIterator();\r\n//            List<String> myList = new ArrayList<>();\r\n//            while (cellIterator.hasNext()) {\r\n//                Cell cell = cellIterator.next();\r\n//                myList.add(cell.getStringCellValue());\r\n//            }\r\n//            Dishes dish = new Dishes(myList.get(0).toString(),Integer.parseInt(myList.get(1).toString()),Double.parseDouble(myList.get(2).toString()));\r\n//            newDish.add(dish);\r\n//        }\r\n\r\n        BufferedReader reader =\r\n                new BufferedReader(new InputStreamReader(\r\n                        inputStream));\r\n        String currentLine;\r\n        currentLine = reader.readLine();\r\n        int i = 1;\r\n        while ((currentLine = reader.readLine()) != null) {\r\n            String[] eachLine = currentLine.split(\",\");\r\n            String nameOfDish = eachLine[0].toString();\r\n            int noOfItems = Integer.parseInt(eachLine[1]);\r\n            double weight = Double.parseDouble(eachLine[2]);\r\n            Dishes dish = new Dishes(nameOfDish, noOfItems, weight);\r\n            newDish.add(dish);\r\n            String res = myDb.addNewDish(dish, i, cuisineType,catagoryType, expiryDate);\r\n            i++;\r\n        }\r\n        i = 0;\r\n        inputStream.close();\r\n        return newDish;\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/foodrescue/Restaurant_starter.java	(revision 697133ccc5ad4bfd398fdac3d3b664b208aee3f5)
++++ app/src/main/java/com/example/foodrescue/Restaurant_starter.java	(date 1616825305000)
+@@ -8,6 +8,7 @@
+ import android.content.ContentValues;
+ import android.content.Intent;
+ 
++import android.database.Cursor;
+ import android.database.sqlite.SQLiteDatabase;
+ import android.net.Uri;
+ import android.os.Bundle;
+@@ -20,6 +21,9 @@
+ import android.widget.Toast;
+ 
+ 
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.auth.FirebaseUser;
++
+ import java.io.BufferedReader;
+ import java.io.FileNotFoundException;
+ import java.io.IOException;
+@@ -44,6 +48,7 @@
+     EditText expiryDate;
+     EditText noOfPlates;
+     DatabaseHelper myDb;
++    private FirebaseAuth mFirebaseAuth;
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+@@ -57,6 +62,7 @@
+         catagoryType = findViewById(R.id.category_types);
+         expiryDate = findViewById(R.id.editTextDate);
+         noOfPlates = findViewById(R.id.editNumberOfPlates);
++        mFirebaseAuth=FirebaseAuth.getInstance();
+         //createDB();
+ 
+         //Intent i = getIntent();
+@@ -81,6 +87,8 @@
+                 intent.addCategory(Intent.CATEGORY_OPENABLE);
+                 intent.setType("*/*");
+                 startActivityForResult(intent, OPEN_REQUEST_CODE);
++
++
+             }
+         });
+ 
+@@ -95,18 +103,20 @@
+ 
+         if (requestCode == OPEN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+ 
+-                if (data != null && data.getData() != null) {
++            if (data != null && data.getData() != null) {
+ 
+-                    try {
+-                        List<Dishes> dishes = readFileContent(data.getData());
+-                        totalItems.setText("Total Items added:" + dishes.size());
+-                    } catch (IOException e) {
+-                        Log.d("IOException", "Unable to find File");
+-                    }
+-                }
+-            }
++                try {
++                    List<Dishes> dishes = readFileContent(data.getData());
++                    totalItems.setText("Total Items added:" + dishes.size());
++                } catch (IOException e) {
++                    Log.d("IOException", "Unable to find File");
++                }
++            }
++        }
+     }
+ 
++
++
+     private List<Dishes> readFileContent(Uri uri) throws IOException {
+         //        Intent myIntent = getIntent();
+ //        User user = (User)myIntent.getSerializableExtra("User");
+@@ -143,8 +153,10 @@
+             int noOfItems = Integer.parseInt(eachLine[1]);
+             double weight = Double.parseDouble(eachLine[2]);
+             Dishes dish = new Dishes(nameOfDish, noOfItems, weight);
++            FirebaseUser mFirebaseUser=mFirebaseAuth.getCurrentUser();
++            String email=mFirebaseUser.getEmail();
+             newDish.add(dish);
+-            String res = myDb.addNewDish(dish, i, cuisineType,catagoryType, expiryDate);
++            String res = myDb.addNewDish(dish,email, i, cuisineType,catagoryType, expiryDate);
+             i++;
+         }
+         i = 0;
+@@ -152,4 +164,6 @@
+         return newDish;
+     }
+ 
++
++
+ }
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_recycler_view__restaurant.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".recyclerViewActivity_Restaurant\">\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/rvDishes\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:background=\"#FFFFFF\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_recycler_view__restaurant.xml	(revision 697133ccc5ad4bfd398fdac3d3b664b208aee3f5)
++++ app/src/main/res/layout/activity_recycler_view__restaurant.xml	(date 1616834979266)
+@@ -1,18 +1,44 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     tools:context=".recyclerViewActivity_Restaurant">
+ 
++    <androidx.appcompat.widget.Toolbar
++        android:id="@+id/toolbar"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:background="@color/white"
++        android:minHeight="?attr/actionBarSize">
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_gravity="right"
++            android:background="#00aaaaaa">
++
++            <Button
++                android:id="@+id/btnDonate"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="@string/donate"
++                android:textSize="16dp"
++                android:textStyle="bold"
++                tools:background="@color/white"
++                android:layout_marginRight="16dp"/>
++
++        </LinearLayout>
++
++    </androidx.appcompat.widget.Toolbar>
++
++
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/rvDishes"
+         android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:background="#FFFFFF"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
+-</LinearLayout>
+\ No newline at end of file
++        android:layout_height="676dp"
++        android:layout_below="@+id/toolbar"
++        android:layout_marginTop="-1dp" />
++
++</RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/foodrescue/DatabaseHelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.foodrescue;\r\nimport android.content.ContentValues;\r\nimport android.content.Context;\r\nimport android.database.Cursor;\r\nimport android.database.sqlite.SQLiteDatabase;\r\nimport android.database.sqlite.SQLiteOpenHelper;\r\nimport android.widget.EditText;\r\nimport android.widget.Spinner;\r\nimport android.widget.Toast;\r\n\r\n/**\r\n * Created by ProgrammingKnowledge on 4/3/2015.\r\n */\r\npublic class DatabaseHelper extends SQLiteOpenHelper {\r\n    private static final String dbname=\"FeedTheBelly\";\r\n    public static final String TABLE_NAME = \"User_table\";\r\n    public static final String TABLE_NAME1 = \"User_ngo_table\";\r\n    private static final String COLUMN_USER_ID=\"userID\";\r\n    private static final String COLUMN_USER_NAME=\"userName\";\r\n    private static final String COLUMN_USER_EMAIL=\"userEmail\";\r\n    private static final String COLUMN_USER_PHONE=\"userPhone\";\r\n    private static final String COLUMN_USER_ADDRESS=\"userAddress\";\r\n    private static final String COLUMN_USER_CITY=\"userCity\";\r\n    private static final String COLUMN_USER_STATE=\"userState\";\r\n    private static final String COLUMN_USER_COUNTRY=\"userCountry\";\r\n    private static final String COLUMN_USER_POSTAL=\"userPostal\";\r\n\r\n    private static final String COLUMN_USER_ID1=\"userID1\";\r\n    private static final String COLUMN_USER_NAME1=\"userName1\";\r\n    private static final String COLUMN_USER_EMAIL1=\"userEmail1\";\r\n    private static final String COLUMN_USER_PHONE1=\"userPhone1\";\r\n    private static final String COLUMN_USER_ADDRESS1=\"userAddress1\";\r\n    private static final String COLUMN_USER_CITY1=\"userCity1\";\r\n    private static final String COLUMN_USER_STATE1=\"userState1\";\r\n    private static final String COLUMN_USER_COUNTRY1=\"userCountry1\";\r\n    private static final String COLUMN_USER_POSTAL1=\"userPostal1\";\r\n    private static final String COLUMN_USER_DESC1=\"userDesc1\";\r\n\r\n    public DatabaseHelper(Context context) {\r\n        super(context, dbname, null, 1);\r\n    }\r\n\r\n    @Override\r\n    public void onCreate(SQLiteDatabase db) {\r\n        String setPragmaForeignKeysOn = \"PRAGMA foreign_keys=ON;\";\r\n        String createDishesTable = \"CREATE TABLE dishes \" +\r\n                \"(dishID INTEGER, \" +\r\n                \"cuisineType TEXT, \" +\r\n                \"foodCategory TEXT,\" +\r\n                \"expDate TEXT, \" +\r\n                \"name TEXT, \" +\r\n                \"plates INTEGER, \" +\r\n                \"weight DOUBLE, \" +\r\n                \"PRIMARY KEY (dishID));\";\r\n\r\n        String restaurant_users=\"create table \" + TABLE_NAME +\"(userEmail TEXT PRIMARY KEY, \" +\r\n                \"userName TEXT,\" +\r\n                \"userPhone  TEXT,\" +\r\n                \"userID TEXT, \" +\r\n                \"userAddress TEXT,\" +\r\n                \"userCity TEXT,\" +\r\n                \"userState TEXT,\" +\r\n                \"userCountry TEXT,\" +\r\n                \"userPostal TEXT\" + \");\";\r\n        String ngo_users=\"create table \" + TABLE_NAME1 + \"(userEmail1 TEXT PRIMARY KEY, \" +\r\n                \"userName1 TEXT,\" +\r\n                \"userPhone1  TEXT,\" +\r\n                \"userID1 TEXT, \" +\r\n                \"userDesc1 TEXT,\" +\r\n                \"userAddress1 TEXT,\" +\r\n                \"userCity1 TEXT,\" +\r\n                \"userState1 TEXT,\" +\r\n                \"userCountry1 TEXT,\" +\r\n                \"userPostal1 TEXT\" + \");\";\r\n\r\n        db.execSQL(setPragmaForeignKeysOn);\r\n        db.execSQL(createDishesTable);\r\n        db.execSQL(restaurant_users);\r\n        db.execSQL(ngo_users);\r\n\r\n    }\r\n\r\n    @Override\r\n    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {\r\n        db.execSQL(\"DROP TABLE IF EXISTS \"+TABLE_NAME);\r\n        String dropDishesTable = \"DROP TABLE IF EXISTS \" + \"dishes;\";\r\n        String droptable1 = \"DROP TABLE IF EXISTS \" + \"dishesType;\";\r\n        String droptable2 = \"DROP TABLE IF EXISTS \" + \"restaurents;\";\r\n\r\n        db.execSQL(dropDishesTable);\r\n        db.execSQL(droptable1);\r\n        db.execSQL(droptable2);\r\n        onCreate(db);\r\n    }\r\n\r\n    public boolean insertData(String email,String name,String phone, String id, String address, String city, String state, String country, String postal){\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n        ContentValues values = new ContentValues();\r\n        values.put(COLUMN_USER_EMAIL, email);\r\n        values.put(COLUMN_USER_NAME, name);\r\n        values.put(COLUMN_USER_PHONE, phone);\r\n        values.put(COLUMN_USER_ID, id);\r\n        values.put(COLUMN_USER_ADDRESS, address );\r\n        values.put(COLUMN_USER_CITY, city);\r\n        values.put(COLUMN_USER_STATE, state);\r\n        values.put(COLUMN_USER_COUNTRY, country);\r\n        values.put(COLUMN_USER_POSTAL, postal);\r\n        long result = db.insert(TABLE_NAME,null ,values);\r\n        if(result == -1)\r\n            return false;\r\n        else\r\n            return true;\r\n    }\r\n\r\n    public boolean insertData1(String email1,String name1, String phone1, String id1, String desc1, String address1, String city1, String state1, String country1, String postal1){\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n        ContentValues values = new ContentValues();\r\n        values.put(COLUMN_USER_EMAIL1, email1);\r\n        values.put(COLUMN_USER_NAME1, name1);\r\n        values.put(COLUMN_USER_PHONE1, phone1);\r\n        values.put(COLUMN_USER_ID1, id1);\r\n        values.put(COLUMN_USER_DESC1, desc1);\r\n        values.put(COLUMN_USER_ADDRESS1, address1 );\r\n        values.put(COLUMN_USER_CITY1, city1);\r\n        values.put(COLUMN_USER_STATE1, state1);\r\n        values.put(COLUMN_USER_COUNTRY1, country1);\r\n        values.put(COLUMN_USER_POSTAL1, postal1);\r\n        long result = db.insert(TABLE_NAME1,null ,values);\r\n        if(result == -1)\r\n            return false;\r\n        else\r\n            return true;\r\n    }\r\n\r\n    public Cursor getAllData() {\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n        Cursor res = db.rawQuery(\"select * from \"+TABLE_NAME, null);\r\n        return res;\r\n    }\r\n    public Cursor getAllData1() {\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n        Cursor res = db.rawQuery(\"select * from \"+TABLE_NAME1, null);\r\n        return res;\r\n    }\r\n\r\n    public boolean updateData(String email,String name,String phone, String id, String address, String city, String state, String country, String postal) {\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n        ContentValues values = new ContentValues();\r\n        values.put(COLUMN_USER_EMAIL, email);\r\n        values.put(COLUMN_USER_NAME, name);\r\n        values.put(COLUMN_USER_PHONE, phone);\r\n        values.put(COLUMN_USER_ID, id);\r\n        values.put(COLUMN_USER_ADDRESS, address );\r\n        values.put(COLUMN_USER_CITY, city);\r\n        values.put(COLUMN_USER_STATE, state);\r\n        values.put(COLUMN_USER_COUNTRY, country);\r\n        values.put(COLUMN_USER_POSTAL, postal);\r\n        db.update(TABLE_NAME, values, \"Email = ?\",new String[] { email });\r\n        return true;\r\n    }\r\n    public boolean updateData1(String email1,String name1, String phone1, String id1, String desc1,String address1, String city1, String state1, String country1, String postal1){\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n        ContentValues values = new ContentValues();\r\n        values.put(COLUMN_USER_EMAIL1, email1);\r\n        values.put(COLUMN_USER_NAME1, name1);\r\n        values.put(COLUMN_USER_PHONE1, phone1);\r\n        values.put(COLUMN_USER_ID1, id1);\r\n        values.put(COLUMN_USER_DESC1, desc1);\r\n        values.put(COLUMN_USER_ADDRESS1, address1 );\r\n        values.put(COLUMN_USER_CITY1, city1);\r\n        values.put(COLUMN_USER_STATE1, state1);\r\n        values.put(COLUMN_USER_COUNTRY1, country1);\r\n        values.put(COLUMN_USER_POSTAL1, postal1);\r\n        db.update(TABLE_NAME1, values, \"Email = ?\",new String[] { email1 });\r\n        return true;\r\n    }\r\n\r\n    public Integer deleteData (String email) {\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n        return db.delete(TABLE_NAME, \"Email = ?\",new String[] { email });\r\n    }\r\n\r\n\r\n    public Integer deleteData1 (String email1) {\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n        return db.delete(TABLE_NAME1, \"Email = ?\",new String[] { email1 });\r\n    }\r\n    public String addNewDish(Dishes dish, int id, Spinner spinner, Spinner spinner2, EditText expiryDate){\r\n        SQLiteDatabase db=this.getWritableDatabase();\r\n        long result;\r\n        ContentValues val = new ContentValues();\r\n        val.put(\"dishID\", id);\r\n        //val.put(\"emailID\", null);\r\n        val.put(\"cuisineType\", spinner.getSelectedItem().toString());\r\n        val.put(\"foodCategory\", spinner2.getSelectedItem().toString());\r\n        val.put(\"expDate\", expiryDate.getText().toString());\r\n        val.put(\"name\", dish.getDishName());\r\n        val.put(\"plates\", dish.getNoOfPlates());\r\n        val.put(\"weight\", dish.getWeight());\r\n        result=db.insert(\"dishes\",null,val);\r\n        if(result==-1)\r\n            return \"Failed\";\r\n        else\r\n            return \"Successfully inserted\";\r\n    }\r\n\r\n    public Cursor readalldata()\r\n    {\r\n        SQLiteDatabase db=this.getWritableDatabase();\r\n        String qry=\"select * from dishes\";\r\n        Cursor cursor=db.rawQuery(qry,null);\r\n        return  cursor;\r\n    }\r\n\r\n    /* public Cursor getUser(String Email){\r\n          SQLiteDatabase db = this.getReadableDatabase();\r\n          String sql = \"SELECT * FROM \" + TABLE_NAME\r\n                  + \" WHERE \" + COLUMN_USER_EMAIL + \" = \" + Email;\r\n          Cursor cursor = db.rawQuery(sql,new String[]{Email});\r\n\r\n          return  cursor;\r\n      }*/\r\n    public Cursor getData(String email) {\r\n        SQLiteDatabase db = this.getReadableDatabase();\r\n        Cursor res =  db.rawQuery( \"select * from user_table where userEmail= '\"+email+\"'\", null );\r\n        return res;\r\n    }\r\n    public Cursor getData1(String email) {\r\n        SQLiteDatabase db = this.getReadableDatabase();\r\n        Cursor res =  db.rawQuery( \"select * from User_ngo_table where userEmail1= '\"+email+\"'\", null );\r\n        return res;\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/foodrescue/DatabaseHelper.java	(revision 697133ccc5ad4bfd398fdac3d3b664b208aee3f5)
++++ app/src/main/java/com/example/foodrescue/DatabaseHelper.java	(date 1616836062561)
+@@ -45,13 +45,29 @@
+         String setPragmaForeignKeysOn = "PRAGMA foreign_keys=ON;";
+         String createDishesTable = "CREATE TABLE dishes " +
+                 "(dishID INTEGER, " +
++                "emailID TEXT,"+
++                "cuisineType TEXT, " +
++                "foodCategory TEXT," +
++                "expDate TEXT, " +
++                "name TEXT, " +
++                "plates INTEGER, " +
++                "weight DOUBLE, " +
++                "PRIMARY KEY (name,emailID));";
++
++        String createDonationsTable = "CREATE TABLE donations " +
++                "(donationID INTEGER, " +
++                "dishID INTEGER, " +
++                "emailID TEXT,"+
+                 "cuisineType TEXT, " +
+                 "foodCategory TEXT," +
+                 "expDate TEXT, " +
+                 "name TEXT, " +
+                 "plates INTEGER, " +
+                 "weight DOUBLE, " +
+-                "PRIMARY KEY (dishID));";
++                "PRIMARY KEY (donationID,dishName,restaurantEmail)," +
++                "FOREIGN KEY(restaurantEmail) REFERENCES dishes(emailID)," +
++                "FOREIGN KEY(dishName) REFERENCES dishes(dishName)," +
++                "FOREIGN KEY(expData) REFERENCES dishes(expDate));";
+ 
+         String restaurant_users="create table " + TABLE_NAME +"(userEmail TEXT PRIMARY KEY, " +
+                 "userName TEXT," +
+@@ -62,6 +78,7 @@
+                 "userState TEXT," +
+                 "userCountry TEXT," +
+                 "userPostal TEXT" + ");";
++
+         String ngo_users="create table " + TABLE_NAME1 + "(userEmail1 TEXT PRIMARY KEY, " +
+                 "userName1 TEXT," +
+                 "userPhone1  TEXT," +
+@@ -72,11 +89,22 @@
+                 "userState1 TEXT," +
+                 "userCountry1 TEXT," +
+                 "userPostal1 TEXT" + ");";
++        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
++        String dropDishesTable = "DROP TABLE IF EXISTS " + "dishes;";
++        String droptable1 = "DROP TABLE IF EXISTS " + "User_table;";
++        String droptable2 = "DROP TABLE IF EXISTS " + "User_ngo_table;";
++        String droptable3 = "DROP TABLE IF EXISTS " + "donations;";
++        db.execSQL(droptable3);
++        db.execSQL(dropDishesTable);
++        db.execSQL(droptable1);
++        db.execSQL(droptable2);
+ 
+-        db.execSQL(setPragmaForeignKeysOn);
++
++        /*db.execSQL(setPragmaForeignKeysOn);
++        db.execSQL(createDonationsTable);
+         db.execSQL(createDishesTable);
+         db.execSQL(restaurant_users);
+-        db.execSQL(ngo_users);
++        db.execSQL(ngo_users);*/
+ 
+     }
+ 
+@@ -84,12 +112,14 @@
+     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+         String dropDishesTable = "DROP TABLE IF EXISTS " + "dishes;";
+-        String droptable1 = "DROP TABLE IF EXISTS " + "dishesType;";
+-        String droptable2 = "DROP TABLE IF EXISTS " + "restaurents;";
++        String droptable1 = "DROP TABLE IF EXISTS " + "User_table;";
++        String droptable2 = "DROP TABLE IF EXISTS " + "User_ngo_table;";
++        String droptable3 = "DROP TABLE IF EXISTS " + "donations;";
+ 
+         db.execSQL(dropDishesTable);
+         db.execSQL(droptable1);
+         db.execSQL(droptable2);
++        db.execSQL(droptable3);
+         onCreate(db);
+     }
+ 
+@@ -185,12 +215,12 @@
+         SQLiteDatabase db = this.getWritableDatabase();
+         return db.delete(TABLE_NAME1, "Email = ?",new String[] { email1 });
+     }
+-    public String addNewDish(Dishes dish, int id, Spinner spinner, Spinner spinner2, EditText expiryDate){
++    public String addNewDish(Dishes dish,String emailID, int id, Spinner spinner, Spinner spinner2, EditText expiryDate){
+         SQLiteDatabase db=this.getWritableDatabase();
+         long result;
+         ContentValues val = new ContentValues();
+         val.put("dishID", id);
+-        //val.put("emailID", null);
++        val.put("emailID", emailID);
+         val.put("cuisineType", spinner.getSelectedItem().toString());
+         val.put("foodCategory", spinner2.getSelectedItem().toString());
+         val.put("expDate", expiryDate.getText().toString());
+@@ -204,6 +234,28 @@
+             return "Successfully inserted";
+     }
+ 
++    public String addDonation(int id,String emailID,String plates, String weight, String name, int dishID, String cType, String fType, String expiryDate){
++        SQLiteDatabase db=this.getWritableDatabase();
++        long result;
++        ContentValues val = new ContentValues();
++        val.put("donationID", id);
++        val.put("dishID", dishID);
++        val.put("emailID", emailID);
++        val.put("cuisineType", cType);
++        val.put("foodCategory",fType);
++        val.put("expDate", expiryDate);
++        val.put("name", name);
++        val.put("plates", plates);
++        val.put("weight", weight);
++        result=db.insert("donations",null,val);
++        if(result==-1)
++            return "Failed";
++        else
++            return "Successfully inserted";
++    }
++
++
++
+     public Cursor readalldata()
+     {
+         SQLiteDatabase db=this.getWritableDatabase();
+@@ -212,6 +264,11 @@
+         return  cursor;
+     }
+ 
++    public Cursor readEmail(String email) {
++        SQLiteDatabase db = this.getReadableDatabase();
++        Cursor res = db.rawQuery("select * from dishes where emailID= '" + email + "'", null);
++        return res;
++    }
+     /* public Cursor getUser(String Email){
+           SQLiteDatabase db = this.getReadableDatabase();
+           String sql = "SELECT * FROM " + TABLE_NAME
+Index: app/src/main/java/com/example/foodrescue/recyclerViewActivity_Restaurant.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.foodrescue;\r\n\r\nimport androidx.appcompat.app.ActionBar;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport android.database.Cursor;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class recyclerViewActivity_Restaurant extends AppCompatActivity {\r\n\r\n    RecyclerView rvDishes;\r\n    ArrayList<Dishes_Fetched> dishesHolder;\r\n    DatabaseHelper myDb;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_recycler_view__restaurant);\r\n\r\n        myDb = new DatabaseHelper(this);\r\n        ActionBar myActionBar=getSupportActionBar();\r\n        myActionBar.setTitle(\"Select the Menu\");\r\n\r\n        rvDishes=findViewById(R.id.rvDishes);\r\n        rvDishes.setLayoutManager(new LinearLayoutManager(this));\r\n        dishesHolder=new ArrayList<>();\r\n\r\n        Cursor cursor=myDb.readalldata();\r\n        while(cursor.moveToNext()){\r\n            try {\r\n                Dishes_Fetched obj = new Dishes_Fetched(cursor.getString(0), cursor.getString(4), cursor.getString(1), cursor.getString(2), cursor.getString(6), cursor.getString(5));\r\n                dishesHolder.add(obj);\r\n            }catch(Exception e){\r\n                Log.d(\"Error\",e.getMessage());\r\n            }\r\n        }\r\n        Dishes_Fetched_Adapter myAdapter=new Dishes_Fetched_Adapter(dishesHolder);\r\n        rvDishes.setAdapter(myAdapter);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/foodrescue/recyclerViewActivity_Restaurant.java	(revision 697133ccc5ad4bfd398fdac3d3b664b208aee3f5)
++++ app/src/main/java/com/example/foodrescue/recyclerViewActivity_Restaurant.java	(date 1616835270089)
+@@ -6,16 +6,25 @@
+ import androidx.recyclerview.widget.RecyclerView;
+ 
+ import android.database.Cursor;
++import android.database.sqlite.SQLiteDatabase;
+ import android.os.Bundle;
+ import android.util.Log;
++import android.view.View;
++import android.widget.Button;
++import android.widget.Toast;
++
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.auth.FirebaseUser;
+ 
+ import java.util.ArrayList;
+ 
+ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
+-
++    SQLiteDatabase FeedTheBelly;
+     RecyclerView rvDishes;
+     ArrayList<Dishes_Fetched> dishesHolder;
+     DatabaseHelper myDb;
++    private FirebaseAuth mFirebaseAuth;
++    Button donate;
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+@@ -27,13 +36,16 @@
+         myActionBar.setTitle("Select the Menu");
+ 
+         rvDishes=findViewById(R.id.rvDishes);
++        donate=findViewById(R.id.btnDonate);
+         rvDishes.setLayoutManager(new LinearLayoutManager(this));
+         dishesHolder=new ArrayList<>();
+-
+-        Cursor cursor=myDb.readalldata();
++        mFirebaseAuth=FirebaseAuth.getInstance();
++        FirebaseUser mFirebaseUser=mFirebaseAuth.getCurrentUser();
++        String email=mFirebaseUser.getEmail();
++        Cursor cursor=myDb.readEmail(email);
+         while(cursor.moveToNext()){
+             try {
+-                Dishes_Fetched obj = new Dishes_Fetched(cursor.getString(0), cursor.getString(4), cursor.getString(1), cursor.getString(2), cursor.getString(6), cursor.getString(5));
++                Dishes_Fetched obj = new Dishes_Fetched(cursor.getString(0), cursor.getString(5), cursor.getString(2), cursor.getString(3), cursor.getString(7), cursor.getString(6));
+                 dishesHolder.add(obj);
+             }catch(Exception e){
+                 Log.d("Error",e.getMessage());
+@@ -41,5 +53,26 @@
+         }
+         Dishes_Fetched_Adapter myAdapter=new Dishes_Fetched_Adapter(dishesHolder);
+         rvDishes.setAdapter(myAdapter);
++
++       /* donate.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                Cursor cursor=myDb.readEmail(email);
++                String dishID=cursor.getString(1);
++                int dishID2=Integer.parseInt(dishID);
++                String emailID=cursor.getString(1);
++                String cuisineType=cursor.getString(2);
++                String foodCategory=cursor.getString(3);
++                String expDate=cursor.getString(4);
++                String name=cursor.getString(5);
++                String plates=cursor.getString(6);
++                String weight=cursor.getString(7);
++                int i=1;
++                while(cursor.moveToNext()){
++                    String res = myDb.addDonation(i,emailID,plates,weight,name,dishID2,cuisineType,foodCategory,expDate);
++                    i++;
++                }
++            }
++        });*/
+     }
+ }
+\ No newline at end of file
+Index: app/.idea/modules.xml
+===================================================================
+--- app/.idea/modules.xml	(revision 697133ccc5ad4bfd398fdac3d3b664b208aee3f5)
++++ app/.idea/modules.xml	(revision 697133ccc5ad4bfd398fdac3d3b664b208aee3f5)
+@@ -1,8 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectModuleManager">
+-    <modules>
+-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app.iml" />
+-    </modules>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_restaurant__dashboard.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@drawable/cut_card_background\"\r\n    tools:context=\".Restaurant_Dashboard\">\r\n\r\n\r\n\r\n    <GridLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:layout_marginTop=\"30dp\"\r\n        android:columnCount=\"2\"\r\n        android:rowCount=\"2\">\r\n\r\n        <androidx.cardview.widget.CardView\r\n            android:id=\"@+id/cardHome\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_gravity=\"fill\"\r\n            android:layout_columnWeight=\"1\"\r\n            android:layout_rowWeight=\"1\"\r\n            android:layout_row=\"0\"\r\n            android:layout_column=\"0\"\r\n            app:cardCornerRadius=\"8dp\"\r\n            app:cardElevation=\"8dp\"\r\n            app:cardUseCompatPadding=\"true\">\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_gravity=\"center_vertical|center_horizontal\"\r\n        android:gravity=\"center\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <ImageView\r\n            android:id=\"@+id/imgprofile\"\r\n            android:layout_width=\"87dp\"\r\n            android:layout_height=\"54dp\"\r\n            android:contentDescription=\"@string/imgProfile\"\r\n            app:srcCompat=\"@drawable/profile\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/txtViewProfile\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"@string/txtViewProfile\"\r\n            android:textColor=\"@color/black\"\r\n            android:textSize=\"16sp\" />\r\n    </LinearLayout>\r\n\r\n        </androidx.cardview.widget.CardView>\r\n        <androidx.cardview.widget.CardView\r\n            android:id=\"@+id/cardAdd\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_gravity=\"fill\"\r\n            android:layout_columnWeight=\"1\"\r\n            android:layout_rowWeight=\"1\"\r\n            android:layout_row=\"0\"\r\n            android:layout_column=\"1\"\r\n            app:cardCornerRadius=\"8dp\"\r\n            app:cardElevation=\"8dp\"\r\n            app:cardUseCompatPadding=\"true\">\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_gravity=\"center_vertical|center_horizontal\"\r\n                android:gravity=\"center\"\r\n                android:orientation=\"vertical\">\r\n\r\n                <ImageView\r\n                    android:id=\"@+id/imgrestaurantsList\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:contentDescription=\"@string/imgAdd\"\r\n                    android:src=\"@drawable/ic_add\" />\r\n\r\n                <TextView\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"@string/txtAdd\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"16sp\" />\r\n            </LinearLayout>\r\n\r\n        </androidx.cardview.widget.CardView>\r\n        <androidx.cardview.widget.CardView\r\n            android:id=\"@+id/cardListItems\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_gravity=\"fill\"\r\n            android:layout_columnWeight=\"1\"\r\n            android:layout_rowWeight=\"1\"\r\n            android:layout_row=\"1\"\r\n            android:layout_column=\"0\"\r\n            app:cardCornerRadius=\"8dp\"\r\n            app:cardElevation=\"8dp\"\r\n            app:cardUseCompatPadding=\"true\">\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_gravity=\"center_vertical|center_horizontal\"\r\n                android:gravity=\"center\"\r\n                android:orientation=\"vertical\">\r\n\r\n                <ImageView\r\n                    android:id=\"@+id/imgViewConfirmed\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:contentDescription=\"@string/imgView\"\r\n                    android:src=\"@drawable/ic_menu\" />\r\n\r\n                <TextView\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"@string/txtList\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"16sp\" />\r\n            </LinearLayout>\r\n\r\n        </androidx.cardview.widget.CardView>\r\n        <androidx.cardview.widget.CardView\r\n            android:id=\"@+id/cardLogout\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_gravity=\"fill\"\r\n            android:layout_columnWeight=\"1\"\r\n            android:layout_rowWeight=\"1\"\r\n            android:layout_row=\"1\"\r\n            android:layout_column=\"1\"\r\n            app:cardCornerRadius=\"8dp\"\r\n            app:cardElevation=\"8dp\"\r\n            app:cardUseCompatPadding=\"true\">\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_gravity=\"center_vertical|center_horizontal\"\r\n                android:gravity=\"center\"\r\n                android:orientation=\"vertical\">\r\n\r\n                <ImageView\r\n                    android:id=\"@+id/imgLogout\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:contentDescription=\"@string/imgLogout\"\r\n                    android:src=\"@drawable/ic_logout\" />\r\n\r\n                <TextView\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"@string/txtLogout\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"16sp\" />\r\n            </LinearLayout>\r\n\r\n        </androidx.cardview.widget.CardView>\r\n    </GridLayout>\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_restaurant__dashboard.xml	(revision 697133ccc5ad4bfd398fdac3d3b664b208aee3f5)
++++ app/src/main/res/layout/activity_restaurant__dashboard.xml	(date 1616817787843)
+@@ -8,60 +8,60 @@
+     tools:context=".Restaurant_Dashboard">
+ 
+ 
+-
+     <GridLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_marginTop="30dp"
+         android:columnCount="2"
+-        android:rowCount="2">
++        android:rowCount="3">
+ 
+         <androidx.cardview.widget.CardView
+             android:id="@+id/cardHome"
+-            android:layout_width="wrap_content"
++            android:layout_width="81dp"
+             android:layout_height="wrap_content"
+-            android:layout_gravity="fill"
+-            android:layout_columnWeight="1"
++            android:layout_row="0"
+             android:layout_rowWeight="1"
+-            android:layout_row="0"
+             android:layout_column="0"
++            android:layout_columnWeight="1"
++            android:layout_gravity="fill"
+             app:cardCornerRadius="8dp"
+             app:cardElevation="8dp"
+             app:cardUseCompatPadding="true">
+ 
+-    <LinearLayout
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="center_vertical|center_horizontal"
+-        android:gravity="center"
+-        android:orientation="vertical">
++            <LinearLayout
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_gravity="center_vertical|center_horizontal"
++                android:gravity="center"
++                android:orientation="vertical">
+ 
+-        <ImageView
+-            android:id="@+id/imgprofile"
+-            android:layout_width="87dp"
+-            android:layout_height="54dp"
+-            android:contentDescription="@string/imgProfile"
+-            app:srcCompat="@drawable/profile" />
++                <ImageView
++                    android:id="@+id/imgprofile"
++                    android:layout_width="87dp"
++                    android:layout_height="54dp"
++                    android:contentDescription="@string/imgProfile"
++                    app:srcCompat="@drawable/profile" />
+ 
+-        <TextView
+-            android:id="@+id/txtViewProfile"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:text="@string/txtViewProfile"
+-            android:textColor="@color/black"
+-            android:textSize="16sp" />
+-    </LinearLayout>
++                <TextView
++                    android:id="@+id/txtViewProfile"
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:text="@string/txtViewProfile"
++                    android:textColor="@color/black"
++                    android:textSize="16sp" />
++            </LinearLayout>
+ 
+         </androidx.cardview.widget.CardView>
++
+         <androidx.cardview.widget.CardView
+             android:id="@+id/cardAdd"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+-            android:layout_gravity="fill"
+-            android:layout_columnWeight="1"
+-            android:layout_rowWeight="1"
+             android:layout_row="0"
++            android:layout_rowWeight="1"
+             android:layout_column="1"
++            android:layout_columnWeight="1"
++            android:layout_gravity="fill"
+             app:cardCornerRadius="8dp"
+             app:cardElevation="8dp"
+             app:cardUseCompatPadding="true">
+@@ -89,15 +89,16 @@
+             </LinearLayout>
+ 
+         </androidx.cardview.widget.CardView>
++
+         <androidx.cardview.widget.CardView
+             android:id="@+id/cardListItems"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+-            android:layout_gravity="fill"
+-            android:layout_columnWeight="1"
+-            android:layout_rowWeight="1"
+             android:layout_row="1"
++            android:layout_rowWeight="1"
+             android:layout_column="0"
++            android:layout_columnWeight="1"
++            android:layout_gravity="fill"
+             app:cardCornerRadius="8dp"
+             app:cardElevation="8dp"
+             app:cardUseCompatPadding="true">
+@@ -125,15 +126,16 @@
+             </LinearLayout>
+ 
+         </androidx.cardview.widget.CardView>
++
+         <androidx.cardview.widget.CardView
+             android:id="@+id/cardLogout"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+-            android:layout_gravity="fill"
+-            android:layout_columnWeight="1"
++            android:layout_row="1"
+             android:layout_rowWeight="1"
+-            android:layout_row="1"
+             android:layout_column="1"
++            android:layout_columnWeight="1"
++            android:layout_gravity="fill"
+             app:cardCornerRadius="8dp"
+             app:cardElevation="8dp"
+             app:cardUseCompatPadding="true">
+@@ -161,5 +163,46 @@
+             </LinearLayout>
+ 
+         </androidx.cardview.widget.CardView>
++
++
++        <androidx.cardview.widget.CardView
++            android:id="@+id/cardApprove"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_row="2"
++            android:layout_rowWeight="1"
++            android:layout_column="0"
++            android:layout_columnWeight="1"
++            android:layout_gravity="fill"
++            app:cardCornerRadius="8dp"
++            app:cardElevation="8dp"
++            app:cardUseCompatPadding="true">
++
++            <LinearLayout
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_gravity="center_vertical|center_horizontal"
++                android:gravity="center"
++                android:orientation="vertical">
++
++                <ImageView
++                    android:id="@+id/imgDonations"
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:contentDescription="@string/imgLogout"
++                    android:src="@drawable/ic_approve" />
++
++                <TextView
++                    android:layout_width="75dp"
++                    android:layout_height="43dp"
++                    android:gravity="center"
++                    android:text="@string/txtApprove"
++                    android:textColor="@color/black"
++                    android:textSize="16sp" />
++            </LinearLayout>
++
++        </androidx.cardview.widget.CardView>
++
++
+     </GridLayout>
+ </RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">FeedTheBelly</string>\r\n    <string name=\"projectTitle\">Feed The Belly</string>\r\n    <string name=\"password\">Enter your password</string>\r\n    <string name=\"email\">Enter your email</string>\r\n    <string name=\"donate\">Donate Food</string>\r\n    <string name=\"rescue\">Rescue Food</string>\r\n    <string name=\"signIn\">Already have an account? Log In</string>\r\n    <string name=\"title\">What would you like to do?</string>\r\n    <string name=\"donateTxt\">If you are a food business</string>\r\n    <string name=\"rescueTxt\">If you are a charity/Not-for-profit</string>\r\n    <string name=\"registrationForm\">Register Your Restaurant</string>\r\n    <string name=\"restuarant_Name\">Restuarant Name </string>\r\n    <string name=\"RestaurantNameEditText\">Enter your Restauarant Name</string>\r\n    <string name=\"txtview\" />\r\n    <string name=\"txtViewDesc\">Restaurant Description </string>\r\n    <string name=\"description\">Enter Description to your restaurant</string>\r\n    <string name=\"addAddress\">Address *</string>\r\n    <string name=\"add1\">Street Address</string>\r\n    <string name=\"add2\">Street Address Line2</string>\r\n    <string name=\"add3\">City</string>\r\n    <string name=\"add6\">Postal Code</string>\r\n    <string name=\"add\" />\r\n    <string name=\"add4\">StateorpROVINCE</string>\r\n    <string name=\"Add4\">State or Province</string>\r\n    <string name=\"add5\">Country</string>\r\n    <string name=\"website\">Website</string>\r\n    <string name=\"websiteEditTxt\">Enter restaurant Website Link</string>\r\n    <string name=\"restuarantID\">Restuarant ID</string>\r\n    <string name=\"rest_ID\">Restuarant ID *</string>\r\n    <string name=\"Rest_id\">Restaurant ID *</string>\r\n    <string name=\"RestaurantNameEditTxt\">Enter your Restaurant Name</string>\r\n    <string name=\"NGONameEditTxt\">Enter your NGO Name</string>\r\n    <string name=\"btnSignUp\">Sign Up</string>\r\n    <string name=\"rest_name\">Restaurant Name</string>\r\n    <string name=\"restaurant_id\">Enter Restaurant ID</string>\r\n    <string name=\"yes\">Yes</string>\r\n    <string name=\"no\">NO</string>\r\n    <string name=\"No\">No</string>\r\n    <string name=\"txtViewDelivery\">Delivery *</string>\r\n    <string name=\"txtViewTakeAway\">Take Away *</string>\r\n    <string name=\"deliveryRadius\">Delivery Radius*</string>\r\n    <string name=\"deliveryRadiusTxt\">The radius, in miles that you deliver to.</string>\r\n    <string name=\"DeliveryPostalCodes\">\"DeliveryPostalCodes\"</string>\r\n    <string name=\"deliverypostalcodes\">if you restrict delivery to certain zipcodes,enter them here,separated by commas.</string>\r\n    <string name=\"deliveryTime\">Delivery Extra Time*</string>\r\n    <string name=\"deliveryExtraTimeEditText\">For delivery orders,how much extra time should we add to the takeout time?</string>\r\n    <string name=\"editTxtDeliveryExtraTime\">For delivery orders, extra time needed to takeout time?</string>\r\n    <string name=\"deliveryTimeExtra\">For delivery, how much extra time taken than takeout time</string>\r\n    <string name=\"txtViewHours\">Hours *</string>\r\n    <string name=\"txtViewWeekday\">Mon-Fri</string>\r\n    <string name=\"textViewSat\">\"Saturday From:\"</string>\r\n    <string name=\"textViewSunday\">Sunday From:</string>\r\n    <string name=\"textViewWeekday\">Monday-Friday From:</string>\r\n    <string name=\"txtViewWeekday2\">Monday-Friday To:</string>\r\n    <string name=\"txtViewSaturday2\">Saturday To:</string>\r\n    <string name=\"txtViewSunday2\">Sunday To:</string>\r\n    <string name=\"buttonSubmit\">Submit</string>\r\n    <string name=\"ngo_name\">NGO Name</string>\r\n    <string name=\"ngo_email\">NGO Email Address</string>\r\n    <string name=\"ngo_phone\">NGO Contact Number</string>\r\n    <string name=\"ngo_password\">Enter the password</string>\r\n    <string name=\"RegisterSubmit\">Register</string>\r\n    <string name=\"txtViewEmailAddress\">Restaurant Email Address </string>\r\n    <string name=\"txtViewPassword\">Enter the Password </string>\r\n    <string name=\"txtViewConfirmPassword\">Confirm the Password</string>\r\n\r\n\r\n    <string name=\"hintEmail\">\"Enter the email Address\"</string>\r\n    <string name=\"hintPhoneNumber\">\"Enter Contact Number\"</string>\r\n    <string name=\"textViewContactNumber\">Restaurant Contact Number</string>\r\n    <string name=\"btnTextDoNotHaveAcc\">Don\\'t have an account? Sign Up</string>\r\n    <string name=\"btnTextLogin\">Log in</string>\r\n    <string name=\"txtOrganizationName\">Organization Name</string>\r\n    <string name=\"hintTextOrganizationName\">Enter Organization Name</string>\r\n    <string name=\"txtViewCharitable\">Organization ID*</string>\r\n    <string name=\"hintTextCharitNo\">Enter Organization Registration No.</string>\r\n    <string name=\"txtViewNgoDesc\">Organization Description*</string>\r\n    <string name=\"hintTextOrgDesc\">Enter Organization Description</string>\r\n    <string name=\"txtViewOrgEmail\">Organization Email Address</string>\r\n    <string name=\"txtViewOrgContact\">Organization Contact Number</string>\r\n    <string name=\"Cuisine_Type\">Enter the Cuisine Type :</string>\r\n    <string name=\"Fill_in_Form\">Fill in the Food Details</string>\r\n    <string name=\"Expiry_Date\">Best Before Date for the food</string>\r\n    <string name=\"Category_Type\">Enter the Food Category :</string>\r\n    <string name=\"NumOfPlates\">\"Enter the Number of Plates Available : \"</string>\r\n    <string name=\"ExpiryDate\">Enter the Expiry-Date for the Food</string>\r\n    <string name=\"ConfirmTheEntry\">Confirm the Entries</string>\r\n    <string name=\"Num_Of_Plates\">Enter Number of Plates</string>\r\n    <string name=\"input_error_name\">name required</string>\r\n    <string name=\"input_error_email\">email required</string>\r\n    <string name=\"input_error_password\">password required</string>\r\n    <string name=\"input_error_phone\">phone required</string>\r\n    <string name=\"password1\">Enter the password</string>\r\n    <string name=\"password2\">Confirm the password</string>\r\n    <string name=\"input_error_password_length\">password should be atleast 6 characters long</string>\r\n    <string name=\"input_error_phone_invalid\">enter a valid phone number</string>\r\n    <string name=\"registration_success\">Registered Successfully</string>\r\n    <string name=\"input_error_email_invalid\">enter a valid email</string>\r\n    <string-array name=\"Cuisine_types\">\r\n        <item>Chinese</item>\r\n        <item>Mexican</item>\r\n        <item>Indonesian</item>\r\n        <item>French</item>\r\n        <item>Italian</item>\r\n        <item>Thai</item>\r\n        <item>Turkish</item>\r\n        <item>Indian</item>\r\n        <item>Japanese</item>\r\n        <item>Spanish</item>\r\n        <item>Lebanese</item>\r\n        <item>American</item>\r\n        <item>Mediterranean</item>\r\n        <item>Korean</item>\r\n        <item>Vietnamese</item>\r\n        <item>Other</item>\r\n\r\n    </string-array>\r\n    <string-array name=\"category_arrays\">\r\n        <item>Appetizers</item>\r\n        <item>Salads and soups</item>\r\n        <item>Main Course</item>\r\n        <item>Desserts</item>\r\n        <item>Drinks</item>\r\n    </string-array>\r\n\r\n    <string name=\"txtViewTitle\">A Better Way To Donate</string>\r\n    <string name=\"txtViewMessage\">NGOs can receive healthy food from restaurants.</string>\r\n    <string name=\"btnTextSkip\">Skip</string>\r\n    <string name=\"txtViewSwipe\">Swipe left to continue</string>\r\n    <string name=\"txtViewTitle2\">Donate Money</string>\r\n    <string name=\"txtViewMessage2\">Anyone can donate some money if you do not have any excess food</string>\r\n    <string name=\"txtViewTitle3\">Keep A Record</string>\r\n    <string name=\"txtViewMessage3\">Measure the amount of food donated by your restaurant</string>\r\n    <string name=\"txtViewFragments\">Fragment Page</string>\r\n    <string name=\"txtPageNumber\">0</string>\r\n    <string name=\"txtViewHome\">Home</string>\r\n    <string name=\"txtLogout\">Log out</string>\r\n    <string name=\"txtAdd\">Add Dishes</string>\r\n    <string name=\"txtList\">View Dishes</string>\r\n    <string name=\"txtViewDashboard\">My Dashboard</string>\r\n    <string name=\"imgHome\">Home Pic</string>\r\n    <string name=\"imgAdd\">Add Items Pic</string>\r\n    <string name=\"imgView\">View Dishes Pic</string>\r\n    <string name=\"imgLogout\">Logout Pic</string>\r\n    <string name=\"imgProfile\">Profile</string>\r\n    <string name=\"txtRestaurants\">Restaurants List</string>\r\n    <string name=\"txtConfirmed\">Confirmed Orders</string>\r\n    <string name=\"imgRestList\">Restaurants List Pic</string>\r\n    <string name=\"imgConfirmed\">Confirmed Orders Pic</string>\r\n    <string name=\"uploadFile\">Upload File</string>\r\n    <string name=\"empty_ID\">ID is required</string>\r\n    <string name=\"City_error\">City cannot be empty</string>\r\n    <string name=\"Country_error\">Country cannot be empty</string>\r\n    <string name=\"Postal_error\">Postal code cannot be empty</string>\r\n    <string name=\"website_error\">Website format is incorrect</string>\r\n    <string name=\"postal_length_error\">Postal code length should be equal to six</string>\r\n    <string name=\"State_error\">State or Province cannot be empty</string>\r\n    <string name=\"Addline_error\">Address cannot be empty</string>\r\n    <string name=\"txtViewProfile\">Profile</string>\r\n    <string name=\"UserType\">\"User Type: \"</string>\r\n    <string name=\"IDerror\">ID should be 6 digit</string>\r\n    <string name=\"back_button\">Go to Dashboard</string>\r\n    <string name=\"Desc_error\">Write about your NGO</string>\r\n    <string name=\"websiteNGO\">Enter NGO Website Link</string>\r\n    <string-array name=\"UserType\">\r\n        <item></item>\r\n        <item>NGO</item>\r\n        <item>RESTAURANT</item>\r\n    </string-array>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision 697133ccc5ad4bfd398fdac3d3b664b208aee3f5)
++++ app/src/main/res/values/strings.xml	(date 1616817727709)
+@@ -163,6 +163,7 @@
+     <string name="back_button">Go to Dashboard</string>
+     <string name="Desc_error">Write about your NGO</string>
+     <string name="websiteNGO">Enter NGO Website Link</string>
++    <string name="txtApprove">Approve Donation</string>
+     <string-array name="UserType">
+         <item></item>
+         <item>NGO</item>
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.example.foodrescue\">\r\n\r\n\r\n    <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>\r\n    <uses-permission android:name=\"android.permission.INTERNET\"/>\r\n    <uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>\r\n\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher_round\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.FoodRescue\">\r\n\r\n        <meta-data\r\n            android:name=\"com.google.android.geo.API_KEY\"\r\n            android:value=\"AIzaSyCIjIbOPQLA_ilI6xF74E--vkRJfK_SU9s\" />\r\n\r\n        <meta-data\r\n            android:name=\"com.google.android.gms.version\"\r\n            android:value=\"@integer/google_play_services_version\" />\r\n\r\n        <activity android:name=\".GoogleMapsActivity\"></activity>\r\n        <activity android:name=\".NGO_Add_Items\" />\r\n        <activity android:name=\".recyclerView_NGO\" />\r\n        <activity android:name=\".Ngo_profile\" />\r\n        <activity android:name=\".restaurant_profile\" />\r\n        <activity android:name=\".login_Activity_ngo\" />\r\n        <activity android:name=\".Login_Activity_Rest\" />\r\n        <activity android:name=\".NGO_Dashboard\" />\r\n        <activity android:name=\".Restaurant_Dashboard\" />\r\n        <activity android:name=\".recyclerViewActivity_Restaurant\" />\r\n        <activity android:name=\".Restaurant_starter\" />\r\n        <activity android:name=\".NGO_Activity\" />\r\n        <activity android:name=\".Regestration_Restauarant\" />\r\n        <activity android:name=\".RegisterationActivity\" />\r\n        <activity\r\n            android:name=\".SplashActivity\"\r\n            android:theme=\"@style/SplashScreen\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:theme=\"@style/Theme.FoodRescue\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 697133ccc5ad4bfd398fdac3d3b664b208aee3f5)
++++ app/src/main/AndroidManifest.xml	(date 1616817728132)
+@@ -2,13 +2,11 @@
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     package="com.example.foodrescue">
+ 
+-
+-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+-    <uses-permission android:name="android.permission.INTERNET"/>
+-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
++    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
++    <uses-permission android:name="android.permission.INTERNET" />
++    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+ 
+-
+     <application
+         android:allowBackup="true"
+         android:icon="@mipmap/ic_launcher_round"
+@@ -16,16 +14,16 @@
+         android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+         android:theme="@style/Theme.FoodRescue">
++        <activity android:name=".Make_Donation_Recycler"></activity>
+ 
+         <meta-data
+             android:name="com.google.android.geo.API_KEY"
+             android:value="AIzaSyCIjIbOPQLA_ilI6xF74E--vkRJfK_SU9s" />
+-
+         <meta-data
+             android:name="com.google.android.gms.version"
+             android:value="@integer/google_play_services_version" />
+ 
+-        <activity android:name=".GoogleMapsActivity"></activity>
++        <activity android:name=".GoogleMapsActivity" />
+         <activity android:name=".NGO_Add_Items" />
+         <activity android:name=".recyclerView_NGO" />
+         <activity android:name=".Ngo_profile" />

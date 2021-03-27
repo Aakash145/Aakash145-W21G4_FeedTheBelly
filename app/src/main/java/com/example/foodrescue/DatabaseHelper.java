@@ -40,18 +40,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, dbname, null, 1);
     }
 
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String setPragmaForeignKeysOn = "PRAGMA foreign_keys=ON;";
         String createDishesTable = "CREATE TABLE dishes " +
                 "(dishID INTEGER, " +
+                "emailID TEXT,"+
                 "cuisineType TEXT, " +
                 "foodCategory TEXT," +
                 "expDate TEXT, " +
                 "name TEXT, " +
                 "plates INTEGER, " +
                 "weight DOUBLE, " +
-                "PRIMARY KEY (dishID));";
+                "PRIMARY KEY (name,emailID));";
+
+        String createDonationsTable = "CREATE TABLE donations " +
+                "(dishID INTEGER, " +
+                "emailID TEXT,"+
+                "cuisineType TEXT, " +
+                "foodCategory TEXT," +
+                "expDate TEXT, " +
+                "name TEXT, " +
+                "plates INTEGER, " +
+                "weight DOUBLE, " +
+                "PRIMARY KEY (name,emailID,expDate)," +
+                "FOREIGN KEY(emailID) REFERENCES dishes(emailID)," +
+                "FOREIGN KEY(name) REFERENCES dishes(name)," +
+                "FOREIGN KEY(expDate) REFERENCES dishes(expDate));";
 
         String restaurant_users="create table " + TABLE_NAME +"(userEmail TEXT PRIMARY KEY, " +
                 "userName TEXT," +
@@ -62,6 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "userState TEXT," +
                 "userCountry TEXT," +
                 "userPostal TEXT" + ");";
+
         String ngo_users="create table " + TABLE_NAME1 + "(userEmail1 TEXT PRIMARY KEY, " +
                 "userName1 TEXT," +
                 "userPhone1  TEXT," +
@@ -74,6 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "userPostal1 TEXT" + ");";
 
         db.execSQL(setPragmaForeignKeysOn);
+        db.execSQL(createDonationsTable);
         db.execSQL(createDishesTable);
         db.execSQL(restaurant_users);
         db.execSQL(ngo_users);
@@ -84,12 +103,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         String dropDishesTable = "DROP TABLE IF EXISTS " + "dishes;";
-        String droptable1 = "DROP TABLE IF EXISTS " + "dishesType;";
-        String droptable2 = "DROP TABLE IF EXISTS " + "restaurents;";
+        String droptable1 = "DROP TABLE IF EXISTS " + "User_table;";
+        String droptable2 = "DROP TABLE IF EXISTS " + "User_ngo_table;";
+        String droptable3 = "DROP TABLE IF EXISTS " + "donations;";
 
         db.execSQL(dropDishesTable);
         db.execSQL(droptable1);
         db.execSQL(droptable2);
+        db.execSQL(droptable3);
         onCreate(db);
     }
 
@@ -185,12 +206,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_NAME1, "Email = ?",new String[] { email1 });
     }
-    public String addNewDish(Dishes dish, int id, Spinner spinner, Spinner spinner2, EditText expiryDate){
+    public String addNewDish(Dishes dish,String emailID, int id, Spinner spinner, Spinner spinner2, EditText expiryDate){
         SQLiteDatabase db=this.getWritableDatabase();
         long result;
         ContentValues val = new ContentValues();
         val.put("dishID", id);
-        //val.put("emailID", null);
+        val.put("emailID", emailID);
         val.put("cuisineType", spinner.getSelectedItem().toString());
         val.put("foodCategory", spinner2.getSelectedItem().toString());
         val.put("expDate", expiryDate.getText().toString());
@@ -204,6 +225,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return "Successfully inserted";
     }
 
+    public String addDonation(String emailID,String plates, String weight, String name, int dishID, String cType, String fType, String expiryDate){
+        SQLiteDatabase db=this.getWritableDatabase();
+        long result;
+        ContentValues val = new ContentValues();
+        val.put("dishID", dishID);
+        val.put("emailID", emailID);
+        val.put("cuisineType", cType);
+        val.put("foodCategory",fType);
+        val.put("expDate", expiryDate);
+        val.put("name", name);
+        val.put("plates", plates);
+        val.put("weight", weight);
+        result=db.insert("donations",null,val);
+        if(result==-1)
+            return "Failed";
+        else
+            return "Successfully inserted";
+    }
+
+
+
     public Cursor readalldata()
     {
         SQLiteDatabase db=this.getWritableDatabase();
@@ -211,6 +253,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor=db.rawQuery(qry,null);
         return  cursor;
     }
+
+    public Cursor readEmail(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from dishes where emailID= '" + email + "'", null);
+        return res;
+    }
+
+    public void deleteAllDishesOfEachUser(String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long s=db.delete("dishes", "emailID" + " = ?",
+                new String[]{String.valueOf(email)});
+    }
+
+
 
     /* public Cursor getUser(String Email){
           SQLiteDatabase db = this.getReadableDatabase();
