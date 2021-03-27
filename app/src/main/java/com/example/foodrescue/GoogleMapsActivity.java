@@ -23,6 +23,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -75,10 +76,20 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
             //Put marker on map on that LatLng
             mMap.addMarker(new MarkerOptions().position(latLng).title("Destination")).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
-            //Animate and Zoom on that map location
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(latLng)
+                    .zoom(15)
+                    .build();
+            CameraUpdate update = CameraUpdateFactory.newCameraPosition(cameraPosition);
+            mMap.animateCamera(update);
 
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+//            mMap.getUiSettings().setZoomControlsEnabled(true);
+//            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+//            //Animate and Zoom on that map location
+//            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+
+
             Log.d("Changed", "Changed Address");
         } catch (Exception e)
         {
