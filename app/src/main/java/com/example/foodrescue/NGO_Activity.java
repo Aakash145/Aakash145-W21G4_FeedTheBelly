@@ -147,7 +147,7 @@ public class NGO_Activity extends AppCompatActivity {
 
         //        Detail detail = new Detail(email, name, phone, id, ID, AddLine1, City, State, Country, Postal);
          //       databaseDetails.child(id).setValue(detail);
-                boolean isInserted = myDb.insertData(email,name, phone, ID, AddLine1, City, State, Country, Postal );
+                boolean isInserted = myDb.insertData1(email,name, phone,ID, Desc, AddLine1, City, State, Country, Postal );
                 if(isInserted == true){
                 Toast.makeText( this, "Details saved successfully", Toast.LENGTH_LONG).show();
                 finish();

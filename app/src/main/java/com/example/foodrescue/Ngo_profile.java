@@ -37,24 +37,25 @@ public class Ngo_profile extends AppCompatActivity {
         String Str = "NGO Details\n\n";
         txtView.setText(Str);
 
-        Cursor res = myDb.getData(email);
+        Cursor res = myDb.getData1(email);
         if(res.getCount() == 0) {
             // show message
             // showMessage("Error","Nothing found");
             return;
         }
-
         StringBuffer buffer = new StringBuffer();
         while (res.moveToNext()) {
             buffer.append("Email :"+ res.getString(0)+"\n");
             buffer.append("Name :"+ res.getString(1)+"\n");
             buffer.append("Phone :"+ res.getString(2)+"\n");
-            buffer.append("ID :"+ res.getString(3)+"\n\n");
-            buffer.append("Address :"+ res.getString(4)+"\n");
-            buffer.append("City :"+ res.getString(5)+"\n");
-            buffer.append("State :"+ res.getString(6)+"\n");
-            buffer.append("Country :"+ res.getString(7)+"\n");
-            buffer.append("Postal :"+ res.getString(8)+"\n\n");
+            buffer.append("NGO ID :"+ res.getString(3)+"\n");
+            buffer.append("NGO Description :"+ res.getString(4)+"\n");
+            buffer.append("Address :"+ res.getString(5)+", " +res.getString(6)+ ", " +res.getString(7)+
+                    ", " +res.getString(8)+ " " +res.getString(9)+"\n\n" );
+            // buffer.append("City :"+ res.getString(5)+"\n");
+            // buffer.append("State :"+ res.getString(6)+"\n");
+            // buffer.append("Country :"+ res.getString(7)+"\n");
+            // buffer.append("Postal :"+ res.getString(8)+"\n\n");
         }
 
         // Show all data

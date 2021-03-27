@@ -201,7 +201,7 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="start|right"
-                android:hint="@string/websiteEditTxt"
+                android:hint="@string/websiteNGO"
                 android:inputType="textPersonName" />
 
             <Button

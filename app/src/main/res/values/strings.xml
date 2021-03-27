@@ -162,6 +162,7 @@
     <string name="IDerror">ID should be 6 digit</string>
     <string name="back_button">Go to Dashboard</string>
     <string name="Desc_error">Write about your NGO</string>
+    <string name="websiteNGO">Enter NGO Website Link</string>
     <string-array name="UserType">
         <item></item>
         <item>NGO</item>
