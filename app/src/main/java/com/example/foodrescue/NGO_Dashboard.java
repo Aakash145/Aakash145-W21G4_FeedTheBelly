@@ -3,15 +3,23 @@ package com.example.foodrescue;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 public class NGO_Dashboard extends AppCompatActivity {
     CardView cardHome;
     CardView cardAdd;
     CardView cardListItems;
     CardView cardLogout;
+
+    private static final int ERROR_DIALOG_REQUEST = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +45,10 @@ public class NGO_Dashboard extends AppCompatActivity {
 
 
         });
-        cardAdd.setOnClickListener((View view) -> {
-            Intent myIntent = new Intent(NGO_Dashboard.this, NGO_Add_Items.class);
-            startActivity(myIntent);
-        });
+//        cardAdd.setOnClickListener((View view) -> {
+//            Intent myIntent = new Intent(NGO_Dashboard.this, NGO_Add_Items.class);
+//            startActivity(myIntent);
+//        });
 
         cardListItems.setOnClickListener((View view) -> {
             Intent myIntent = new Intent(NGO_Dashboard.this, recyclerView_NGO.class);
@@ -51,5 +59,33 @@ public class NGO_Dashboard extends AppCompatActivity {
             Intent myIntent = new Intent(NGO_Dashboard.this, MainActivity.class);
             startActivity(myIntent);
         });
+
+        if(isServiceOk()){
+            init();
+        }
+    }
+
+    private void init(){
+        cardAdd.setOnClickListener((View view) -> {
+            //Intent myIntent = new Intent(NGO_Dashboard.this, NGO_Add_Items.class);
+            Intent myIntent = new Intent(NGO_Dashboard.this, GoogleMapsActivity.class);
+            startActivity(myIntent);
+        });
+    }
+
+    public boolean isServiceOk(){
+        Log.d("Checking Servics", "isServicesOK: checking google services version");
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(NGO_Dashboard.this);
+        if(available == ConnectionResult.SUCCESS){
+            Log.d("Checking Services", "Its Working fine");
+            return true;
+        }else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+            Log.d("Checking Services","isServicesOk(); an errorr occured but we can fix it");
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(NGO_Dashboard.this, available, ERROR_DIALOG_REQUEST);
+            dialog.show();
+        }else{
+            Toast.makeText(this, "Can't male request", Toast.LENGTH_SHORT).show();
+        }
+        return false;
     }
 }
