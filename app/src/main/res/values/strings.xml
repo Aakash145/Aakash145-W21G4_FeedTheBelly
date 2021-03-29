@@ -163,6 +163,7 @@
     <string name="back_button">Go to Dashboard</string>
     <string name="Desc_error">Write about your NGO</string>
     <string name="websiteNGO">Enter NGO Website Link</string>
+    <string name="sorryValue">Sorry! We are only accepting Paypal payment for now</string>
     <string-array name="UserType">
         <item></item>
         <item>NGO</item>
