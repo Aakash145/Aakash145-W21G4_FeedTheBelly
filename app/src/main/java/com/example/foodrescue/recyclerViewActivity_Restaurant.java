@@ -64,7 +64,6 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
                         do {
                             //int id=cursor1.getInt(8)
                             String dishID = cursor1.getString(0);
-                            int dishID2 = Integer.parseInt(dishID);
                             String emailID = cursor1.getString(1);
                             String cuisineType = cursor1.getString(2);
                             String foodCategory = cursor1.getString(3);
@@ -73,7 +72,7 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
                             String plates = cursor1.getString(6);
                             String weight = cursor1.getString(7);
 
-                            myDb.addDonation(emailID, plates, weight, name, dishID2, cuisineType, foodCategory, expDate);
+                            myDb.addDonation(emailID, plates, weight, name, dishID, cuisineType, foodCategory, expDate);
                             Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
 
                         }

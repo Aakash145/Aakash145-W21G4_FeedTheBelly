@@ -8,7 +8,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-/**
+/**SELECT *  FROM User_table JOIN donations ON User_table.userEmail=donations.emailID
+ WHERE expDate IN (SELECT A.expDate FROM donations A, donations B
+ WHERE A.emailID=B.emailID
+ AND A.expDate=B.expDate);
  * Created by ProgrammingKnowledge on 4/3/2015.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -225,7 +228,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return "Successfully inserted";
     }
 
-    public String addDonation(String emailID,String plates, String weight, String name, int dishID, String cType, String fType, String expiryDate){
+    public String addDonation(String emailID,String plates, String weight, String name, String dishID, String cType, String fType, String expiryDate){
         SQLiteDatabase db=this.getWritableDatabase();
         long result;
         ContentValues val = new ContentValues();
@@ -266,9 +269,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(email)});
     }
 
+    public Cursor readDonations() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryStr = "SELECT DISTINCT User_table.userEmail,User_table.userID,userName,donations.expDate FROM User_table JOIN donations " +
+                            "ON User_table.userEmail=donations.emailID" +
+                            " AND expDate IN (SELECT A.expDate FROM donations A, donations B" +
+                                                " WHERE A.emailID=B.emailID" +
+                                                " AND A.expDate=B.expDate);";
+        Cursor cursor=db.rawQuery(queryStr,null);
+        return  cursor;
+    }
 
 
-    /* public Cursor getUser(String Email){
+
+   /* public Cursor readDonationRestaurant() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryStr = "SELECT *  FROM User_table JOIN donations " +
+                "ON User_table.userEmail=donations.emailID" +
+                " JOIN (SELECT DISTINCT A.expDate date,A.emailID email FROM donations A, donations B" +
+                " WHERE A.emailID=B.emailID" +
+                " AND A.expDate=B.expDate)" +
+                "ON email=donations.emailID;";
+        Cursor cursor=db.rawQuery(queryStr,null);
+        return  cursor;
+    }
+
+    public Cursor getUser(String Email){
           SQLiteDatabase db = this.getReadableDatabase();
           String sql = "SELECT * FROM " + TABLE_NAME
                   + " WHERE " + COLUMN_USER_EMAIL + " = " + Email;
@@ -281,6 +307,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor res =  db.rawQuery( "select * from user_table where userEmail= '"+email+"'", null );
         return res;
     }
+
+    //SELECT  * FROM donations A, donations B
+    //WHERE  A.emailID=B.emailID
+    // AND A.expDate=B.expDate
     public Cursor getData1(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from User_ngo_table where userEmail1= '"+email+"'", null );

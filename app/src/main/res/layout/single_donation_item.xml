@@ -26,21 +26,21 @@
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/dish_items"
+            android:id="@+id/rest_ID"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="Item Names" />
 
 
         <TextView
-            android:id="@+id/donation_weight"
+            android:id="@+id/rest_Email"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:text="Total Weight" />
+            android:text="Email"
+            android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/expiry_id"
+            android:id="@+id/rest_Date"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="Expiry Date"
@@ -52,7 +52,6 @@
             android:layout_height="wrap_content"
             android:text="Details" />
     </LinearLayout>
-
 
 
 </androidx.cardview.widget.CardView>
