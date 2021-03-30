@@ -51,7 +51,8 @@ public class NGO_Dashboard extends AppCompatActivity {
 //        });
 
         cardListItems.setOnClickListener((View view) -> {
-            Intent myIntent = new Intent(NGO_Dashboard.this, GoogleMapsActivity.class);
+            Intent myIntent = new Intent(NGO_Dashboard.this, Restaurants_List_Recycler.class);
+            //ntent myIntent = new Intent(NGO_Dashboard.this, GoogleMapsActivity.class);I
             startActivity(myIntent);
         });
 

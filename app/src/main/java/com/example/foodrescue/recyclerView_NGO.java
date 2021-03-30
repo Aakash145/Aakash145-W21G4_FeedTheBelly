@@ -5,15 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -24,16 +24,8 @@ public class recyclerView_NGO extends AppCompatActivity {
     ArrayList<String> names;
     ArrayList<String> emails;
     ArrayList<String> dates;
-    ArrayList<String> id;
-    ArrayList<String> name;
-    ArrayList<String> email;
-    ArrayList<String> date;
-    String date2;
-    String email2;
-    String id2;
-    String name2;
+    ArrayList<String> address;
     DatabaseHelper myDb;
-    private FirebaseAuth mFirebaseAuth;
     Button details;
 
     @Override
@@ -44,14 +36,17 @@ public class recyclerView_NGO extends AppCompatActivity {
         ActionBar myActionBar=getSupportActionBar();
         myActionBar.setTitle("Donations List");
 
-        rvDonations=findViewById(R.id.rvDonations);
+        rvDonations=findViewById(R.id.rvRestaurants);
         details=findViewById(R.id.btn_Details);
         rvDonations.setLayoutManager(new LinearLayoutManager(this));
         ids=new ArrayList<>();
         names=new ArrayList<>();
         emails=new ArrayList<>();
         dates=new ArrayList<>();
-        Cursor cursor=myDb.readDonations();
+        address=new ArrayList<>();
+        String email=getIntent().getStringExtra("EMAIL");
+        String address2=getIntent().getStringExtra("ADDRESS");
+        Cursor cursor=myDb.readDonations(email);
         while(cursor.moveToNext()){
 
             try {
@@ -59,6 +54,7 @@ public class recyclerView_NGO extends AppCompatActivity {
                 names.add(cursor.getString(2));
                 emails.add(cursor.getString(0));
                 dates.add(cursor.getString(3));
+                address.add(address2);
                 //int count=ids.size();
                 /*for (int i = 0; i < count; i++) {
                     for (int j = i+1; j < count; j++) {
@@ -80,7 +76,7 @@ public class recyclerView_NGO extends AppCompatActivity {
                 Log.d("Error",e.getMessage());
             }
         }
-        Make_Donations_Adapter myAdapter = new Make_Donations_Adapter(recyclerView_NGO.this, ids, names, emails, dates);
+        Make_Donations_Adapter myAdapter = new Make_Donations_Adapter(recyclerView_NGO.this, ids, names, emails, dates,address);
         rvDonations.setAdapter(myAdapter);
 
 
