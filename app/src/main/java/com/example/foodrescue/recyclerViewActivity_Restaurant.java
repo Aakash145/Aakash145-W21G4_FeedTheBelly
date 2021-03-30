@@ -34,7 +34,7 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
 
         myDb = new DatabaseHelper(this);
         ActionBar myActionBar=getSupportActionBar();
-        myActionBar.setTitle("Select the Menu");
+        myActionBar.setTitle("Dishes To Donate");
 
         rvDishes=findViewById(R.id.rvDishes);
         donate=findViewById(R.id.btnDonate);
@@ -53,6 +53,10 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
             }
         }
         Dishes_Fetched_Adapter myAdapter=new Dishes_Fetched_Adapter(dishesHolder);
+        if(dishesHolder.isEmpty()){
+            donate.setText("Please Add Dishes");
+            donate.setEnabled(false);
+        }
         rvDishes.setAdapter(myAdapter);
        donate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,14 +78,17 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
                             String weight = cursor1.getString(7);
 
                             myDb.addDonation(emailID, plates, weight, name, dishID, cuisineType, foodCategory, expDate);
-                            Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
+                            dishesHolder.clear();
                             Intent i = new Intent(recyclerViewActivity_Restaurant.this, Restaurant_Dashboard.class);
                             startActivity(i);
 
                         }
                     while (cursor1.moveToNext()) ;
                 }
+
+                    Toast.makeText(getApplicationContext(), "Thank You for Donating", Toast.LENGTH_SHORT).show();
                     myDb.deleteAllDishesOfEachUser(email);
+
             }
 
                 catch (Exception e){
