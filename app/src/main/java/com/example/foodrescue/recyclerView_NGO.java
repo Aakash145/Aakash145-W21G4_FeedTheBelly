@@ -55,8 +55,8 @@ public class recyclerView_NGO extends AppCompatActivity {
         while(cursor.moveToNext()){
 
             try {
-                ids.add(cursor.getString(2));
-                names.add(cursor.getString(1));
+                ids.add(cursor.getString(1));
+                names.add(cursor.getString(2));
                 emails.add(cursor.getString(0));
                 dates.add(cursor.getString(3));
                 //int count=ids.size();

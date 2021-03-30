@@ -50,6 +50,7 @@ public class Restaurant_starter extends AppCompatActivity {
     DatabaseHelper myDb;
     private FirebaseAuth mFirebaseAuth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +62,15 @@ public class Restaurant_starter extends AppCompatActivity {
         cuisineType = findViewById(R.id.cuisine_types);
         catagoryType = findViewById(R.id.category_types);
         expiryDate = findViewById(R.id.editTextDate);
-        noOfPlates = findViewById(R.id.editNumberOfPlates);
+      //  noOfPlates = findViewById(R.id.editNumberOfPlates);
         mFirebaseAuth=FirebaseAuth.getInstance();
         //createDB();
+        String cuisine = cuisineType.getSelectedItem().toString().trim();
+        int index = cuisineType.getSelectedItemPosition();
+        String category = catagoryType.getSelectedItem().toString().trim();
+        int index1 = cuisineType.getSelectedItemPosition();
+        String Expiry = expiryDate.getText().toString().trim();
+
 
         //Intent i = getIntent();
 
@@ -83,19 +90,54 @@ public class Restaurant_starter extends AppCompatActivity {
         uploadFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("*/*");
-                startActivityForResult(intent, OPEN_REQUEST_CODE);
+                checkInput();
 
 
             }
         });
 
         Confirm_Form.setOnClickListener((View view)->{
-            startActivity(new Intent(getApplicationContext(),recyclerViewActivity_Restaurant.class));
+            startActivity(new Intent(getApplicationContext(),Restaurant_Dashboard.class));
         });
     }
+
+
+    public void checkInput(){
+        String cuisine = cuisineType.getSelectedItem().toString().trim();
+        int index = cuisineType.getSelectedItemPosition();
+        String category = catagoryType.getSelectedItem().toString().trim();
+        int index1 = catagoryType.getSelectedItemPosition();
+        String Expiry = expiryDate.getText().toString().trim();
+
+        if(index == 0){
+            Toast.makeText(this, "Please select Cuisine Type", Toast.LENGTH_LONG).show();
+            return;
+
+        }
+        else if(index1 == 0){
+            Toast.makeText(this, "Please select Category Type", Toast.LENGTH_LONG).show();
+            return;
+        }
+        else if(!((Expiry.matches("1")) || (Expiry.matches("2") ))) {
+            expiryDate.setError( "Expiry date should be 1 or 2 days");
+            return;
+        }
+
+        if (Expiry.isEmpty()) {
+            expiryDate.setError("Expiry Date is required");
+            expiryDate.requestFocus();
+            return;
+        }
+        else{
+            totalItems.append("Cuisine Type: " + cuisine + "\nCategory Type: " + category + "\n");
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("*/*");
+            startActivityForResult(intent, OPEN_REQUEST_CODE);
+        }
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -107,7 +149,7 @@ public class Restaurant_starter extends AppCompatActivity {
 
                 try {
                     List<Dishes> dishes = readFileContent(data.getData());
-                    totalItems.setText("Total Items added:" + dishes.size());
+                    totalItems.append("Total Items added:" + dishes.size());
                 } catch (IOException e) {
                     Log.d("IOException", "Unable to find File");
                 }

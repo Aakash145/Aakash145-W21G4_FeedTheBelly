@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodRescue">
-        <activity android:name=".Make_Donation_Recycler"></activity>
+        <activity android:name=".PaymentDetails"></activity>
+        <activity android:name=".PaypalPayment" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

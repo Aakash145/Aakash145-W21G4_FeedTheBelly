@@ -46,6 +46,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.7.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
+    //implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
     //implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.0.0'
     //implementation 'com.google.firebase:firebase-analytics'
     testImplementation 'junit:junit:4.13.2'

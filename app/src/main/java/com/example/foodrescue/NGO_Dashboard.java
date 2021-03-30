@@ -51,7 +51,7 @@ public class NGO_Dashboard extends AppCompatActivity {
 //        });
 
         cardListItems.setOnClickListener((View view) -> {
-            Intent myIntent = new Intent(NGO_Dashboard.this, recyclerView_NGO.class);
+            Intent myIntent = new Intent(NGO_Dashboard.this, GoogleMapsActivity.class);
             startActivity(myIntent);
         });
 
@@ -68,7 +68,7 @@ public class NGO_Dashboard extends AppCompatActivity {
     private void init(){
         cardAdd.setOnClickListener((View view) -> {
             //Intent myIntent = new Intent(NGO_Dashboard.this, NGO_Add_Items.class);
-            Intent myIntent = new Intent(NGO_Dashboard.this, GoogleMapsActivity.class);
+            Intent myIntent = new Intent(NGO_Dashboard.this, recyclerView_NGO.class );
             startActivity(myIntent);
         });
     }

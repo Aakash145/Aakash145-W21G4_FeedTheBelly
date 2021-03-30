@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -74,6 +75,8 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
 
                             myDb.addDonation(emailID, plates, weight, name, dishID, cuisineType, foodCategory, expDate);
                             Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(recyclerViewActivity_Restaurant.this, Restaurant_Dashboard.class);
+                            startActivity(i);
 
                         }
                     while (cursor1.moveToNext()) ;

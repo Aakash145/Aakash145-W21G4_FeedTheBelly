@@ -98,6 +98,7 @@
     <string name="registration_success">Registered Successfully</string>
     <string name="input_error_email_invalid">enter a valid email</string>
     <string-array name="Cuisine_types">
+        <item></item>
         <item>Chinese</item>
         <item>Mexican</item>
         <item>Indonesian</item>
@@ -117,6 +118,7 @@
 
     </string-array>
     <string-array name="category_arrays">
+        <item></item>
         <item>Appetizers</item>
         <item>Salads and soups</item>
         <item>Main Course</item>
@@ -144,7 +146,7 @@
     <string name="imgView">View Dishes Pic</string>
     <string name="imgLogout">Logout Pic</string>
     <string name="imgProfile">Profile</string>
-    <string name="txtRestaurants">Restaurants List</string>
+    <string name="txtRestaurants">View Donations</string>
     <string name="txtConfirmed">Confirmed Orders</string>
     <string name="imgRestList">Restaurants List Pic</string>
     <string name="imgConfirmed">Confirmed Orders Pic</string>
@@ -165,6 +167,7 @@
     <string name="websiteNGO">Enter NGO Website Link</string>
     <string name="txtApprove">Approve Donation</string>
     <string name="btnDetails">Details</string>
+    <string name="sorryValue">Sorry we currently have PayPal only</string>
     <string-array name="UserType">
         <item></item>
         <item>NGO</item>

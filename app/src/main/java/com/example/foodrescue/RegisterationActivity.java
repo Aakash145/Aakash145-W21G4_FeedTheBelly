@@ -10,9 +10,13 @@ import android.widget.Button;
 
 public class RegisterationActivity extends AppCompatActivity {
 
+
+
     Button signInButton;
     Button rescueFood;
     Button donateFood;
+
+    Button donateToUs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +28,15 @@ public class RegisterationActivity extends AppCompatActivity {
         signInButton = findViewById(R.id.signInButton);
         donateFood = findViewById(R.id.donateButton);
         rescueFood=findViewById(R.id.rescueButton);
+        donateToUs = findViewById(R.id.paypalButton);
+
+        donateToUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(RegisterationActivity.this, PaypalPayment.class);
+                startActivity(myIntent);
+            }
+        });
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
