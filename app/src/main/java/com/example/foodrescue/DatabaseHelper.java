@@ -258,6 +258,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return  cursor;
     }
 
+    public Cursor readAllRestaurants()
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        String qry="select * from User_table";
+        Cursor cursor=db.rawQuery(qry,null);
+        return  cursor;
+    }
+
     public Cursor readEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from dishes where emailID= '" + email + "'", null);
@@ -270,18 +278,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(email)});
     }
 
-    public Cursor readDonations() {
+    public Cursor readDonations(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         String queryStr = "SELECT DISTINCT User_table.userEmail,User_table.userID,userName,donations.expDate FROM User_table JOIN donations " +
                             "ON User_table.userEmail=donations.emailID" +
                             " AND expDate IN (SELECT A.expDate FROM donations A, donations B" +
                                                 " WHERE A.emailID=B.emailID" +
-                                                " AND A.expDate=B.expDate);";
+                                                " AND A.expDate=B.expDate)" +
+                "WHERE donations.emailID='"+email+"'";
         Cursor cursor=db.rawQuery(queryStr,null);
         return  cursor;
     }
 
-
+    public Cursor readDonationItems(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryStr = "SELECT DISTINCT donation.name,User_table.userID,userName,donations.expDate FROM User_table JOIN donations " +
+                "ON User_table.userEmail=donations.emailID" +
+                " AND expDate IN (SELECT A.expDate FROM donations A, donations B" +
+                " WHERE A.emailID=B.emailID" +
+                " AND A.expDate=B.expDate)" +
+                "WHERE donations.emailID='"+email+"'";
+        Cursor cursor=db.rawQuery(queryStr,null);
+        return  cursor;
+    }
 
    /* public Cursor readDonationRestaurant() {
         SQLiteDatabase db = this.getReadableDatabase();
