@@ -13,6 +13,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -43,6 +44,8 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
     private GoogleMap mMap;
+    TextView address;
+
     private Boolean mLocationPermissionGranted = false;
 
     @Override
@@ -51,7 +54,10 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         Log.d("Check Services", "Map is ready");
         mMap = googleMap;
         //Adding addresses
-        getLocationFromAddress("13364, 102 Avenue, Surrey, BC");
+        address=findViewById(R.id.idRestInfo);
+        String street=getIntent().getStringExtra("ADDRESS");
+        address.setText("Address: "+street);
+        getLocationFromAddress(street);
 
     }
 
