@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="5dp"
+    android:background="@color/colorOrange"
+    android:elevation="4dp"
+    app:cardCornerRadius="6dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/rest_ID"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Restaurant ID"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/rest_name"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Restaurant Name"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/rest_Address"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Address" />
+        <TextView
+            android:id="@+id/rest_Postal"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Postal Code" />
+
+        <TextView
+            android:id="@+id/rest_Email"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Email Address" />
+        <TextView
+            android:id="@+id/rest_Phone"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Phone" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
