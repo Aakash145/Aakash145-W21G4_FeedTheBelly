@@ -9,6 +9,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Camera;
 import android.location.Address;
 import android.location.Geocoder;
@@ -53,6 +54,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     Button accept;
     Button BacktoDash;
     String email;
+    DatabaseHelper myDb;
 
     private Boolean mLocationPermissionGranted = false;
 
@@ -117,6 +119,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_maps);
+        myDb = new DatabaseHelper(this);
         initMap();
         accept = findViewById(R.id.idAcceptOrder);
         accept.setOnClickListener((View view) -> {
@@ -140,7 +143,38 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                 @Override
                 public void onClick(View v) {
 
-                    dialog.dismiss();
+                    Cursor cursor1 = myDb.readEmailFromDonation(email);
+                    if (cursor1.getCount() != 0) {
+                        cursor1.moveToFirst();
+
+                        do {
+                            //int id=cursor1.getInt(8)
+                            String dishID = cursor1.getString(0);
+                            String emailID = cursor1.getString(1);
+                            String cuisineType = cursor1.getString(2);
+                            String foodCategory = cursor1.getString(3);
+                            String expDate = cursor1.getString(4);
+                            String name = cursor1.getString(5);
+                            String plates = cursor1.getString(6);
+                            String weight = cursor1.getString(7);
+                            Toast.makeText(GoogleMapsActivity.this, "Confirmed Order", Toast.LENGTH_SHORT).show();
+                            myDb.addDonated(emailID, plates, weight, name, dishID, cuisineType, foodCategory, expDate);
+                            myDb.deleteDonation(email);
+
+                        }
+                        while (cursor1.moveToNext());
+                        Intent myIntent = new Intent(GoogleMapsActivity.this, NGO_Dashboard.class);
+                        startActivity(myIntent);
+                        Toast.makeText(GoogleMapsActivity.this, "Confirmed", Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        Toast.makeText(GoogleMapsActivity.this, "Cannot be Read", Toast.LENGTH_SHORT).show();
+
+                    }
+                    Intent myIntent = new Intent(GoogleMapsActivity.this, NGO_Dashboard.class);
+                    startActivity(myIntent);
+
+
                 }
             });
             });

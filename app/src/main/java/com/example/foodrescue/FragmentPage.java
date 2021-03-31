@@ -24,11 +24,13 @@ public class FragmentPage extends Fragment {
         int imgNo=bundle.getInt("Image");
         String t1=bundle.getString("Title");
         String t2=bundle.getString("Description");
+       // String t3=bundle.getString("Swipe");
 
 
         view =inflater.inflate(R.layout.page_fragment_layout,container,false);
         TextView textView=view.findViewById(R.id.textView);
         TextView textView2=view.findViewById(R.id.textView2);
+        //TextView textView2=view.findViewById(R.id.textView2);
         ImageView img=view.findViewById(R.id.imageView);
         textView.setText(t1);
         textView2.setText(t2);
