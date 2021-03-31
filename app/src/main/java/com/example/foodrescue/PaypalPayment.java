@@ -59,7 +59,13 @@ public class PaypalPayment extends AppCompatActivity {
     }
 
     private void processPayment(){
-        amount = edtAmount.getText().toString();
+        amount = edtAmount.getText().toString().trim();
+        if(amount.isEmpty()){
+            edtAmount.setError(getString(R.string.input_error_name));
+            edtAmount.requestFocus();
+            Toast.makeText(getApplicationContext(), "Enter the amount you want to donate", Toast.LENGTH_SHORT).show();
+            return;
+        }
         PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(amount), "USD", "Donate for Food Rescue", PayPalPayment.PAYMENT_INTENT_SALE);
         Intent intent = new Intent(this, PaymentActivity.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
