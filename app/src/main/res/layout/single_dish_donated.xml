@@ -19,32 +19,26 @@
         android:padding="12dp">
 
         <TextView
-            android:id="@+id/dish_cat"
+            android:id="@+id/food_name"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Restaurant Name"
+            android:text="Item Name"
             android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/dish_type"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="Item Names" />
 
 
         <TextView
-            android:id="@+id/dish_exp"
+            android:id="@+id/food_weight"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Email"
-            android:textColor="@color/black" />
-
-        <Button
-            android:id="@+id/btn_Details"
-            android:layout_width="match_parent"
+            android:layout_marginTop="3dp"
+            android:text="Weight" />
+        <TextView
+            android:id="@+id/food_plates"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Details" />
+            android:layout_marginTop="3dp"
+            android:text="Plates" />
+
     </LinearLayout>
-
 
 </androidx.cardview.widget.CardView>
