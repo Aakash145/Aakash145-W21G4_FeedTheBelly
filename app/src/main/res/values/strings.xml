@@ -128,7 +128,7 @@
 
     <string name="txtViewTitle">A Better Way To Donate</string>
     <string name="txtViewMessage">NGOs can receive healthy food from restaurants.</string>
-    <string name="btnTextSkip">Skip</string>
+    <string name="btnTextSkip">Get Started</string>
     <string name="txtViewSwipe">Swipe left to continue</string>
     <string name="txtViewTitle2">Donate Money</string>
     <string name="txtViewMessage2">Anyone can donate some money if you do not have any excess food</string>
@@ -171,9 +171,5 @@
     <string name="btnTextNext">Click Next To Confirm</string>
     <string name="txtViewRest">View Restaurants</string>
     <string name="backToDashBoard">Click to go Back</string>
-    <string-array name="UserType">
-        <item></item>
-        <item>NGO</item>
-        <item>RESTAURANT</item>
-    </string-array>
+
 </resources>

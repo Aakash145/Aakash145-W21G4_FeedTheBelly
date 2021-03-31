@@ -41,16 +41,16 @@
         <activity android:name=".Regestration_Restauarant" />
         <activity android:name=".RegisterationActivity" />
         <activity android:name=".Intro_Pages">
+
+        </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".SplashActivity"
-            android:theme="@style/SplashScreen">
-
         </activity>
         <activity
             android:name=".MainActivity"

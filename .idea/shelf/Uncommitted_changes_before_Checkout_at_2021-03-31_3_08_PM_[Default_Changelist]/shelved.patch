@@ -1,0 +1,51 @@
+Index: app/src/main/java/com/example/foodrescue/SplashActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.foodrescue;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\n\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\npublic class SplashActivity extends AppCompatActivity {\r\n\r\n    @Override\r\n    protected void onCreate(@Nullable Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n\r\n        startActivity(new Intent(SplashActivity.this, MainActivity.class));\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/foodrescue/SplashActivity.java	(revision aa7ae94d637f0d11fa3560857ca9d6f141852fdd)
++++ app/src/main/java/com/example/foodrescue/SplashActivity.java	(date 1617221288903)
+@@ -6,12 +6,24 @@
+ import androidx.annotation.Nullable;
+ import androidx.appcompat.app.AppCompatActivity;
+ 
++import java.util.Timer;
++import java.util.TimerTask;
++
+ public class SplashActivity extends AppCompatActivity {
+ 
+     @Override
+     protected void onCreate(@Nullable Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+ 
+-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
++
++        Timer timer=new Timer();
++        TimerTask task=new TimerTask() {
++            @Override
++            public void run() {
++                Intent intent=new Intent(SplashActivity.this, MainActivity.class);
++                startActivity(intent);
++            }
++        };
++        timer.schedule(task,5000);
+     }
+ }
+Index: app/src/main/res/drawable/cut_card_background.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<shape xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:shape=\"rectangle\">\r\n    <gradient\r\n        android:startColor=\"@color/colorOrange\"\r\n        android:centerColor=\"#EF9376\"\r\n        android:endColor=\"@color/white\"\r\n        android:angle=\"270\">\r\n    </gradient>\r\n\r\n</shape>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/cut_card_background.xml	(revision aa7ae94d637f0d11fa3560857ca9d6f141852fdd)
++++ app/src/main/res/drawable/cut_card_background.xml	(date 1617216891576)
+@@ -8,4 +8,5 @@
+         android:angle="270">
+     </gradient>
+ 
++
+ </shape>
+\ No newline at end of file
