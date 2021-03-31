@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Timer;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -13,5 +15,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         startActivity(new Intent(SplashActivity.this, MainActivity.class));
+
     }
 }

@@ -171,6 +171,8 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                         Toast.makeText(GoogleMapsActivity.this, "Cannot be Read", Toast.LENGTH_SHORT).show();
 
                     }
+                    Intent myIntent = new Intent(GoogleMapsActivity.this, NGO_Dashboard.class);
+                    startActivity(myIntent);
 
 
                 }

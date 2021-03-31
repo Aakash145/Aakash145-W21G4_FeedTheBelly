@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodRescue">
-        <activity android:name=".List_Of_Donated_Items"></activity>
+        <activity android:name=".List_Of_Donated_Items" />
         <activity android:name=".Restaurants_List_Recycler" />
         <activity android:name=".PaymentDetails" />
         <activity android:name=".PaypalPayment" />
@@ -40,14 +40,17 @@
         <activity android:name=".NGO_Activity" />
         <activity android:name=".Regestration_Restauarant" />
         <activity android:name=".RegisterationActivity" />
-        <activity
-            android:name=".SplashActivity"
-            android:theme="@style/SplashScreen">
+        <activity android:name=".Intro_Pages">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashScreen">
+
         </activity>
         <activity
             android:name=".MainActivity"
