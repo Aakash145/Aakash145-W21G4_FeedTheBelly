@@ -41,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, dbname, null, 1);
-
+        //context.deleteDatabase(dbname);
     }
 
 
@@ -51,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String setPragmaForeignKeysOn = "PRAGMA foreign_keys=ON;";
         String createDishesTable = "CREATE TABLE dishes " +
                 "(dishID INTEGER, " +
-                "emailID TEXT,"+
+                "emailID TEXT," +
                 "cuisineType TEXT, " +
                 "foodCategory TEXT," +
                 "expDate TEXT, " +
@@ -62,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String createDonationsTable = "CREATE TABLE donations " +
                 "(dishID INTEGER, " +
-                "emailID TEXT,"+
+                "emailID TEXT," +
                 "cuisineType TEXT, " +
                 "foodCategory TEXT," +
                 "expDate TEXT, " +
@@ -74,7 +74,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY(name) REFERENCES dishes(name)," +
                 "FOREIGN KEY(expDate) REFERENCES dishes(expDate));";
 
-        String restaurant_users="create table " + TABLE_NAME +"(userEmail TEXT PRIMARY KEY, " +
+        String createDonatedTable = "CREATE TABLE donated " +
+                "(dishID INTEGER, " +
+                "emailID TEXT," +
+                "cuisineType TEXT, " +
+                "foodCategory TEXT," +
+                "expDate TEXT, " +
+                "name TEXT, " +
+                "plates INTEGER, " +
+                "weight DOUBLE, " +
+                "PRIMARY KEY (name,emailID,expDate)," +
+                "FOREIGN KEY(emailID) REFERENCES dishes(emailID)," +
+                "FOREIGN KEY(name) REFERENCES dishes(name)," +
+                "FOREIGN KEY(expDate) REFERENCES dishes(expDate));";
+
+        String restaurant_users = "create table " + TABLE_NAME + "(userEmail TEXT PRIMARY KEY, " +
                 "userName TEXT," +
                 "userPhone  TEXT," +
                 "userID TEXT, " +
@@ -84,7 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "userCountry TEXT," +
                 "userPostal TEXT" + ");";
 
-        String ngo_users="create table " + TABLE_NAME1 + "(userEmail1 TEXT PRIMARY KEY, " +
+        String ngo_users = "create table " + TABLE_NAME1 + "(userEmail1 TEXT PRIMARY KEY, " +
                 "userName1 TEXT," +
                 "userPhone1  TEXT," +
                 "userID1 TEXT, " +
@@ -97,11 +111,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(setPragmaForeignKeysOn);
         db.execSQL(createDonationsTable);
+        db.execSQL(createDonatedTable);
         db.execSQL(createDishesTable);
         db.execSQL(restaurant_users);
         db.execSQL(ngo_users);
 
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -110,11 +126,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String droptable1 = "DROP TABLE IF EXISTS " + "User_table;";
         String droptable2 = "DROP TABLE IF EXISTS " + "User_ngo_table;";
         String droptable3 = "DROP TABLE IF EXISTS " + "donations;";
+        String droptable4 = "DROP TABLE IF EXISTS " + "donated;";
 
         db.execSQL(dropDishesTable);
         db.execSQL(droptable1);
         db.execSQL(droptable2);
         db.execSQL(droptable3);
+        db.execSQL(droptable4);
         onCreate(db);
     }
 
@@ -248,6 +266,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return "Successfully inserted";
     }
 
+    public String addDonated(String emailID,String plates, String weight, String name, String dishID, String cType, String fType, String expiryDate){
+        SQLiteDatabase db=this.getWritableDatabase();
+        long result;
+        ContentValues val = new ContentValues();
+        val.put("dishID", dishID);
+        val.put("emailID", emailID);
+        val.put("cuisineType", cType);
+        val.put("foodCategory",fType);
+        val.put("expDate", expiryDate);
+        val.put("name", name);
+        val.put("plates", plates);
+        val.put("weight", weight);
+        result=db.insert("donated",null,val);
+        if(result==-1)
+            return "Failed";
+        else
+            return "Successfully inserted";
+    }
+
 
 
     public Cursor readalldata()
@@ -272,15 +309,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    public Cursor readEmailFromDonation(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from donations where emailID= '" + email + "'", null);
+        return res;
+    }
+
+    public Cursor readEmailFromDonated(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from donated where emailID= '" + email + "'", null);
+        return res;
+    }
+
     public void deleteAllDishesOfEachUser(String email){
         SQLiteDatabase db = this.getWritableDatabase();
         long s=db.delete("dishes", "emailID" + " = ?",
                 new String[]{String.valueOf(email)});
     }
 
-    public void deleteConfirmedRecord(String email){
+    public void deleteDonation(String email){
         SQLiteDatabase db = this.getWritableDatabase();
-        long s=db.delete("dishes", "emailID" + " = ?",
+        long s=db.delete("donations", "emailID" + " = ?",
                 new String[]{String.valueOf(email)});
     }
 
@@ -295,6 +344,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor=db.rawQuery(queryStr,null);
         return  cursor;
     }
+
+    public Cursor readDonated(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryStr = "SELECT foodCategory, cuisineType, expDate, emailID FROM donated " +
+                "WHERE emailID='"+email+"'";
+        Cursor cursor=db.rawQuery(queryStr,null);
+        return  cursor;
+    }
+
 
     public Cursor readDishes(String email,String exp) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -319,6 +377,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor=db.rawQuery(queryStr,null);
         return  cursor;
     }
+
 
    /* public Cursor readDonationRestaurant() {
         SQLiteDatabase db = this.getReadableDatabase();
