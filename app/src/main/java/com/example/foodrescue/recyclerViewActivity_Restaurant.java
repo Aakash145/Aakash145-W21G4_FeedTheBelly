@@ -26,6 +26,7 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
     DatabaseHelper myDb;
     private FirebaseAuth mFirebaseAuth;
     Button donate;
+    Boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,49 +54,53 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
             }
         }
         Dishes_Fetched_Adapter myAdapter=new Dishes_Fetched_Adapter(dishesHolder);
-        if(dishesHolder.isEmpty()){
-            donate.setText("Please Add Dishes");
-            donate.setEnabled(false);
+        if(dishesHolder.isEmpty()) {
+          donate.setText("Please Add Dishes");
+          flag = true;
+
         }
         rvDishes.setAdapter(myAdapter);
        donate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    Cursor cursor1 = myDb.readEmail(email);
-                    if (cursor1.getCount() != 0) {
-                        cursor1.moveToFirst();
+           @Override
+           public void onClick(View v) {
+               if (flag == false) {
+                   try {
+                       Cursor cursor1 = myDb.readEmail(email);
+                       if (cursor1.getCount() != 0) {
+                           cursor1.moveToFirst();
 
-                        do {
-                            //int id=cursor1.getInt(8)
-                            String dishID = cursor1.getString(0);
-                            String emailID = cursor1.getString(1);
-                            String cuisineType = cursor1.getString(2);
-                            String foodCategory = cursor1.getString(3);
-                            String expDate = cursor1.getString(4);
-                            String name = cursor1.getString(5);
-                            String plates = cursor1.getString(6);
-                            String weight = cursor1.getString(7);
+                           do {
+                               //int id=cursor1.getInt(8)
+                               String dishID = cursor1.getString(0);
+                               String emailID = cursor1.getString(1);
+                               String cuisineType = cursor1.getString(2);
+                               String foodCategory = cursor1.getString(3);
+                               String expDate = cursor1.getString(4);
+                               String name = cursor1.getString(5);
+                               String plates = cursor1.getString(6);
+                               String weight = cursor1.getString(7);
 
-                            myDb.addDonation(emailID, plates, weight, name, dishID, cuisineType, foodCategory, expDate);
-                            dishesHolder.clear();
-                            Intent i = new Intent(recyclerViewActivity_Restaurant.this, Restaurant_Dashboard.class);
-                            startActivity(i);
+                               myDb.addDonation(emailID, plates, weight, name, dishID, cuisineType, foodCategory, expDate);
+                               dishesHolder.clear();
+                               Intent i = new Intent(recyclerViewActivity_Restaurant.this, Restaurant_Dashboard.class);
+                               startActivity(i);
 
-                        }
-                    while (cursor1.moveToNext()) ;
-                }
+                           }
+                           while (cursor1.moveToNext());
+                       }
 
-                    Toast.makeText(getApplicationContext(), "Thank You for Donating", Toast.LENGTH_SHORT).show();
-                    myDb.deleteAllDishesOfEachUser(email);
+                       Toast.makeText(getApplicationContext(), "Thank You for Donating", Toast.LENGTH_SHORT).show();
+                       myDb.deleteAllDishesOfEachUser(email);
 
-            }
-
-                catch (Exception e){
-                    Toast.makeText(getApplicationContext(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
-                    Log.d("ERROR",e.getMessage());
-                }
-            }
-        });
+                   } catch (Exception e) {
+                       Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                       Log.d("ERROR", e.getMessage());
+                   }
+               } else {
+                   Intent i = new Intent(recyclerViewActivity_Restaurant.this, Restaurant_starter.class);
+                   startActivity(i);
+               }
+           }
+       });
     }
 }
