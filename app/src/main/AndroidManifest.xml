@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodRescue">
-        <activity android:name=".Restaurants_List_Recycler"></activity>
+        <activity android:name=".List_Of_Donated_Items"></activity>
+        <activity android:name=".Restaurants_List_Recycler" />
         <activity android:name=".PaymentDetails" />
         <activity android:name=".PaypalPayment" />
 

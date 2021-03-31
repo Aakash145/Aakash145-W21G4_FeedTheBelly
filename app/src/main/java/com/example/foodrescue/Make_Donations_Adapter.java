@@ -17,34 +17,33 @@ import java.util.List;
 
 public class  Make_Donations_Adapter extends RecyclerView.Adapter<Make_Donations_Adapter.ViewHolder> {
     Context context;
-    ArrayList restIDs,restNames,restEmails,restDates,restAddress;
+    ArrayList restFoodCat,restFoodCousine,restExp,restName;
+    String restAddress,restEmails;
     RecyclerView rvDonations;
 
-
-    public Make_Donations_Adapter(Context context, ArrayList restIDs, ArrayList restNames, ArrayList restEmails,ArrayList restDates,ArrayList restAddress) {
+    public Make_Donations_Adapter(Context context, ArrayList restFoodCat, ArrayList restFoodCousine, ArrayList restExp, String restAddress,String restEmails) {
         this.context = context;
-        this.restIDs = restIDs;
-        this.restNames = restNames;
-        this.restEmails = restEmails;
-        this.restDates = restDates;
-        this.restAddress=restAddress;
+        this.restFoodCat = restFoodCat;
+        this.restFoodCousine = restFoodCousine;
+        this.restExp = restExp;
+        this.restAddress = restAddress;
+        this.restEmails=restEmails;
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView rowId;
-        TextView rowName;
-        TextView rowEmail;
-        TextView rowDates;
+        TextView rowCat;
+        TextView rowCousine;
+        TextView rowExp;
         Button details;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            rowId=itemView.findViewById(R.id.rest_ID);
-            rowName=itemView.findViewById(R.id.restaurant_Name);
-            rowEmail=itemView.findViewById(R.id.rest_Email);
-            rowDates=itemView.findViewById(R.id.rest_Date);
+            rowCat=itemView.findViewById(R.id.dish_cat);
+            rowCousine=itemView.findViewById(R.id.dish_type);
+            rowExp=itemView.findViewById(R.id.dish_exp);
             details=itemView.findViewById(R.id.btn_Details);
         }
     }
@@ -59,17 +58,19 @@ public class  Make_Donations_Adapter extends RecyclerView.Adapter<Make_Donations
 
     @Override
     public void onBindViewHolder(@NonNull Make_Donations_Adapter.ViewHolder holder, int position) {
-        holder.rowId.setText("Restaurant ID: "+String.valueOf(restIDs.get(position)));
-        holder.rowName.setText("Restaurant Name: "+String.valueOf(restNames.get(position)));
-        holder.rowEmail.setText("Restaurant Email: "+String.valueOf(restEmails.get(position)));
-        holder.rowDates.setText("Date: "+String.valueOf(restDates.get(position)));
+        holder.rowCat.setText("Food Category: "+String.valueOf(restFoodCat.get(position)));
+        holder.rowCousine.setText("Food Cuisine: "+String.valueOf(restFoodCousine.get(position)));
+        holder.rowExp.setText("Expiry in: "+String.valueOf(restExp.get(position))+"day(s)");
 
         holder.details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context,GoogleMapsActivity.class);
-                intent.putExtra("EMAIL",restEmails.get(position).toString());
-                intent.putExtra("ADDRESS",restAddress.get(position).toString());
+                Intent intent=new Intent(context,List_Of_Donated_Items.class);
+                Toast.makeText(context,restEmails+","+restExp.get(position),Toast.LENGTH_LONG).show();
+                intent.putExtra("EMAIL",restEmails);
+                intent.putExtra("ADDRESS",restAddress);
+              // intent.putExtra("NAME",restName.get(position).toString());
+               intent.putExtra("EXPIRY",restExp.get(position).toString());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
 
@@ -80,7 +81,7 @@ public class  Make_Donations_Adapter extends RecyclerView.Adapter<Make_Donations
 
     @Override
     public int getItemCount() {
-        return restIDs.size();
+        return restFoodCousine.size();
     }
 
 }

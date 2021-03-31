@@ -280,7 +280,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor readDonations(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String queryStr = "SELECT DISTINCT User_table.userEmail,User_table.userID,userName,donations.expDate FROM User_table JOIN donations " +
+        String queryStr = "SELECT DISTINCT donations.foodCategory,donations.cuisineType,donations.expDate,User_table.userEmail FROM User_table JOIN donations " +
                             "ON User_table.userEmail=donations.emailID" +
                             " AND expDate IN (SELECT A.expDate FROM donations A, donations B" +
                                                 " WHERE A.emailID=B.emailID" +
@@ -290,8 +290,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return  cursor;
     }
 
-    public Cursor readDonationItems(String email) {
+    public Cursor readDishes(String email,String exp) {
         SQLiteDatabase db = this.getReadableDatabase();
+        String queryStr = "SELECT donations.name,donations.weight,donations.plates FROM User_table JOIN donations " +
+                "ON User_table.userEmail=donations.emailID " +
+                "AND expDate IN (SELECT A.expDate FROM donations A, donations B " +
+                "WHERE A.emailID=B.emailID " +
+                "AND A.expDate=B.expDate)" +
+                "WHERE donations.emailID= '"+email+ "'AND donations.expDate='"+exp+"';";
+        Cursor cursor=db.rawQuery(queryStr,null);
+        return  cursor;
+    }
+
+    public Cursor readDonationItems(String email) {
+        SQLiteDatabase db = getReadableDatabase();
         String queryStr = "SELECT DISTINCT donation.name,User_table.userID,userName,donations.expDate FROM User_table JOIN donations " +
                 "ON User_table.userEmail=donations.emailID" +
                 " AND expDate IN (SELECT A.expDate FROM donations A, donations B" +

@@ -20,11 +20,12 @@ import java.util.ArrayList;
 public class recyclerView_NGO extends AppCompatActivity {
     SQLiteDatabase FeedTheBelly;
     RecyclerView rvDonations;
-    ArrayList<String> ids;
-    ArrayList<String> names;
-    ArrayList<String> emails;
+    ArrayList<String> foodCategory;
+    ArrayList<String> cuisineType;
+    ArrayList<String> expireIn;
     ArrayList<String> dates;
     ArrayList<String> address;
+    ArrayList<String> emails;
     DatabaseHelper myDb;
     Button details;
 
@@ -39,9 +40,9 @@ public class recyclerView_NGO extends AppCompatActivity {
         rvDonations=findViewById(R.id.rvRestaurants);
         details=findViewById(R.id.btn_Details);
         rvDonations.setLayoutManager(new LinearLayoutManager(this));
-        ids=new ArrayList<>();
-        names=new ArrayList<>();
-        emails=new ArrayList<>();
+        foodCategory=new ArrayList<>();
+        cuisineType=new ArrayList<>();
+        expireIn=new ArrayList<>();
         dates=new ArrayList<>();
         address=new ArrayList<>();
         String email=getIntent().getStringExtra("EMAIL");
@@ -50,33 +51,16 @@ public class recyclerView_NGO extends AppCompatActivity {
         while(cursor.moveToNext()){
 
             try {
-                ids.add(cursor.getString(1));
-                names.add(cursor.getString(2));
-                emails.add(cursor.getString(0));
-                dates.add(cursor.getString(3));
-                address.add(address2);
-                //int count=ids.size();
-                /*for (int i = 0; i < count; i++) {
-                    for (int j = i+1; j < count; j++) {
-                        if(dates.get(i)==dates.get(j) && emails.get(i)==emails.get(j) && ids.get(i)==ids.get(j)
-                        && names.get(i)==names.get(j)) {
-                            date2 = dates.get(i);
-                            email2 = emails.get(i);
-                            name2 = names.get(i);
-                            id2 = ids.get(i);
-                            date.add(date2);
-                            email.add(email2);
-                            name.add(name2);
-                            id.add(id2);
-                        }
-                    }
-                }*/
+                foodCategory.add(cursor.getString(0));
+                cuisineType.add(cursor.getString(1));
+                expireIn.add(cursor.getString(2));
+
 
             }catch(Exception e){
                 Log.d("Error",e.getMessage());
             }
         }
-        Make_Donations_Adapter myAdapter = new Make_Donations_Adapter(recyclerView_NGO.this, ids, names, emails, dates,address);
+        Make_Donations_Adapter myAdapter = new Make_Donations_Adapter(recyclerView_NGO.this, foodCategory, cuisineType, expireIn,address2,email);
         rvDonations.setAdapter(myAdapter);
 
 

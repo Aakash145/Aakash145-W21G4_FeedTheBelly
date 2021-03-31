@@ -55,10 +55,9 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         mMap = googleMap;
         //Adding addresses
         address=findViewById(R.id.idRestInfo);
-        String street=getIntent().getStringExtra("ADDRESS");
-        address.setText("Address: "+street);
+        String street=getIntent().getStringExtra("ADDRESSES");
         getLocationFromAddress(street);
-
+        address.setText("Address: "+street);
     }
 
     public void getLocationFromAddress(String strAddress)
