@@ -163,6 +163,9 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
 
                         }
                         while (cursor1.moveToNext());
+                        Intent myIntent = new Intent(GoogleMapsActivity.this, NGO_Dashboard.class);
+                        startActivity(myIntent);
+                        Toast.makeText(GoogleMapsActivity.this, "Confirmed", Toast.LENGTH_SHORT).show();
 
                     }else{
                         Toast.makeText(GoogleMapsActivity.this, "Cannot be Read", Toast.LENGTH_SHORT).show();
@@ -170,7 +173,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                     }
                     Intent myIntent = new Intent(GoogleMapsActivity.this, NGO_Dashboard.class);
                     startActivity(myIntent);
-                  //  Toast.makeText(GoogleMapsActivity.this, "Confirmed", Toast.LENGTH_SHORT).show();
+
 
                 }
             });
