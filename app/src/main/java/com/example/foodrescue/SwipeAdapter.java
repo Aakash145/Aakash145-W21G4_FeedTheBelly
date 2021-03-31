@@ -32,9 +32,9 @@ public class SwipeAdapter extends FragmentStatePagerAdapter {
                 bundle.putInt("Image", R.drawable.donate);
                 break;
             case 2:
-                bundle.putString("Title", "Keep A Record");
-                bundle.putString("Description", "Measure the amount food donated by your restaurant");
-                bundle.putInt("Image", R.drawable.track);
+                bundle.putString("Title", "Happy Customer ");
+                bundle.putString("Description", "NGO can choose from different donations restaurants made");
+                bundle.putInt("Image", R.drawable.happy);
                 break;
 
 

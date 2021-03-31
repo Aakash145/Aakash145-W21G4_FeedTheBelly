@@ -170,7 +170,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                     }
                     Intent myIntent = new Intent(GoogleMapsActivity.this, NGO_Dashboard.class);
                     startActivity(myIntent);
-                    Toast.makeText(GoogleMapsActivity.this, "Confirmed", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(GoogleMapsActivity.this, "Confirmed", Toast.LENGTH_SHORT).show();
 
                 }
             });

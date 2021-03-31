@@ -171,6 +171,8 @@
     <string name="btnTextNext">Click Next To Confirm</string>
     <string name="txtViewRest">View Restaurants</string>
     <string name="backToDashBoard">Click to go Back</string>
+    <string name="swipebar">Swipe..to View Next</string>
+    <string name="swipeText">Swipe to View Next..</string>
     <string-array name="UserType">
         <item></item>
         <item>NGO</item>

@@ -66,7 +66,7 @@ public class  Make_Donations_Adapter extends RecyclerView.Adapter<Make_Donations
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context,List_Of_Donated_Items.class);
-                Toast.makeText(context,restEmails+","+restExp.get(position),Toast.LENGTH_LONG).show();
+           //     Toast.makeText(context,restEmails+","+restExp.get(position),Toast.LENGTH_LONG).show();
                 intent.putExtra("EMAIL",restEmails);
                 intent.putExtra("ADDRESS",restAddress);
               // intent.putExtra("NAME",restName.get(position).toString());
