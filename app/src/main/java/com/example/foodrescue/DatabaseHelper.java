@@ -278,6 +278,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(email)});
     }
 
+    public void deleteConfirmedRecord(String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long s=db.delete("dishes", "emailID" + " = ?",
+                new String[]{String.valueOf(email)});
+    }
+
     public Cursor readDonations(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         String queryStr = "SELECT DISTINCT donations.foodCategory,donations.cuisineType,donations.expDate,User_table.userEmail FROM User_table JOIN donations " +
