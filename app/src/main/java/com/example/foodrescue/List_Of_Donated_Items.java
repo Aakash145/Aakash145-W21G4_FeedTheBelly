@@ -66,6 +66,7 @@ public class List_Of_Donated_Items extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(List_Of_Donated_Items.this,GoogleMapsActivity.class);
                 intent.putExtra("ADDRESSES",address2);
+                intent.putExtra("EMAIL",email);
                 startActivity(intent);
 
             }

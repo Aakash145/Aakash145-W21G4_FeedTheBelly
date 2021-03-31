@@ -6,6 +6,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Camera;
 import android.location.Address;
@@ -13,6 +15,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +50,9 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
 
     private GoogleMap mMap;
     TextView address;
+    Button accept;
+    Button BacktoDash;
+    String email;
 
     private Boolean mLocationPermissionGranted = false;
 
@@ -56,8 +64,10 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         //Adding addresses
         address=findViewById(R.id.idRestInfo);
         String street=getIntent().getStringExtra("ADDRESSES");
+        email=getIntent().getStringExtra("EMAIL");
         getLocationFromAddress(street);
         address.setText("Address: "+street);
+
     }
 
     public void getLocationFromAddress(String strAddress)
@@ -108,6 +118,32 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_maps);
         initMap();
+        accept = findViewById(R.id.idAcceptOrder);
+        accept.setOnClickListener((View view) -> {
+            final Dialog dialog = new Dialog(GoogleMapsActivity.this);
+            BacktoDash = findViewById(R.id.buttonbacktodashNGO);
+
+
+            // Include dialog.xml file
+                dialog.setContentView(R.layout.dialog);
+            // Set dialog title
+                dialog.setTitle("Custom Dialog");
+
+            // set values for custom dialog components - text, image and button
+            TextView text = (TextView) dialog.findViewById(R.id.textViewAccept);
+                text.setText("Your order is placed and the email is sent to the restaurant on "+ email+ "" );
+
+                dialog.show();
+             Button BackButton = (Button) dialog.findViewById(R.id.buttonbacktodashNGO);
+            // if decline button is clicked, close the custom dialog
+            BackButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    dialog.dismiss();
+                }
+            });
+            });
 
     }
 
