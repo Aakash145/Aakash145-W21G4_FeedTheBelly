@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,12 +28,15 @@ public class Ngo_profile extends AppCompatActivity {
         myDb = new DatabaseHelper(this);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        mAuth=FirebaseAuth.getInstance();
+        FirebaseUser mFirebaseUser=mAuth.getCurrentUser();
+        String email=mFirebaseUser.getEmail();
         txtView = findViewById(R.id.txtViewNGOProfile);
         Button btnBackToDash = findViewById(R.id.btnbacktodashNGO);
         ActionBar myBar = getSupportActionBar();
         myBar.setTitle("Organization Profile");
         Intent i = getIntent();
-        String email = i.getStringExtra("Email");
+       // String email = i.getStringExtra("Email");
 
         String Str = "NGO Details\n\n";
         txtView.setText(Str);
@@ -68,6 +72,7 @@ public class Ngo_profile extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(Ngo_profile.this, NGO_Dashboard.class);
+                intent.putExtra("Email", email);
                 startActivity(intent);
             }
         });

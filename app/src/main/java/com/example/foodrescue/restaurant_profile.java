@@ -36,13 +36,16 @@ public class restaurant_profile extends AppCompatActivity {
         myDb = new DatabaseHelper(this);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        mAuth=FirebaseAuth.getInstance();
+        FirebaseUser mFirebaseUser=mAuth.getCurrentUser();
+        String email=mFirebaseUser.getEmail();
         txtView = findViewById(R.id.txtViewProfile);
         Button btnBackToDash = findViewById(R.id.btnbacktodash);
         ActionBar myBar = getSupportActionBar();
         myBar.setTitle("Restaurant Profile");
 
         Intent i = getIntent();
-        String email = i.getStringExtra("Email");
+      //  String email = i.getStringExtra("Email");
 
         String Str = "Restaurant Details\n\n";
         txtView.setText(Str);
@@ -82,6 +85,7 @@ public class restaurant_profile extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(restaurant_profile.this, Restaurant_Dashboard.class);
+                intent.putExtra("Email", email);
                 startActivity(intent);
             }
         });

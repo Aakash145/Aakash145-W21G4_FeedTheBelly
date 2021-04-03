@@ -19,6 +19,28 @@
         android:padding="12dp">
 
         <TextView
+            android:id="@+id/food_category"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Food Category"
+            android:textColor="@color/black" />
+
+
+        <TextView
+            android:id="@+id/food_cuisine"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Food Cuisine" />
+
+        <TextView
+            android:id="@+id/food_expiry"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Expiry" />
+
+        <TextView
             android:id="@+id/food_name"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -32,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:text="Weight" />
+
         <TextView
             android:id="@+id/food_plates"
             android:layout_width="300dp"

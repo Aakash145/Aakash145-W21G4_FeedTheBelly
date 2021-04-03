@@ -81,11 +81,11 @@
     <string name="txtViewOrgContact">Organization Contact Number</string>
     <string name="Cuisine_Type">Enter the Cuisine Type :</string>
     <string name="Fill_in_Form">Fill in the Food Details</string>
-    <string name="Expiry_Date">Best Before Date for the food</string>
+    <string name="Expiry_Date">Expired in how many days</string>
     <string name="Category_Type">Enter the Food Category :</string>
     <string name="NumOfPlates">"Enter the Number of Plates Available : "</string>
-    <string name="ExpiryDate">Enter the Expiry-Date for the Food</string>
-    <string name="ConfirmTheEntry">Confirm the Entries</string>
+    <string name="ExpiryDate">Expiry in Day(s)</string>
+    <string name="ConfirmTheEntry">Back To Dashboard</string>
     <string name="Num_Of_Plates">Enter Number of Plates</string>
     <string name="input_error_name">name required</string>
     <string name="input_error_email">email required</string>

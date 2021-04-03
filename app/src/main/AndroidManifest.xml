@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodRescue">
+        <activity android:name=".Confirmation_List_Recycler"></activity>
         <activity android:name=".List_Of_Donated_Items" />
         <activity android:name=".Restaurants_List_Recycler" />
         <activity android:name=".PaymentDetails" />
@@ -27,7 +28,6 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".GoogleMapsActivity" />
-        <activity android:name=".NGO_Add_Items" />
         <activity android:name=".recyclerView_NGO" />
         <activity android:name=".Ngo_profile" />
         <activity android:name=".restaurant_profile" />
@@ -40,9 +40,7 @@
         <activity android:name=".NGO_Activity" />
         <activity android:name=".Regestration_Restauarant" />
         <activity android:name=".RegisterationActivity" />
-        <activity android:name=".Intro_Pages">
-
-        </activity>
+        <activity android:name=".Intro_Pages"></activity>
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashScreen">

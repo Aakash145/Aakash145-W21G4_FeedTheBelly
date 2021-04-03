@@ -36,13 +36,16 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.util.List;
 
-public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class GoogleMapsActivity<mFirebaseAuth> extends AppCompatActivity implements OnMapReadyCallback {
 
 
+    private FirebaseAuth mFirebaseAuth;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST = 1234;
@@ -54,6 +57,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     Button accept;
     Button BacktoDash;
     String email;
+    String donateddate;
     DatabaseHelper myDb;
 
     private Boolean mLocationPermissionGranted = false;
@@ -66,6 +70,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         //Adding addresses
         address=findViewById(R.id.idRestInfo);
         String street=getIntent().getStringExtra("ADDRESSES");
+        donateddate=getIntent().getStringExtra("DATE");
         email=getIntent().getStringExtra("EMAIL");
         getLocationFromAddress(street);
         address.setText("Address: "+street);
@@ -120,13 +125,15 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_maps);
         myDb = new DatabaseHelper(this);
+        mFirebaseAuth=FirebaseAuth.getInstance();
+        FirebaseUser mFirebaseUser=mFirebaseAuth.getCurrentUser();
+        String ngo_email=mFirebaseUser.getEmail();
+
         initMap();
         accept = findViewById(R.id.idAcceptOrder);
         accept.setOnClickListener((View view) -> {
             final Dialog dialog = new Dialog(GoogleMapsActivity.this);
             BacktoDash = findViewById(R.id.buttonbacktodashNGO);
-
-
             // Include dialog.xml file
                 dialog.setContentView(R.layout.dialog);
             // Set dialog title
@@ -142,8 +149,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
             BackButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    Cursor cursor1 = myDb.readEmailFromDonation(email);
+                    Cursor cursor1 = myDb.readEmailFromDonation(email,donateddate);
                     if (cursor1.getCount() != 0) {
                         cursor1.moveToFirst();
 
@@ -157,24 +163,20 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                             String name = cursor1.getString(5);
                             String plates = cursor1.getString(6);
                             String weight = cursor1.getString(7);
+                            String donated_date=cursor1.getString(8);
                             Toast.makeText(GoogleMapsActivity.this, "Confirmed Order", Toast.LENGTH_SHORT).show();
-                            myDb.addDonated(emailID, plates, weight, name, dishID, cuisineType, foodCategory, expDate);
-                            myDb.deleteDonation(email);
-
+                            myDb.addDonated(emailID,ngo_email, plates, weight, name, dishID, cuisineType, foodCategory, expDate,donated_date);
                         }
                         while (cursor1.moveToNext());
                         Intent myIntent = new Intent(GoogleMapsActivity.this, NGO_Dashboard.class);
                         startActivity(myIntent);
                         Toast.makeText(GoogleMapsActivity.this, "Confirmed", Toast.LENGTH_SHORT).show();
 
-                    }else{
-                        Toast.makeText(GoogleMapsActivity.this, "Cannot be Read", Toast.LENGTH_SHORT).show();
 
                     }
+                    myDb.deleteDonation(donateddate,email);
                     Intent myIntent = new Intent(GoogleMapsActivity.this, NGO_Dashboard.class);
                     startActivity(myIntent);
-
-
                 }
             });
             });

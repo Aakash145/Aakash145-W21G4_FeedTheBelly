@@ -82,13 +82,14 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
 
                                myDb.addDonation(emailID, plates, weight, name, dishID, cuisineType, foodCategory, expDate);
                                dishesHolder.clear();
+
                                Intent i = new Intent(recyclerViewActivity_Restaurant.this, Restaurant_Dashboard.class);
+                               i.putExtra("Email", email);
                                startActivity(i);
 
                            }
                            while (cursor1.moveToNext());
                        }
-
                        Toast.makeText(getApplicationContext(), "Thank You for Donating", Toast.LENGTH_SHORT).show();
                        myDb.deleteAllDishesOfEachUser(email);
 
@@ -97,8 +98,11 @@ public class recyclerViewActivity_Restaurant extends AppCompatActivity {
                        Log.d("ERROR", e.getMessage());
                    }
                } else {
-                   Intent i = new Intent(recyclerViewActivity_Restaurant.this, Restaurant_starter.class);
-                   startActivity(i);
+                   Intent i = getIntent();
+                   String email = i.getStringExtra("Email");
+                   Intent intent = new Intent(recyclerViewActivity_Restaurant.this, Restaurant_starter.class);
+                   intent.putExtra("Email", email);
+                   startActivity(intent);
                }
            }
        });

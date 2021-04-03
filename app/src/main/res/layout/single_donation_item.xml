@@ -19,25 +19,25 @@
         android:padding="12dp">
 
         <TextView
-            android:id="@+id/dish_cat"
+            android:id="@+id/dish_rest"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Restaurant Name"
-            android:textColor="@color/black" />
+            android:text="Restaurant name" />
 
         <TextView
-            android:id="@+id/dish_type"
+            android:id="@+id/dish_date"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Item Names" />
+            android:text="Date Donated" />
 
 
         <TextView
-            android:id="@+id/dish_exp"
+            android:id="@+id/dish_weight"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Email"
+            android:text="Weight"
             android:textColor="@color/black" />
+
 
         <Button
             android:id="@+id/btn_Details"

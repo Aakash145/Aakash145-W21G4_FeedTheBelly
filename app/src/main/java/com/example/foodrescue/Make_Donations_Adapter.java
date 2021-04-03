@@ -17,33 +17,33 @@ import java.util.List;
 
 public class  Make_Donations_Adapter extends RecyclerView.Adapter<Make_Donations_Adapter.ViewHolder> {
     Context context;
-    ArrayList restFoodCat,restFoodCousine,restExp,restName;
+    ArrayList restDate,restWeight,restName;
     String restAddress,restEmails;
     RecyclerView rvDonations;
 
-    public Make_Donations_Adapter(Context context, ArrayList restFoodCat, ArrayList restFoodCousine, ArrayList restExp, String restAddress,String restEmails) {
+    public Make_Donations_Adapter(Context context, ArrayList restDate, ArrayList restWeight, ArrayList restName,String restAddress, String restEmails) {
         this.context = context;
-        this.restFoodCat = restFoodCat;
-        this.restFoodCousine = restFoodCousine;
-        this.restExp = restExp;
+        this.restDate = restDate;
+        this.restName=restName;
+        this.restWeight = restWeight;
         this.restAddress = restAddress;
-        this.restEmails=restEmails;
+        this.restEmails = restEmails;
     }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView rowCat;
-        TextView rowCousine;
-        TextView rowExp;
+        TextView rowDate;
+        TextView rowWeight;
+        TextView rowRest;
         Button details;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            rowCat=itemView.findViewById(R.id.dish_cat);
-            rowCousine=itemView.findViewById(R.id.dish_type);
-            rowExp=itemView.findViewById(R.id.dish_exp);
+            rowDate=itemView.findViewById(R.id.dish_date);
+            rowWeight=itemView.findViewById(R.id.dish_weight);
+            rowRest=itemView.findViewById(R.id.dish_rest);
             details=itemView.findViewById(R.id.btn_Details);
         }
     }
@@ -58,9 +58,9 @@ public class  Make_Donations_Adapter extends RecyclerView.Adapter<Make_Donations
 
     @Override
     public void onBindViewHolder(@NonNull Make_Donations_Adapter.ViewHolder holder, int position) {
-        holder.rowCat.setText("Food Category: "+String.valueOf(restFoodCat.get(position)));
-        holder.rowCousine.setText("Food Cuisine: "+String.valueOf(restFoodCousine.get(position)));
-        holder.rowExp.setText("Expiry in: "+String.valueOf(restExp.get(position))+"day(s)");
+        holder.rowDate.setText("Date of Donation: "+String.valueOf(restDate.get(position)));
+        holder.rowWeight.setText("Total Weight of Food:: "+String.valueOf(restWeight.get(position))+"Kgs");
+        holder.rowRest.setText("Restaurant Name: "+String.valueOf(restName.get(position)));
 
         holder.details.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +70,7 @@ public class  Make_Donations_Adapter extends RecyclerView.Adapter<Make_Donations
                 intent.putExtra("EMAIL",restEmails);
                 intent.putExtra("ADDRESS",restAddress);
               // intent.putExtra("NAME",restName.get(position).toString());
-               intent.putExtra("EXPIRY",restExp.get(position).toString());
+               intent.putExtra("DATE",restDate.get(position).toString());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
 
@@ -81,7 +81,7 @@ public class  Make_Donations_Adapter extends RecyclerView.Adapter<Make_Donations
 
     @Override
     public int getItemCount() {
-        return restFoodCousine.size();
+        return restDate.size();
     }
 
 }

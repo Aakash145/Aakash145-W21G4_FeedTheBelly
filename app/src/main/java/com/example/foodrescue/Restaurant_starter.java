@@ -97,7 +97,11 @@ public class Restaurant_starter extends AppCompatActivity {
         });
 
         Confirm_Form.setOnClickListener((View view)->{
-            startActivity(new Intent(getApplicationContext(),Restaurant_Dashboard.class));
+            Intent i = getIntent();
+            String email = i.getStringExtra("Email");
+            Intent intent = new Intent(getApplicationContext(),Restaurant_Dashboard.class);
+            intent.putExtra("Email", email);
+            startActivity(intent);
         });
     }
 

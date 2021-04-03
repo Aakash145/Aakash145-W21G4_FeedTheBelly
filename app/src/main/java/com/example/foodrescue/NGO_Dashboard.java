@@ -51,7 +51,10 @@ public class NGO_Dashboard extends AppCompatActivity {
 //        });
 
         cardListItems.setOnClickListener((View view) -> {
-            Intent myIntent = new Intent(NGO_Dashboard.this, GoogleMapsActivity.class);
+            Intent i = getIntent();
+            String email = i.getStringExtra("Email");
+            Intent myIntent = new Intent(NGO_Dashboard.this, Confirmation_List_Recycler.class);
+            myIntent.putExtra("Email", email);
             //ntent myIntent = new Intent(NGO_Dashboard.this, GoogleMapsActivity.class);I
             startActivity(myIntent);
         });
@@ -69,7 +72,10 @@ public class NGO_Dashboard extends AppCompatActivity {
     private void init(){
         cardAdd.setOnClickListener((View view) -> {
             //Intent myIntent = new Intent(NGO_Dashboard.this, NGO_Add_Items.class);
+            Intent i = getIntent();
+            String email = i.getStringExtra("Email");
             Intent myIntent = new Intent(NGO_Dashboard.this, Restaurants_List_Recycler.class );
+            myIntent.putExtra("Email", email);
             startActivity(myIntent);
         });
     }

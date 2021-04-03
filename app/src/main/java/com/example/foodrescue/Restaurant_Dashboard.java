@@ -43,16 +43,22 @@ public class Restaurant_Dashboard extends AppCompatActivity {
         });
         cardAdd.setOnClickListener((View view)->{
             Intent i = getIntent();
+            String email = i.getStringExtra("Email");
             Detail details = (Detail)i.getSerializableExtra("Details");
             User user = (User)i.getSerializableExtra("User");
             Intent myIntent = new Intent(Restaurant_Dashboard.this, Restaurant_starter.class);
             myIntent.putExtra("Details", details);
             myIntent.putExtra("User", user);
+            myIntent.putExtra("Email", email);
             startActivity(myIntent);
         });
 
         cardMenu.setOnClickListener((View view)->{
-            startActivity(new Intent(getApplicationContext(),recyclerViewActivity_Restaurant.class));
+            Intent i = getIntent();
+            String email = i.getStringExtra("Email");
+            Intent intent = new Intent(getApplicationContext(),recyclerViewActivity_Restaurant.class);
+            intent.putExtra("Email", email);
+            startActivity(intent);
         });
 
         cardLogout.setOnClickListener((View view)->{
