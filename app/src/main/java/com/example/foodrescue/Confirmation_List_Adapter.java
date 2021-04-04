@@ -54,8 +54,8 @@ public class Confirmation_List_Adapter extends RecyclerView.Adapter<Confirmation
         holder.rowName.setText("Food Name: "+String.valueOf(rest_name.get(position)));
         holder.rowPlates.setText("Plates: "+String.valueOf(total_plates.get(position)));
         holder.rowWeight.setText("Weight: "+String.valueOf(weight.get(position))+"Kgs");
-        holder.rowConfirmDate.setText("Food Category: "+String.valueOf(date_confirmed.get(position)));
-        holder.rowDateDonated.setText("Food Cuisine: "+String.valueOf(date_donated.get(position)));
+        holder.rowConfirmDate.setText("Confirmation Date: "+String.valueOf(date_confirmed.get(position)));
+        holder.rowDateDonated.setText("Donation Date: "+String.valueOf(date_donated.get(position)));
     }
 
     @Override

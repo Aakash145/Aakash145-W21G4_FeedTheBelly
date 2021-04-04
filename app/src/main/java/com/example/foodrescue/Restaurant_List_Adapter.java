@@ -71,7 +71,7 @@ public class  Restaurant_List_Adapter extends RecyclerView.Adapter<Restaurant_Li
                 Intent intent=new Intent(context,recyclerView_NGO.class);
                 intent.putExtra("EMAIL",String.valueOf(restEmails.get(position)));
                 intent.putExtra("ADDRESS",String.valueOf(restAddress.get(position)));
-                intent.putExtra("RESTAURANTNAME",String.valueOf(restNames.get(position)));
+                intent.putExtra("RESTAURANT NAME",String.valueOf(restNames.get(position)));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
