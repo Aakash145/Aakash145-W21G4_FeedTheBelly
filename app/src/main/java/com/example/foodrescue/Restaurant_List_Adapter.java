@@ -63,8 +63,8 @@ public class  Restaurant_List_Adapter extends RecyclerView.Adapter<Restaurant_Li
         holder.rowName.setText("Name: "+String.valueOf(restNames.get(position)));
         holder.rowAddress.setText("Address: "+String.valueOf(restAddress.get(position)));
         holder.rowEmail.setText("Email: "+String.valueOf(restEmails.get(position)));
-        holder.rowPhone.setText("Phone: "+String.valueOf(restPostal.get(position)));
-        holder.rowPostal.setText("Postal Code: "+String.valueOf(restPhones.get(position)));
+        holder.rowPhone.setText("Phone: "+String.valueOf(restPhones.get(position)));
+        holder.rowPostal.setText("Postal Code: "+String.valueOf(restPostal.get(position)));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
